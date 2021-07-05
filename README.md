@@ -7,7 +7,7 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 ## Grupo {N}
 
 * **Integrante 1** - [integrante1](https://github.com/integrante1)
-* **Integrante 2** - [integrante2](https://github.com/integrante2)
+* **Integrante 2** - [Alejandro Paff](https://github.com/AlePaff)
 * **Integrante 3** - [integrante3](https://github.com/integrante3)
 * **Integrante 4** - [Ignacio Argel](https://github.com/argelignacio)
 
