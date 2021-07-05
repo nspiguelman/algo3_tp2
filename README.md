@@ -10,6 +10,7 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 * **Integrante 2** - [Alejandro Paff](https://github.com/AlePaff)
 * **Integrante 3** - [Facundo Luzzi](https://github.com/faccu01)
 * **Integrante 4** - [Ignacio Argel](https://github.com/argelignacio)
+* **Integrante 5** - [Francisco Insua](https://github.com/franciscoinsua-fiuba)
 
 Corrector: **{Corrector}**
 
