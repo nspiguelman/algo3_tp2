@@ -1,17 +1,18 @@
 ![tp2](https://github.com/nspiguleman/algo3_tp2/actions/workflows/build.yml/badge.svg) [![codecov](https://codecov.io/gh/nspiguelman/algo3_tp2/branch/master/graph/badge.svg)](https://codecov.io/gh/nspiguelman/algo3_tp2)
 
-# TP2 Algoritmos 3: {nombre} 
+# TP2 Algoritmos 3: T.E.G. 
 
 Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA
 
-## Grupo {N}
+## Grupo 12
 
 * **Integrante 1** - [Nahuel Spiguelman](https://github.com/nspiguelman)
 * **Integrante 2** - [Alejandro Paff](https://github.com/AlePaff)
 * **Integrante 3** - [Facundo Luzzi](https://github.com/faccu01)
 * **Integrante 4** - [Ignacio Argel](https://github.com/argelignacio)
+* **Integrante 5** - [Francisco Insua](https://github.com/franciscoinsua-fiuba)
 
-Corrector: **{Corrector}**
+Corrector: **Joaquín Fontela**
 
 ## Aplicación
 
