@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Pais {
     private int cantidadEjercitos;
-    private map adyacentes;
+    private Map adyacentes;
 
     public Pais() {
         this.cantidadEjercitos = 0;
