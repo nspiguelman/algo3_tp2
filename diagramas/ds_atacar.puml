@@ -1,0 +1,29 @@
+@startuml
+
+autonumber
+participant "Rojo: Jugador" as Rojo order 1
+participant "Argentina: Pais" as Argentina order 2
+participant "Brasil: Pais" as Brasil order 4
+participant Dados order 3
+participant Tablero order 5
+
+Rojo -> Rojo : elegirPais(Argentina)
+Rojo -> Argentina : atacar(Brasil)
+Argentina -> Argentina : esAdyacente(Brasil)
+Argentina -> Dados : atacarConEjercitos(7)
+return dadosAtaque[2,2,1]
+
+Argentina -> Tablero : atacar(dadosAtaque[2,2,1], Brasil)
+Tablero -> Brasil : defensa( )
+Brasil -> Dados : defenderConEjercitos(8)
+return dadosDefensa[6,2,1]
+
+Brasil -[dashed]> Tablero : dadosDefensa[6,2,1]
+
+Tablero -> Tablero : compararDados(dadosDefensa, dadosAtaque)
+loop [1..Dados]
+    Tablero -> Argentina : matarEjercito()
+end
+
+
+@enduml
