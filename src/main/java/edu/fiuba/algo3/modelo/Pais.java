@@ -7,6 +7,8 @@ public class Pais {
     private int cantidadEjercitos;
     private Map adyacentes;
 
+
+
     public Pais() {
         this.cantidadEjercitos = 0;
         this.adyacentes = new HashMap<String,Pais>();
@@ -24,9 +26,15 @@ public class Pais {
         Dados dado = new Dados();
 
         this.esAdyacente();
-        dado.atacarConEjercitos(cantidadEjercitos);
+        defensor.defiende(dado);
+
+        ArrayList<> dadosActuales = dado.atacarConEjercitos(cantidadEjercitos)
+
     }
     public boolean esAdyacente(Pais unPais){
 
     }
+
+    public void defiende(Dados unosDados){
+
 }
