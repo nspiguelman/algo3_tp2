@@ -4,7 +4,7 @@
 
 Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA
 
-## Grupo 12
+### Grupo 12
 
 * **Integrante 1** - [Nahuel Spiguelman](https://github.com/nspiguelman)
 * **Integrante 2** - [Alejandro Paff](https://github.com/AlePaff)
