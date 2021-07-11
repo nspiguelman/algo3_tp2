@@ -14,7 +14,6 @@ public class Pais {
         this.nombre = nombre;
         this.limitrofes = limitaCon.split(",");
         this.continente = continente;
-        this.cantidadEjercitos = 0;
     }
 
     public String pais() {
@@ -34,11 +33,14 @@ public class Pais {
         return this.cantidadEjercitos;
     }
 
-    public void atacar(Pais defensor) {
-        //Dados dado = new Dados();
-        //this.esAdyacente();
-        //dado.atacarConEjercitos(cantidadEjercitos);
-    }
+    //public void atacar(Pais defensor){
+        /*Dados dado = new Dados();
+        this.esAdyacente();
+        defensor.defiende(dado);
+        ArrayList<> dadosActuales = dado.atacarConEjercitos(cantidadEjercitos)
+         */
+    //}
 
-    public boolean esAdyacente(Pais unPais){ return true;}
+    //public boolean esAdyacente(Pais unPais){ return true;}
+    //public void defiende(Dados unosDados){}
 }

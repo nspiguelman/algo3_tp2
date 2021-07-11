@@ -18,8 +18,7 @@ public class Jugador {
     }
 
     public void atacarA(Pais unPaisDefensor){
-        this.atacante.atacar(unPaisDefensor);
-
+        // this.atacante.atacar(unPaisDefensor);
     }
 
     public boolean puedeAtacar() {
