@@ -4,51 +4,30 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class TableroTest {
-
     @Test
     public void tableroTiene50Paises() throws FileNotFoundException {
-        Tablero tablero = new Tablero();
-        assertEquals(tablero.obtenerPaises().size(), 50);
-    }
-
-    @Test
-    public void tableroTieneJugador() {
         try {
-            Tablero tablero = new Tablero();
-            Jugador jugadorAzul = new Jugador("Azul");
-            tablero.asignarJugador(jugadorAzul);
-            assertEquals(tablero.obtenerJugadores().size(),1);
-            
+            Tablero tablero = new Tablero(new ArrayList<Jugador>());
+            assertEquals(tablero.obtenerPaises().size(), 50);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    @Test
-    public void tableroAsignaDosJugadoresMismoColorFalla() {
-        try {
-            Tablero tablero = new Tablero();
-            Jugador jugadorAzul = new Jugador("azul");
-            Jugador jugadorAzulDos = new Jugador("azul");
-            tablero.asignarJugador(jugadorAzul);
-            tablero.asignarJugador(jugadorAzulDos);
-        } catch (Exception e) {
-            assertEquals(e.getMessage(), "No se puede asignar el mismo color a dos jugadores");
-        }
-    }
-    
-    @Test
-    public void tableroAsignarDosVecesMismoJugadorFalla() {
-        try {
-            Tablero tablero = new Tablero();
-            Jugador jugadorAzul = new Jugador("azul");
-            tablero.asignarJugador(jugadorAzul);
-            tablero.asignarJugador(jugadorAzul);
 
+    @Test
+    public void tableroAsignaPaisesAJugador() {
+        try {
+            ArrayList<Jugador> jugadores = new ArrayList<>();
+            Jugador jugador = new Jugador("Rojo");
+            jugadores.add(jugador);
+
+            Tablero tablero = new Tablero(jugadores);
+            assertEquals(jugador.paises(), 50);
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "No se puede asignar el mismo color a dos jugadores");
+            System.out.println(e.getMessage());
         }
     }
 }

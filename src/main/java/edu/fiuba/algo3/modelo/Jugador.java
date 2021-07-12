@@ -28,7 +28,19 @@ public class Jugador {
         return false;
     }
 
-    public void asignarPais(Pais unPais) {
+    public void pais(Pais unPais) {
         this.paises.add(unPais);
+    }
+
+    public ArrayList<Pais> paises() {
+        return paises;
+    }
+
+    public int ejercitos(Pais unPais) {
+        return unPais.ejercitos();
+    }
+
+    public void ejercito(Pais unPais) {
+        unPais.ejercitos(unPais.ejercitos() + 1);
     }
 }
