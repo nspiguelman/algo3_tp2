@@ -32,14 +32,10 @@ public class Pais {
     public int ejercitos() {
         return this.cantidadEjercitos;
     }
+    public void matarEjercito(int ejercitos){
+        this.cantidadEjercitos = this.cantidadEjercitos - ejercitos;
 
-    //public void atacar(Pais defensor){
-        /*Dados dado = new Dados();
-        this.esAdyacente();
-        defensor.defiende(dado);
-        ArrayList<> dadosActuales = dado.atacarConEjercitos(cantidadEjercitos)
-         */
-    //}
+    }
 
     //public boolean esAdyacente(Pais unPais){ return true;}
     //public void defiende(Dados unosDados){}
