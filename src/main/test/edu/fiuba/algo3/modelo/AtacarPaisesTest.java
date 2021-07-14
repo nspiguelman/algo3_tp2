@@ -15,8 +15,6 @@ public class AtacarPaisesTest {
         jugadorUno.atacarA(brasil);
 
         assertEquals(jugadorUno.puedeAtacar(),false);
-
          */
-
     }
 }
