@@ -17,7 +17,16 @@ public class Jugador {
         return color;
     }
 
-    public void elegirPais(Pais unPaisAtacante) {
+    public void atacarConA(Pais atacante, Pais defensor) throws Exception {
+        this.elegirPais(atacante);
+        defensor.limitaCon(atacante);
+        this.atacarA(defensor);
+    }
+
+    public void elegirPais(Pais unPaisAtacante) throws Exception {
+        if (!paises.contains(unPaisAtacante)){
+            throw new Exception("El atacante no contiene el pais");
+        }
         this.atacante = unPaisAtacante;
     }
 

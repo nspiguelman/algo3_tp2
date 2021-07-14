@@ -13,7 +13,7 @@ public class AtacarPaisesTest {
     Pais brasil = new Pais("Brasil", "America", "Argentina");
 
     @Test
-    public void UnJugadorAtacaYHayPerdidaDeEjercitosAtacanteYDefensaConMaximoDeDados() {
+    public void UnJugadorAtacaYHayPerdidaDeEjercitosAtacanteYDefensaConMaximoDeDados() throws Exception {
 
         brasil.ejercitos(5);
         argentina.ejercitos(5);
@@ -25,7 +25,7 @@ public class AtacarPaisesTest {
     }
 
     @Test
-    public void UnJugadorAtacaYHayPerdidaDeEjercitosAtacante3DadosDefensa2Dados() {
+    public void UnJugadorAtacaYHayPerdidaDeEjercitosAtacante3DadosDefensa2Dados() throws Exception {
 
         brasil.ejercitos(2);
         argentina.ejercitos(5);

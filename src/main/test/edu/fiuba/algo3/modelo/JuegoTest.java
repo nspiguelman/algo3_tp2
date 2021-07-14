@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -190,4 +189,26 @@ public class JuegoTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    @Test
+    public void paisAAtacaAPaisBGanaPaisB() throws Exception {
+        // mocking
+        ArrayList<Pais> paises = new ArrayList<>();
+        Pais brasil = new Pais("Brasil", "America", "Argentina");
+        Pais argentina = new Pais("Argentina", "America", "Brasil");
+        Jugador azul = new Jugador("Azul");
+        azul.agregarPais(argentina);
+        azul.atacarConA(argentina, brasil);
+
+        /*ArrayList<Pais> paises = new ArrayList<>();
+        paises.add(new Pais("Argentina", "America", "Brasil"));
+        paises.add(new Pais("Brasil", "America", "Argentina"));
+
+        ArrayList<String> coloresJugadores = new ArrayList<>();
+        coloresJugadores.add("Azul");
+        coloresJugadores.add("Rojo");
+        Juego juego = new Juego(coloresJugadores);
+        ArrayList<Jugador> jugadores = juego.obtenerJugadores();
+        ArrayList<Pais> paisesJugadorUno = jugadores.get(0).obtenerPaises();
+        ArrayList<Pais> paisesJugadorDos = jugadores.get(1).obtenerPaises();*/
+    }
 }
