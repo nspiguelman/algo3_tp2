@@ -189,7 +189,7 @@ public class JuegoTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    @Test
+   /* @Test
     public void paisAAtacaAPaisBGanaPaisB() throws Exception {
         // mocking
         ArrayList<Pais> paises = new ArrayList<>();
@@ -198,7 +198,7 @@ public class JuegoTest {
         Jugador azul = new Jugador("Azul");
         azul.agregarPais(argentina);
         azul.atacarConA(argentina, brasil);
-
+*/
         /*ArrayList<Pais> paises = new ArrayList<>();
         paises.add(new Pais("Argentina", "America", "Brasil"));
         paises.add(new Pais("Brasil", "America", "Argentina"));
@@ -210,5 +210,6 @@ public class JuegoTest {
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         ArrayList<Pais> paisesJugadorUno = jugadores.get(0).obtenerPaises();
         ArrayList<Pais> paisesJugadorDos = jugadores.get(1).obtenerPaises();*/
-    }
+    //}
+
 }

@@ -5,8 +5,10 @@ import java.util.Collections;
 
 public class Dados {
 
-    public ArrayList<Integer> tirar(int atacante, int defensor){
-
+    public ArrayList<Integer> tirar(int atacante, int defensor) throws Exception{
+        if (atacante == 1){
+            throw new Exception("El atacante tiene una sola ficha");
+        }
         if (atacante > 4){
             atacante = 4;
         }
