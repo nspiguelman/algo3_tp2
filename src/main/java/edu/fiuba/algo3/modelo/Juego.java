@@ -39,4 +39,17 @@ public class Juego {
     public void siguienteFase() throws Exception {
         fase = fase.siguienteFase(jugadores);
     }
+
+    public void verificarConquista(Jugador jugadorAtacante, Pais paisAtacante, Pais paisDefensor){
+        if (paisDefensor.ejercitos() == 0){
+            for (Jugador jugador: jugadores){
+                if (jugador.tieneElPais(paisDefensor)){
+                    jugador.eliminarPais(paisDefensor);
+                }
+            }
+            paisAtacante.reducirEjercitos(1);
+            paisDefensor.ejercitos(1);
+            jugadorAtacante.agregarPais(paisDefensor);
+        }
+    }
 }

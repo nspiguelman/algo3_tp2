@@ -50,6 +50,10 @@ public class Pais {
     private String obtenerNombre() {
         return nombre;
     }
+
+    public void reducirEjercitos(int cantidadEjercitos) {
+        this.cantidadEjercitos -= cantidadEjercitos;
+    }
     //public boolean esAdyacente(Pais unPais){ return true;}
     //public void defiende(Dados unosDados){}
 }

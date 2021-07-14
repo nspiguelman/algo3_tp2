@@ -32,6 +32,9 @@ public class AtacarPaisesTest {
 
         jugadorUno.elegirPais(argentina);
         jugadorUno.atacarA(brasil);
+        // Agregar set up
+        juego.verificarConquista(jugadorUno, argentina, brasil);
+
 
         assertEquals((argentina.ejercitos()<5) || (brasil.ejercitos()<5),true);
     }

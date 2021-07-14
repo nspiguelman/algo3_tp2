@@ -70,4 +70,12 @@ public class Jugador {
             throw new Exception("Cantidad de ejercitos incorrecta");
         }
     }
+
+    public void eliminarPais(Pais paisDefensor) {
+        paises.remove(paisDefensor);
+    }
+
+    public boolean tieneElPais(Pais paisDefensor) {
+        return paises.contains(paisDefensor);
+    }
 }
