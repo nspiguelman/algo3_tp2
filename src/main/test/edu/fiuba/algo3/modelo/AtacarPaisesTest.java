@@ -34,7 +34,5 @@ public class AtacarPaisesTest {
         jugadorUno.atacarA(brasil);
 
         assertEquals((argentina.ejercitos()<5) || (brasil.ejercitos()<5),true);
-
-
     }
 }
