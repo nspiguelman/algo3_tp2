@@ -13,7 +13,7 @@ public class Jugador {
         this.color = color;
     }
 
-    public String color() {
+    public String asignarColor() {
         return color;
     }
 
@@ -28,19 +28,31 @@ public class Jugador {
         return false;
     }
 
-    public void pais(Pais unPais) {
+    public void agregarPais(Pais unPais) {
         this.paises.add(unPais);
     }
 
-    public ArrayList<Pais> paises() {
+    public ArrayList<Pais> obtenerPaises() {
         return paises;
     }
 
-    public int ejercitos(Pais unPais) {
+    public int obtenerEjercitos(Pais unPais) {
         return unPais.ejercitos();
     }
 
-    public void ejercito(Pais unPais) {
-        unPais.ejercitos(unPais.ejercitos() + 1);
+    public void agregarEjercitos(Pais unPais, int cantidadEjercitos) {
+        unPais.ejercitos(unPais.ejercitos() + cantidadEjercitos);
+    }
+
+    public void validarCantidadEjercitos(int ejercitos) throws Exception {
+        int cantidadEjercitosPorDefecto = paises.size();
+        int cantidadEjercitosAValidar = cantidadEjercitosPorDefecto + ejercitos;
+        int cantidadEjercitos = 0;
+        for (Pais pais: paises) {
+            cantidadEjercitos += pais.ejercitos();
+        }
+        if (cantidadEjercitosAValidar != cantidadEjercitos) {
+            throw new Exception("Cantidad de ejercitos incorrecta");
+        }
     }
 }

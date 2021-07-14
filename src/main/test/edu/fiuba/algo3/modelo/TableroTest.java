@@ -9,25 +9,19 @@ import java.util.ArrayList;
 public class TableroTest {
     @Test
     public void tableroTiene50Paises() throws FileNotFoundException {
-        try {
-            Tablero tablero = new Tablero(new ArrayList<Jugador>());
-            assertEquals(tablero.obtenerPaises().size(), 50);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+        jugadores.add(new Jugador("Rojo"));
+        Tablero tablero = new Tablero(jugadores);
+        assertEquals(tablero.obtenerPaises().size(), 50);
     }
 
     @Test
-    public void tableroAsignaPaisesAJugador() {
-        try {
-            ArrayList<Jugador> jugadores = new ArrayList<>();
-            Jugador jugador = new Jugador("Rojo");
-            jugadores.add(jugador);
+    public void tableroAsignaPaisesAJugador() throws Exception {
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+        Jugador jugador = new Jugador("Rojo");
+        jugadores.add(jugador);
 
-            Tablero tablero = new Tablero(jugadores);
-            assertEquals(jugador.paises(), 50);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        Tablero tablero = new Tablero(jugadores);
+        assertEquals(jugador.obtenerPaises().size(), 50);
     }
 }

@@ -23,13 +23,15 @@ public class Tablero {
 
     private void hacerRandomElOrdenDePaises() {
         ArrayList<Pais> nuevosPaises = new ArrayList<>();
-        for (int i = 49; i >= 0; i--) {
-            Random random = new Random();
+        Random random = new Random();
+        for (int i = 49; i > 0; i--) {
             int value = random.nextInt(i);
             Pais pais = paises.get(value);
             nuevosPaises.add(pais);
-            paises.remove(random);
+            paises.remove(value);
         }
+        Pais pais = paises.get(0);
+        nuevosPaises.add(pais);
         this.paises = nuevosPaises;
     }
 
@@ -38,7 +40,7 @@ public class Tablero {
         int cantidadJugadores = jugadores.size();
         for (Pais pais : paises) {
             Jugador jugadorActual = jugadores.get(numeroJugador % cantidadJugadores);
-            jugadorActual.pais(pais);
+            jugadorActual.agregarPais(pais);
             numeroJugador++;
         }
     }

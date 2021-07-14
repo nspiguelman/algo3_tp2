@@ -14,7 +14,7 @@ public class Pais {
         this.nombre = nombre;
         this.limitrofes = limitaCon.split(",");
         this.continente = continente;
-        this.cantidadEjercitos = 0;
+        this.cantidadEjercitos = 1;
     }
 
     public String pais() {
