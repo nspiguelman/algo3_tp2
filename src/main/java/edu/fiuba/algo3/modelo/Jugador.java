@@ -21,18 +21,11 @@ Jugador {
     public void atacarConA(Pais atacante, Pais defensor, Jugador jugadorDefensor) throws Exception {
         this.elegirPais(atacante);
         defensor.limitaCon(atacante);
-        this.atacarA(defensor);
+        this.tirarDados(defensor);
         this.verificarConquista(jugadorDefensor, atacante, defensor);
     }
 
-    public void elegirPais(Pais unPaisAtacante) throws Exception {
-        if (!paises.contains(unPaisAtacante)){
-            throw new Exception("El atacante no contiene el pais");
-        }
-        this.atacante = unPaisAtacante;
-    }
-
-    public void atacarA(Pais unPaisDefensor) throws Exception{
+    public void tirarDados(Pais unPaisDefensor) throws Exception{
         ArrayList<Integer> ejercitosPerdidos = new ArrayList<Integer>();
 
         Dados dado = new Dados();
@@ -41,8 +34,12 @@ Jugador {
         unPaisDefensor.matarEjercito(ejercitosPerdidos.get(1));
 
     }
-    public boolean puedeAtacar() {
-        return false;
+
+    public void elegirPais(Pais unPaisAtacante) throws Exception {
+        if (!paises.contains(unPaisAtacante)){
+            throw new Exception("El atacante no contiene el pais");
+        }
+        this.atacante = unPaisAtacante;
     }
 
     public void agregarPais(Pais unPais) {

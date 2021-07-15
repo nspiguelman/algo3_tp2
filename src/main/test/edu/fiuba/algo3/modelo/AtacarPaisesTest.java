@@ -9,46 +9,41 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AtacarPaisesTest {
     //argentina es de jugador rojo, brasil de otro jugador
-    Jugador jugadorUno = new Jugador("rojo");
-
     Pais argentina = new Pais("Argentina", "America", "Brasil");
     Pais brasil = new Pais("Brasil", "America", "Argentina");
 
-    @Test
-    public void UnJugadorAtacaYHayPerdidaDeEjercitosAtacanteYDefensaConMaximoDeDados() throws Exception {
+    Jugador jugadorUno = new Jugador("Rojo");
+    Jugador jugadorDos = new Jugador("Verde");
 
-        brasil.ejercitos(5);
-        argentina.ejercitos(5);
+
+    @Test
+    public void UnJugadorAtacaYOtroJugadorDefiendeAmbosCon3DadosYHayPerdidaDeEjercitos() throws Exception {
         jugadorUno.agregarPais(argentina);
-        jugadorUno.elegirPais(argentina);
-        jugadorUno.atacarA(brasil);
+        jugadorDos.agregarPais(brasil);
+        jugadorUno.agregarEjercitos(argentina,5);
+        jugadorUno.agregarEjercitos(brasil,5);
+
+        jugadorUno.atacarConA(argentina, brasil, jugadorDos);
 
         assertEquals((argentina.ejercitos() < 5) || (brasil.ejercitos() < 5), true);
     }
 
     @Test
-    public void UnJugadorAtacaYHayPerdidaDeEjercitosAtacante3DadosDefensa2Dados() throws Exception {
-
-        brasil.ejercitos(2);
-        argentina.ejercitos(5);
+    public void UnJugadorAtacaYHayPerdidaDeEjercitosConAtacante3DadosDefensa2Dados() throws Exception {
         jugadorUno.agregarPais(argentina);
-        jugadorUno.elegirPais(argentina);
-        jugadorUno.atacarA(brasil);
+        jugadorDos.agregarPais(brasil);
+        jugadorUno.agregarEjercitos(argentina,3);
+        jugadorUno.agregarEjercitos(brasil,2);
 
+        jugadorUno.atacarConA(argentina, brasil, jugadorDos);
 
-        assertEquals((argentina.ejercitos()<5) || (brasil.ejercitos()<5),true);
+        assertEquals((argentina.ejercitos() < 3) || (brasil.ejercitos() < 2), true);
     }
 
     @Test
     public void paisAAtacaAPaisBYGanaConquistaElPais() throws Exception{
-        Jugador jugadorUno = new Jugador("Rojo");
-        Jugador jugadorDos = new Jugador("Verde");
-
-        Pais argentina = new Pais("Argentina", "America", "Brasil");
-        Pais brasil = new Pais("Brasil", "America", "Argentina");
-
-        jugadorDos.agregarPais(brasil);
         jugadorUno.agregarPais(argentina);
+        jugadorDos.agregarPais(brasil);
         jugadorUno.agregarEjercitos(argentina,20);
 
         // TODO: Mockear
@@ -67,14 +62,8 @@ public class AtacarPaisesTest {
 
     @Test
     public void paisAAtacaAPaisBYGanaLaDefensa() throws Exception{
-        Jugador jugadorUno = new Jugador("Rojo");
-        Jugador jugadorDos = new Jugador("Verde");
-
-        Pais argentina = new Pais("Argentina", "America", "Brasil");
-        Pais brasil = new Pais("Brasil", "America", "Argentina");
-
-        jugadorDos.agregarPais(brasil);
         jugadorUno.agregarPais(argentina);
+        jugadorDos.agregarPais(brasil);
         jugadorUno.agregarEjercitos(argentina,1);
         jugadorDos.agregarEjercitos(brasil, 20);
 
