@@ -10,7 +10,7 @@ public class PaisTest {
     public void inicioUnPaisConNombreContinenteYLimitrofes() {
         Pais pais = new Pais("Argentina", "America", "a,b,c");
         assertEquals(pais.ejercitos(), 1);
-        assertEquals(pais.pais(), "Argentina");
+        assertEquals(pais.getNombre(), "Argentina");
         assertEquals(pais.continente(), "America");
         String[] limitrofes = { "a", "b", "c" };
         assertArrayEquals(pais.limitrofes(), limitrofes);
@@ -22,7 +22,7 @@ public class PaisTest {
     public void inicioUnPaisConNombreContinenteYLimitrofe() {
         Pais pais = new Pais("Argentina", "America", "a");
         assertEquals(pais.ejercitos(), 1);
-        assertEquals(pais.pais(), "Argentina");
+        assertEquals(pais.getNombre(), "Argentina");
         assertEquals(pais.continente(), "America");
         String[] limitrofes = { "a" };
         assertArrayEquals(pais.limitrofes(), limitrofes);
