@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.*;
+import edu.fiuba.algo3.fase.Fase;
 
 public class Pais {
     private String[] limitrofes;
@@ -17,21 +15,21 @@ public class Pais {
         this.cantidadEjercitos = 1;
     }
 
-    public String pais() {
-        return this.nombre;
+    public String obtenerNombrePais() {
+        return nombre;
     }
-    public String continente() {
+    public String obtenerNombreContinente() {
         return this.continente;
     }
-    public String[] limitrofes() {
+    public String[] obtenerNombrePaisesLimitrofes() {
         return this.limitrofes;
     }
 
-    public void ejercitos(int ejercitos) {
-        this.cantidadEjercitos = ejercitos;
+    public void agregarEjercitos(int ejercitos) {
+        this.cantidadEjercitos += ejercitos;
     }
 
-    public int ejercitos() {
+    public int obtenerEjercitos() {
         return this.cantidadEjercitos;
     }
     public void matarEjercito(int ejercitos){
@@ -39,16 +37,12 @@ public class Pais {
     }
 
     public void limitaCon(Pais unPais) throws Exception {
-        for (String elemento: limitrofes){
-            if (unPais.obtenerNombre().equals(elemento)) {
+        for (String elemento: limitrofes) {
+            if (unPais.obtenerNombrePais().equals(elemento)) {
                 return;
             }
         }
         throw new Exception("Los paises no son limitrofes");
-    }
-
-    private String obtenerNombre() {
-        return nombre;
     }
 
     public void reducirEjercitos(int cantidadEjercitos) {

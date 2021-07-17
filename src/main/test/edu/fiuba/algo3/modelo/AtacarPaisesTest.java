@@ -1,8 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.fase.FaseDeJuego;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,31 +19,31 @@ public class AtacarPaisesTest {
     public void UnJugadorAtacaYOtroJugadorDefiendeAmbosCon3DadosYHayPerdidaDeEjercitos() throws Exception {
         jugadorUno.agregarPais(argentina);
         jugadorDos.agregarPais(brasil);
-        jugadorUno.agregarEjercitos(argentina,5);
-        jugadorUno.agregarEjercitos(brasil,5);
+        jugadorUno.agregarEjercitos(argentina,5, new FaseDeJuego());
+        jugadorUno.agregarEjercitos(brasil,5, new FaseDeJuego());
 
         jugadorUno.atacarConA(argentina, brasil, jugadorDos);
 
-        assertEquals((argentina.ejercitos() < 5) || (brasil.ejercitos() < 5), true);
+        assertEquals((argentina.obtenerEjercitos() < 5) || (brasil.obtenerEjercitos() < 5), true);
     }
 
     @Test
     public void UnJugadorAtacaYHayPerdidaDeEjercitosConAtacante3DadosDefensa2Dados() throws Exception {
         jugadorUno.agregarPais(argentina);
         jugadorDos.agregarPais(brasil);
-        jugadorUno.agregarEjercitos(argentina,3);
-        jugadorUno.agregarEjercitos(brasil,2);
+        jugadorUno.agregarEjercitos(argentina,3, new FaseDeJuego());
+        jugadorUno.agregarEjercitos(brasil,2, new FaseDeJuego());
 
         jugadorUno.atacarConA(argentina, brasil, jugadorDos);
 
-        assertEquals((argentina.ejercitos() < 3) || (brasil.ejercitos() < 2), true);
+        assertEquals((argentina.obtenerEjercitos() < 3) || (brasil.obtenerEjercitos() < 2), true);
     }
 
     @Test
     public void paisAAtacaAPaisBYGanaConquistaElPais() throws Exception{
         jugadorUno.agregarPais(argentina);
         jugadorDos.agregarPais(brasil);
-        jugadorUno.agregarEjercitos(argentina,20);
+        jugadorUno.agregarEjercitos(argentina,20, new FaseDeJuego());
 
         // TODO: Mockear
         boolean detenerAtaque = false;
@@ -64,14 +63,14 @@ public class AtacarPaisesTest {
     public void paisAAtacaAPaisBYGanaLaDefensa() throws Exception{
         jugadorUno.agregarPais(argentina);
         jugadorDos.agregarPais(brasil);
-        jugadorUno.agregarEjercitos(argentina,1);
-        jugadorDos.agregarEjercitos(brasil, 20);
+        jugadorUno.agregarEjercitos(argentina,1, new FaseDeJuego());
+        jugadorDos.agregarEjercitos(brasil, 20, new FaseDeJuego());
 
         // TODO: Mockear
         boolean detenerDefensa = false;
         while (!detenerDefensa) {
             jugadorUno.atacarConA(argentina, brasil, jugadorDos);
-            if(argentina.ejercitos() == 1){
+            if(argentina.obtenerEjercitos() == 1){
                 Exception exception = assertThrows(Exception.class, () -> { jugadorUno.atacarConA(argentina, brasil, jugadorDos); });
                 detenerDefensa = true;
             }

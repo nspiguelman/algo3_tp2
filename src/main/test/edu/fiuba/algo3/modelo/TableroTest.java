@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.excepciones.TegException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +17,7 @@ public class TableroTest {
     }
 
     @Test
-    public void tableroAsignaPaisesAJugador() throws Exception {
+    public void tableroAsignaPaisesAJugador() throws FileNotFoundException {
         ArrayList<Jugador> jugadores = new ArrayList<>();
         Jugador jugador = new Jugador("Rojo");
         jugadores.add(jugador);

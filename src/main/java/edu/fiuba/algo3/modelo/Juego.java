@@ -1,5 +1,10 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.excepciones.*;
+import edu.fiuba.algo3.fase.Fase;
+import edu.fiuba.algo3.fase.FaseUnoColocacionEjercitos;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Juego {
@@ -7,7 +12,7 @@ public class Juego {
     private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
     private Fase fase;
 
-    public Juego(ArrayList<String> colorJugadores) throws Exception  {
+    public Juego(ArrayList<String> colorJugadores) throws FileNotFoundException, TegException {
         for (String unColor : colorJugadores) {
             this.agregarJugador(unColor);
         }
@@ -15,11 +20,10 @@ public class Juego {
         this.fase = new FaseUnoColocacionEjercitos();
     }
 
-    public void agregarJugador(String unColor) throws Exception {
-        for (Jugador jugador : jugadores) {
-            if (jugador.asignarColor().equals(unColor)) {
-                throw new Exception("No se puede asignar el mismo color a dos jugadores");
-            }
+    public void agregarJugador(String unColor) throws TegException {
+        boolean jugadorRepetido = jugadores.stream().anyMatch(jugador -> jugador.obtenerColor().equals(unColor));
+        if (jugadorRepetido) {
+            throw new JugadorExistenteException(unColor);
         }
         this.jugadores.add(new Jugador(unColor));
     }
@@ -32,13 +36,11 @@ public class Juego {
         return unJugador.obtenerPaises();
     }
 
-    public void agregarEjercitos(Jugador unJugador, Pais unPais, int cantidadEjercitos) {
-        unJugador.agregarEjercitos(unPais, cantidadEjercitos);
+    public void agregarEjercitos(Jugador unJugador, Pais unPais, int cantidadEjercitos) throws TegException {
+        unJugador.agregarEjercitos(unPais, cantidadEjercitos, fase);
     }
 
-    public void siguienteFase() throws Exception {
+    public void siguienteFase() throws TegException {
         fase = fase.siguienteFase(jugadores);
     }
-
-
 }
