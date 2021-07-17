@@ -24,4 +24,6 @@ public class TableroTest {
         Tablero tablero = new Tablero(jugadores);
         assertEquals(jugador.obtenerPaises().size(), 50);
     }
+
+
 }

@@ -17,7 +17,7 @@ public class Pais {
         this.cantidadEjercitos = 1;
     }
 
-    public String pais() {
+    public String getNombre() {
         return this.nombre;
     }
     public String continente() {
