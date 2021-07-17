@@ -1,9 +1,15 @@
 package edu.fiuba.algo3.modelo;
 
-import java.util.ArrayList;
+import edu.fiuba.algo3.excepciones.CantidadDeEjercitosInvalida;
+import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
+import edu.fiuba.algo3.excepciones.PaisNoPerteneceAJugadorException;
+import edu.fiuba.algo3.fase.Fase;
 
-public class
-Jugador {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Jugador {
 
     private Pais paisEnBatalla;
     private String color;
@@ -15,7 +21,7 @@ Jugador {
         this.color = color;
     }
 
-    public String asignarColor() {
+    public String obtenerColor() {
         return color;
     }
 
@@ -31,7 +37,7 @@ Jugador {
     public void tirarDados(Pais unPaisDefensor) throws Exception{
         ArrayList<Integer> ejercitosPerdidos = new ArrayList<Integer>();
         Dados dado = new Dados();
-        ejercitosPerdidos = dado.tirar(this.atacante.ejercitos(), unPaisDefensor.ejercitos());
+        ejercitosPerdidos = dado.tirar(this.atacante.obtenerEjercitos(), unPaisDefensor.obtenerEjercitos());
         this.atacante.matarEjercito(ejercitosPerdidos.get(0));
         unPaisDefensor.matarEjercito(ejercitosPerdidos.get(1));
     }*/
@@ -52,23 +58,39 @@ Jugador {
         return paises;
     }
 
+    private int obtenerCantidadTotalDeEjercitos() {
+        return paises.stream()
+                .map(pais -> pais.obtenerEjercitos())
+                .reduce(0, (subtotal, element) -> subtotal + element);
+    }
+
     public int obtenerEjercitosEnBatalla() {
-        return paisEnBatalla.ejercitos();
+        return paisEnBatalla.obtenerEjercitos();
     }
 
-    public void agregarEjercitos(Pais unPais, int cantidadEjercitos) {
-        unPais.ejercitos(unPais.ejercitos() + cantidadEjercitos);
+    public void agregarEjercitos(Pais unPais, int cantidadEjercitos, Fase fase) throws PaisNoPerteneceAJugadorException, ColocarEjercitosException {
+        String nombrePais = unPais.obtenerNombrePais();
+        List<Pais> paisSeleccionado = paises
+                .stream()
+                .filter(pais -> nombrePais.equals(pais.obtenerNombrePais()))
+                .collect(Collectors.toList());;
+        Pais paisX = paisSeleccionado.size() == 1 ? paisSeleccionado.get(0) : null;
+        if (paisX == null) {
+            throw new PaisNoPerteneceAJugadorException(nombrePais, this.obtenerColor());
+        }
+        int cantidadTotalDeEjercitos = obtenerCantidadTotalDeEjercitos();
+
+        fase.validarCantidadEjercitos(cantidadTotalDeEjercitos +  cantidadEjercitos - paises.size());
+        unPais.agregarEjercitos(cantidadEjercitos);
     }
 
-    public void validarCantidadEjercitos(int ejercitos) throws Exception {
+    public void validarCantidadEjercitos(int ejercitos) throws CantidadDeEjercitosInvalida {
         int cantidadEjercitosPorDefecto = paises.size();
         int cantidadEjercitosAValidar = cantidadEjercitosPorDefecto + ejercitos;
-        int cantidadEjercitos = 0;
-        for (Pais pais: paises) {
-            cantidadEjercitos += pais.ejercitos();
-        }
+        int cantidadEjercitos = obtenerCantidadTotalDeEjercitos();
+
         if (cantidadEjercitosAValidar != cantidadEjercitos) {
-            throw new Exception("Cantidad de ejercitos incorrecta");
+            throw new CantidadDeEjercitosInvalida(ejercitos, cantidadEjercitos - paises.size());
         }
     }
 
@@ -83,7 +105,7 @@ Jugador {
 
     public void conquistar(Pais unPais){
         this.paisEnBatalla.reducirEjercitos(1);
-        unPais.ejercitos(1);
+        unPais.agregarEjercitos(1);
         this.agregarPais(unPais);
     }
 
@@ -100,7 +122,7 @@ Jugador {
             jugadorDefensor.eliminarPais(paisDefensor);
 
             paisAtacante.reducirEjercitos(1);
-            paisDefensor.ejercitos(1);
+            paisDefensor.agregarEjercitos(1);
             this.agregarPais(paisDefensor);
         }
     }*/

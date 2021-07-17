@@ -36,7 +36,7 @@ public class Tablero {
             int value = random.nextInt(i);
             Pais pais = paises.get(value);
             nuevosPaises.add(pais);
-            TarjetaPais tarjeta = new TarjetaPais(pais.getNombre(), simbolos.get(i % 3));
+            TarjetaPais tarjeta = new TarjetaPais(pais.obtenerNombrePais(), simbolos.get(i % 3));
             nuevasTarjetas.add(tarjeta);
 
             paises.remove(value);
