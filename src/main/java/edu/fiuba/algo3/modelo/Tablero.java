@@ -9,6 +9,7 @@ import com.google.gson.stream.JsonReader;
 public class Tablero {
 
     private ArrayList<Pais> paises;
+    private ArrayList<TarjetaPais> tarjetasPaises;
 
     public Tablero(ArrayList<Jugador> jugadores) throws FileNotFoundException {
         this.inicializarPaises();
@@ -23,16 +24,27 @@ public class Tablero {
 
     private void hacerRandomElOrdenDePaises() {
         ArrayList<Pais> nuevosPaises = new ArrayList<>();
+        ArrayList<String> simbolos = new ArrayList<>();
+        ArrayList<TarjetaPais> nuevasTarjetas = new ArrayList<>();
         Random random = new Random();
+
+        simbolos.add("barco");
+        simbolos.add("canon");
+        simbolos.add("globo");
+
         for (int i = 49; i > 0; i--) {
             int value = random.nextInt(i);
             Pais pais = paises.get(value);
             nuevosPaises.add(pais);
+            TarjetaPais tarjeta = new TarjetaPais(pais.getNombre(), simbolos.get(i % 3));
+            nuevasTarjetas.add(tarjeta);
+
             paises.remove(value);
         }
         Pais pais = paises.get(0);
         nuevosPaises.add(pais);
         this.paises = nuevosPaises;
+        this.tarjetasPaises = nuevasTarjetas;
     }
 
     public void asignarPaises(ArrayList<Jugador> jugadores) {

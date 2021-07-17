@@ -27,16 +27,13 @@ public class JugadorTest {
     }
 
     @Test
-    public void agregarUnEjercitoAUnPais() {
+    public void agregarUnEjercitoAUnPais() throws Exception {
         Jugador jugador = new Jugador("Rojo");
         Pais pais = new Pais("Argentina", "America", "a,b");
         jugador.agregarPais(pais);
-        try {
-            jugador.agregarEjercitos(pais, 1, new FaseUnoColocacionEjercitos());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertEquals(jugador.obtenerEjercitos(pais), 2);
+        jugador.agregarEjercitos(pais, 1);
+        jugador.elegirPais(pais);
+        assertEquals(jugador.obtenerEjercitosEnBatalla(), 2);
     }
 
     @Test
@@ -90,4 +87,6 @@ public class JugadorTest {
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+
 }

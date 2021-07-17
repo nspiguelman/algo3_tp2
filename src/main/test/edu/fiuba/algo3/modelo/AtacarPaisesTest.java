@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo;
+/*package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.fase.FaseDeJuego;
 import org.junit.jupiter.api.Test;
@@ -80,4 +80,4 @@ public class AtacarPaisesTest {
         assertEquals(jugadorDos.tieneElPais(brasil), true);
     }
 
-}
+}*/

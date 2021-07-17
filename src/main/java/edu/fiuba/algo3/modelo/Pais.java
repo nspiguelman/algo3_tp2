@@ -18,6 +18,7 @@ public class Pais {
     public String obtenerNombrePais() {
         return nombre;
     }
+    
     public String obtenerNombreContinente() {
         return this.continente;
     }
