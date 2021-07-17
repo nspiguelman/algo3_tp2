@@ -3,17 +3,13 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.excepciones.CantidadDeEjercitosInvalida;
 import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.PaisNoPerteneceAJugadorException;
-import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.fase.Fase;
-import edu.fiuba.algo3.fase.FaseDeJuego;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class
-Jugador {
+public class Jugador {
 
     private Pais paisEnBatalla;
     private String color;
@@ -69,7 +65,7 @@ Jugador {
     }
 
     public int obtenerEjercitosEnBatalla() {
-        return paisEnBatalla.ejercitos();
+        return paisEnBatalla.obtenerEjercitos();
     }
 
     public void agregarEjercitos(Pais unPais, int cantidadEjercitos, Fase fase) throws PaisNoPerteneceAJugadorException, ColocarEjercitosException {
@@ -109,7 +105,7 @@ Jugador {
 
     public void conquistar(Pais unPais){
         this.paisEnBatalla.reducirEjercitos(1);
-        unPais.ejercitos(1);
+        unPais.agregarEjercitos(1);
         this.agregarPais(unPais);
     }
 

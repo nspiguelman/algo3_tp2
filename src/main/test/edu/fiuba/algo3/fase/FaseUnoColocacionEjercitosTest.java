@@ -37,7 +37,7 @@ public class FaseUnoColocacionEjercitosTest {
         FaseUnoColocacionEjercitos fase = new FaseUnoColocacionEjercitos();
         Exception exception = assertThrows(ColocarEjercitosException.class, () -> { fase.validarCantidadEjercitos(6); });
 
-        String expectedMessage = "No se puede agregar mas de 5 ejercitos en la primer fase de colocación";
+        String expectedMessage = "No se puede agregar mas de 5 ejercitos en la actual fase de colocación";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }

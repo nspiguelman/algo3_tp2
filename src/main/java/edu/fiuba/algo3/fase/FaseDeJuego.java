@@ -21,6 +21,6 @@ public class FaseDeJuego implements Fase {
     }
 
     public void validarCantidadEjercitos(int cantidadEjercitos) throws ColocarEjercitosException {
-        throw new ColocarEjercitosException(0);
+
     }
 }
