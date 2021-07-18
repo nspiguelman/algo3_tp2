@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class FaseUnoColocacionEjercitos implements Fase {
     private int cantidadEjercitosFaseUno;
+
     public FaseUnoColocacionEjercitos() {
         this.cantidadEjercitosFaseUno = 5;
     }

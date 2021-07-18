@@ -1,13 +1,9 @@
 package edu.fiuba.algo3.modelo;
 
-
 import edu.fiuba.algo3.fase.FaseDeJuego;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BatallaTest {
     //argentina es de jugador rojo, brasil de otro jugador
@@ -26,7 +22,7 @@ public class BatallaTest {
         jugadorDos.elegirPais(brasil);
         Batalla unaBatalla = new Batalla();
 
-        while(!jugadorUno.tieneElPais(brasil)) {
+        while (!jugadorUno.tieneElPais(brasil)) {
             unaBatalla.batallar(jugadorUno, jugadorDos);
         }
 

@@ -25,7 +25,7 @@ public class PaisDeserializer {
     private String limitrofes() { return limitaCon; }
 
     public ArrayList<Pais> getPaises() {
-        ArrayList<Pais> paisesADevolver = new ArrayList<Pais>();
+        ArrayList<Pais> paisesADevolver = new ArrayList<>();
         Type userListType = new TypeToken<ArrayList<PaisDeserializer>>(){}.getType();
         Gson gson = new Gson();
         ArrayList<PaisDeserializer> paises = gson.fromJson(reader, userListType);

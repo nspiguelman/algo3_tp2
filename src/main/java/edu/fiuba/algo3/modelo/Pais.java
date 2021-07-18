@@ -8,7 +8,7 @@ public class Pais {
     private String continente;
     private int cantidadEjercitos;
 
-    public Pais(String nombre, String continente, String limitaCon){
+    public Pais(String nombre, String continente, String limitaCon) {
         this.nombre = nombre;
         this.limitrofes = limitaCon.split(",");
         this.continente = continente;
@@ -22,6 +22,7 @@ public class Pais {
     public String obtenerNombreContinente() {
         return this.continente;
     }
+
     public String[] obtenerNombrePaisesLimitrofes() {
         return this.limitrofes;
     }
@@ -33,7 +34,7 @@ public class Pais {
     public int obtenerEjercitos() {
         return this.cantidadEjercitos;
     }
-    public void matarEjercito(int ejercitos){
+    public void matarEjercito(int ejercitos) {
         this.cantidadEjercitos = this.cantidadEjercitos - ejercitos;
     }
 

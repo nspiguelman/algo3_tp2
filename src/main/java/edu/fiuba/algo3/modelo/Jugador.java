@@ -44,7 +44,7 @@ public class Jugador {
 
 
     public void elegirPais(Pais unPais) throws Exception {
-        if (!paises.contains(unPais)){
+        if (!paises.contains(unPais)) {
             throw new Exception("El atacante no contiene el pais");
         }
         this.paisEnBatalla = unPais;
@@ -73,8 +73,9 @@ public class Jugador {
         List<Pais> paisSeleccionado = paises
                 .stream()
                 .filter(pais -> nombrePais.equals(pais.obtenerNombrePais()))
-                .collect(Collectors.toList());;
+                .collect(Collectors.toList());
         Pais paisX = paisSeleccionado.size() == 1 ? paisSeleccionado.get(0) : null;
+
         if (paisX == null) {
             throw new PaisNoPerteneceAJugadorException(nombrePais, this.obtenerColor());
         }
@@ -109,11 +110,12 @@ public class Jugador {
         this.agregarPais(unPais);
     }
 
-    public void matarEjercito(int cantidadEjercitos){
+    public void matarEjercito(int cantidadEjercitos) {
+
         this.paisEnBatalla.reducirEjercitos(cantidadEjercitos);
     }
 
-    public Pais paisEnBatalla(){
+    public Pais paisEnBatalla() {
         return this.paisEnBatalla;
     }
     /* COMENTAR

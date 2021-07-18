@@ -7,6 +7,7 @@ import java.util.Random;
 import com.google.gson.stream.JsonReader;
 
 public class Tablero {
+    private final int CANTIDAD_DE_PAISES = 49;
 
     private ArrayList<Pais> paises;
     private ArrayList<TarjetaPais> tarjetasPaises;
@@ -32,7 +33,7 @@ public class Tablero {
         simbolos.add("canon");
         simbolos.add("globo");
 
-        for (int i = 49; i > 0; i--) {
+        for (int i = CANTIDAD_DE_PAISES; i > 0; i--) {
             int value = random.nextInt(i);
             Pais pais = paises.get(value);
             nuevosPaises.add(pais);
