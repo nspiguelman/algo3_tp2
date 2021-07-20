@@ -2,29 +2,34 @@ package edu.fiuba.algo3.fase;
 
 import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
+import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
 import java.util.ArrayList;
 
 public class FaseDosColocacionEjercitos implements Fase {
-    private final int CANTIDAD_EJERCITOS_FASE_DOS = 8;
-    private final int MAXIMA_CANTIDAD_EJERCITOS_A_AGREGAR = 3;
+    private final int cantidadEjercitosFaseDos;
 
-    public FaseDosColocacionEjercitos() { }
+    public FaseDosColocacionEjercitos() { this.cantidadEjercitosFaseDos = 8; }
 
     public Fase siguienteFase(ArrayList<Jugador> jugadores) throws SiguienteFaseException {
         for (Jugador jugador : jugadores) {
             try {
-                jugador.validarCantidadEjercitos(CANTIDAD_EJERCITOS_FASE_DOS);
+                this.validarCantidadEjercitos(jugador);
             } catch (Exception e) {
-                throw new SiguienteFaseException(MAXIMA_CANTIDAD_EJERCITOS_A_AGREGAR);
+                throw new SiguienteFaseException(cantidadEjercitosFaseDos);
             }
         }
         return new FaseDosColocacionEjercitos();
     }
 
-    public void validarCantidadEjercitos(int cantidadEjercitos) throws ColocarEjercitosException {
-        if (cantidadEjercitos > CANTIDAD_EJERCITOS_FASE_DOS) {
-            throw new ColocarEjercitosException(MAXIMA_CANTIDAD_EJERCITOS_A_AGREGAR);
+    public void validarCantidadEjercitos(Jugador unJugador) throws TegException {
+        int cantidadEjercitos = unJugador.obtenerCantidadDeEjercitos();
+        if (cantidadEjercitos != cantidadEjercitosFaseDos) {
+            throw new ColocarEjercitosException(cantidadEjercitosFaseDos);
         }
+    }
+    @Override
+    public int ejercitosPorFase() {
+        return cantidadEjercitosFaseDos;
     }
 }

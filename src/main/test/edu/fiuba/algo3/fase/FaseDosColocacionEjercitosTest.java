@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.fase;
 
+import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
+import edu.fiuba.algo3.excepciones.PaisNoPerteneceAJugadorException;
+import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pais;
 import org.junit.jupiter.api.Test;
@@ -15,7 +18,7 @@ public class FaseDosColocacionEjercitosTest {
         Jugador jugador = new Jugador("Rojo");
         ArrayList<Jugador> jugadores = new ArrayList<>();
         jugador.agregarPais(bolivia);
-        jugador.agregarEjercitos(bolivia, 8, new FaseDosColocacionEjercitos());
+        jugador.agregarEjercitos(bolivia, 8);
         jugadores.add(jugador);
         FaseDosColocacionEjercitos fase = new FaseDosColocacionEjercitos();
         fase.siguienteFase(jugadores);
@@ -24,17 +27,24 @@ public class FaseDosColocacionEjercitosTest {
     @Test
     public void validarCantidadEjercitosSatisfactoriamente() throws Exception {
         FaseDosColocacionEjercitos fase = new FaseDosColocacionEjercitos();
-        for (int i = 1; i <= 8; i++) {
-            fase.validarCantidadEjercitos(i);
-        }
+        Jugador jugador = new Jugador("Azul");
+        Pais brasil = new Pais("Brasil", "America", "a, b, c");
+        jugador.agregarPais(brasil);
+        jugador.agregarEjercitos(brasil, 8);
+        fase.validarCantidadEjercitos(jugador);
     }
 
     @Test
-    public void validarCantidadEjercitosFalla() {
+    public void validarCantidadEjercitosFalla() throws TegException {
         FaseDosColocacionEjercitos fase = new FaseDosColocacionEjercitos();
-        Exception exception = assertThrows(Exception.class, () -> { fase.validarCantidadEjercitos(9); });
+        Jugador jugador = new Jugador("Azul");
+        Pais brasil = new Pais("Brasil", "America", "a, b, c");
+        jugador.agregarPais(brasil);
+        jugador.agregarEjercitos(brasil, 9);
 
-        String expectedMessage = "No se puede agregar mas de 3 ejercitos en la actual fase de colocación";
+        Exception exception = assertThrows(Exception.class, () -> { fase.validarCantidadEjercitos(jugador); });
+
+        String expectedMessage = "En la fase actual no es posible tener mas de 8 ejercitos.";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }

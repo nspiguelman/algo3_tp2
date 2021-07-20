@@ -2,6 +2,7 @@ package edu.fiuba.algo3.fase;
 
 import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
+import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class FaseDeJuego implements Fase {
     public Fase siguienteFase(ArrayList<Jugador> jugadores) throws SiguienteFaseException {
         for (Jugador jugador : jugadores) {
             try {
-                jugador.validarCantidadEjercitos(5);
+                this.validarCantidadEjercitos(jugador);
             } catch (Exception e) {
                 throw new SiguienteFaseException(5);
             }
@@ -20,7 +21,12 @@ public class FaseDeJuego implements Fase {
         return new FaseDosColocacionEjercitos();
     }
 
-    public void validarCantidadEjercitos(int cantidadEjercitos) throws ColocarEjercitosException {
+    public void validarCantidadEjercitos(Jugador unJugador) throws TegException {
 
+    }
+
+    @Override
+    public int ejercitosPorFase() {
+        return 0;
     }
 }

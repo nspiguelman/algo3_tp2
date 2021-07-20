@@ -108,7 +108,7 @@ public class JuegoTest {
             juego.siguienteFase();
         });
 
-        String expectedMessage = "En la fase actual cada jugador debe agregar 5 ejercitos";
+        String expectedMessage = "Para pasar a la siguiente fase cada jugador debe tener 5 ejercitos agregados.";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
@@ -125,7 +125,7 @@ public class JuegoTest {
 
         Exception exception = assertThrows(ColocarEjercitosException.class, () -> { juego.agregarEjercitos(jugador, paisDeJugador, 6); });
 
-        String expectedMessage = "No se puede agregar mas de 5 ejercitos en la actual fase de colocación";
+        String expectedMessage = "En la fase actual no es posible tener mas de 5 ejercitos.";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
@@ -161,7 +161,7 @@ public class JuegoTest {
         juego.agregarEjercitos(jugador, paisDeJugador, 2);
 
         Exception exception = assertThrows(SiguienteFaseException.class, () -> { juego.siguienteFase(); });
-        String expectedMessage = "En la fase actual cada jugador debe agregar 3 ejercitos";
+        String expectedMessage = "Para pasar a la siguiente fase cada jugador debe tener 8 ejercitos agregados.";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
@@ -178,32 +178,42 @@ public class JuegoTest {
         juego.agregarEjercitos(jugador, paisDeJugador, 5);
         juego.siguienteFase();
         Exception exception = assertThrows(ColocarEjercitosException.class, () -> { juego.agregarEjercitos(jugador, paisDeJugador, 4); });
-        String expectedMessage = "No se puede agregar mas de 3 ejercitos en la actual fase de colocación";
+        String expectedMessage = "En la fase actual no es posible tener mas de 8 ejercitos.";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-   /* @Test
-    public void paisAAtacaAPaisBGanaPaisB() throws Exception {
-        // mocking
-        ArrayList<Pais> paises = new ArrayList<>();
-        Pais brasil = new Pais("Brasil", "America", "Argentina");
-        Pais argentina = new Pais("Argentina", "America", "Brasil");
-        Jugador azul = new Jugador("Azul");
-        azul.agregarPais(argentina);
-        azul.atacarConA(argentina, brasil);
-*/
-        /*ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(new Pais("Argentina", "America", "Brasil"));
-        paises.add(new Pais("Brasil", "America", "Argentina"));
-
+    @Test
+    public void juegoDeUnaRondaCon2JugadoresColocanEjercitosNuevos() throws TegException, FileNotFoundException{
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
-        coloresJugadores.add("Rojo");
+        coloresJugadores.add("Verde");
         Juego juego = new Juego(coloresJugadores);
-        ArrayList<Jugador> jugadores = juego.obtenerJugadores();
-        ArrayList<Pais> paisesJugadorUno = jugadores.get(0).obtenerPaises();
-        ArrayList<Pais> paisesJugadorDos = jugadores.get(1).obtenerPaises();*/
-    //}
 
+        ArrayList<Jugador> jugadores = juego.obtenerJugadores();
+        int faseDeColocacion = 0;
+        int totalEjercitos = 5;
+        for (int i=0; i<4; i++){
+            Jugador jugadorActual = jugadores.get(i%2);
+            if(faseDeColocacion > 1) totalEjercitos = 3;
+            ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
+            for (int m=0; m < totalEjercitos; m++){
+                Pais paisDeJugador = paises.get(m);
+                juego.agregarEjercitos(jugadorActual, paisDeJugador, 1);
+            }
+            faseDeColocacion++;
+            if (faseDeColocacion==2) juego.siguienteFase();
+        }
+        juego.siguienteFase();
+
+        // -------------------------------- EN PROCESO --------------------------------
+        // por ahora solo se verifica que los turnos correspondan a los jugadores
+        assertEquals(juego.esElTurnoDe(), jugadores.get(0));
+        juego.siguienteTurno();
+        assertEquals(juego.esElTurnoDe(), jugadores.get(1));
+        juego.siguienteTurno();
+        assertEquals(juego.esElTurnoDe(), jugadores.get(0));
+        juego.siguienteTurno();
+        assertEquals(juego.esElTurnoDe(), jugadores.get(1));
+    }
 }
