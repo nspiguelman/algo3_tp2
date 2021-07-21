@@ -198,29 +198,33 @@ public class JuegoTest {
         // Colocacion de ejercitos fases 1 y 2
         for (int i=0; i<4; i++){
             Jugador jugadorActual = jugadores.get(i%2);
-            if(faseDeColocacion > 1) totalEjercitos = 3;
+            if(faseDeColocacion > 1) {
+                totalEjercitos = 3;
+            }
             ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
             for (int m=0; m < totalEjercitos; m++){
                 Pais paisDeJugador = paises.get(m);
                 juego.agregarEjercitos(jugadorActual, paisDeJugador, 1);
             }
             faseDeColocacion++;
-            if (faseDeColocacion==2) juego.siguienteFase();
+            if (faseDeColocacion==2) {
+                juego.siguienteFase();
+            }
             juego.siguienteTurno();
         }
-        juego.siguienteFase(); // Aca deberia arrancar la fase de Juego
-
-        // -------------------------------- EN PROCESO --------------------------------
-        // por ahora solo se verifica que los turnos correspondan a los jugadores
-        Jugador jugadorUno = jugadores.get(0);
-        Jugador jugadorDos = jugadores.get(1);
-        ArrayList<Pais> paisesUno = juego.obtenerPaisesDeJugador(jugadorUno);
-        ArrayList<Pais> paisesDos = juego.obtenerPaisesDeJugador(jugadorDos);
-        juego.siguienteMovimiento();
-        juego.siguienteMovimiento();
-
-        assertEquals(juego.esElTurnoDe(), jugadores.get(0));
-        juego.siguienteTurno();
-        assertEquals(juego.esElTurnoDe(), jugadores.get(1));
+        juego.siguienteFase();
+        // FULL TDD. Verificar la cantidad de ejercitos en Fase de Juego,
+        //        debe ser paises.size() / 2, para cada jugador, y que el jugador los agregue correctamente
+        for(int i=0; i<2; i++)
+        {
+            Jugador jugadorActual = jugadores.get(i%2);
+            ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
+            juego.siguienteMovimiento(); // No ataca
+            juego.siguienteMovimiento(); // No reagrupa
+            juego.agregarEjercitos(jugadorActual, paises.get(3), 4);
+            juego.agregarEjercitos(jugadorActual, paises.get(4), 4);
+            juego.agregarEjercitos(jugadorActual, paises.get(5), 4);
+            juego.siguienteTurno();
+        }
     }
 }

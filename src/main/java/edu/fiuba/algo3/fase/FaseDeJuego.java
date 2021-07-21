@@ -29,7 +29,7 @@ public class FaseDeJuego implements Fase {
 
     @Override
     public int ejercitosPorFase() {
-        return 99;
+        return 20;
     }
 
     @Override

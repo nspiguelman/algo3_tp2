@@ -80,7 +80,7 @@ public class Juego {
     }
 
     public void siguienteMovimiento(){
-        fase.siguienteMovimiento();    // esto para verificar que se realice en el orden ataque-reagrupacion-agregarejercitos
+        fase.siguienteMovimiento();    // esto para verificar que se realice en el orden ataque-reagrupacion-agregarEjercitos
     }
 
     public Jugador esElTurnoDe() {

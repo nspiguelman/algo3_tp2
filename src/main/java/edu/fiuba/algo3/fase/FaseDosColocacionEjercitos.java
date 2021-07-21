@@ -19,7 +19,7 @@ public class FaseDosColocacionEjercitos implements Fase {
                 throw new SiguienteFaseException(cantidadEjercitosFaseDos);
             }
         }
-        return new FaseDosColocacionEjercitos();
+        return new FaseDeJuego();
     }
 
     public void validarCantidadEjercitos(Jugador unJugador) throws TegException {
