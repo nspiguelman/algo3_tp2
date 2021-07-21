@@ -41,6 +41,7 @@ public class JuegoTest {
             Pais paisAAgregarEjercitos = paisesDeJugador.get(numeroRandomPaisASeleccionar);
             juego.agregarEjercitos(jugador, paisAAgregarEjercitos, 1);
             assertEquals(paisAAgregarEjercitos.obtenerEjercitos(), 2);
+            juego.siguienteTurno();
         }
     }
 
@@ -68,6 +69,7 @@ public class JuegoTest {
             ArrayList<Pais> paisesDeJugadorActual = juego.obtenerPaisesDeJugador(jugador);
             Pais paisDeJugador = paisesDeJugadorActual.get(5);
             juego.agregarEjercitos(jugador, paisDeJugador, 5);
+            juego.siguienteTurno();
         }
         juego.siguienteFase();
     }
@@ -87,6 +89,7 @@ public class JuegoTest {
                 Pais paisDeJugador = paisesDeJugadorActual.get(i);
                 juego.agregarEjercitos(jugador, paisDeJugador, 1);
             }
+            juego.siguienteTurno();
         }
         juego.siguienteFase();
     }
@@ -103,10 +106,9 @@ public class JuegoTest {
             ArrayList<Pais> paisesDeJugadorActual = juego.obtenerPaisesDeJugador(jugador);
             Pais paisDeJugador = paisesDeJugadorActual.get(4);
             juego.agregarEjercitos(jugador, paisDeJugador, 4);
+            juego.siguienteTurno();
         }
-        Exception exception = assertThrows(SiguienteFaseException.class, () -> {
-            juego.siguienteFase();
-        });
+        Exception exception = assertThrows(SiguienteFaseException.class, juego::siguienteFase);
 
         String expectedMessage = "Para pasar a la siguiente fase cada jugador debe tener 5 ejercitos agregados.";
         String actualMessage = exception.getMessage();
@@ -193,6 +195,7 @@ public class JuegoTest {
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int faseDeColocacion = 0;
         int totalEjercitos = 5;
+        // Colocacion de ejercitos fases 1 y 2
         for (int i=0; i<4; i++){
             Jugador jugadorActual = jugadores.get(i%2);
             if(faseDeColocacion > 1) totalEjercitos = 3;
@@ -203,15 +206,19 @@ public class JuegoTest {
             }
             faseDeColocacion++;
             if (faseDeColocacion==2) juego.siguienteFase();
+            juego.siguienteTurno();
         }
-        juego.siguienteFase();
+        juego.siguienteFase(); // Aca deberia arrancar la fase de Juego
 
         // -------------------------------- EN PROCESO --------------------------------
         // por ahora solo se verifica que los turnos correspondan a los jugadores
-        assertEquals(juego.esElTurnoDe(), jugadores.get(0));
-        juego.siguienteTurno();
-        assertEquals(juego.esElTurnoDe(), jugadores.get(1));
-        juego.siguienteTurno();
+        Jugador jugadorUno = jugadores.get(0);
+        Jugador jugadorDos = jugadores.get(1);
+        ArrayList<Pais> paisesUno = juego.obtenerPaisesDeJugador(jugadorUno);
+        ArrayList<Pais> paisesDos = juego.obtenerPaisesDeJugador(jugadorDos);
+        juego.siguienteMovimiento();
+        juego.siguienteMovimiento();
+
         assertEquals(juego.esElTurnoDe(), jugadores.get(0));
         juego.siguienteTurno();
         assertEquals(juego.esElTurnoDe(), jugadores.get(1));

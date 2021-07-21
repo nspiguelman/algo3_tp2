@@ -26,7 +26,7 @@ public class BatallaTest {
             unaBatalla.batallar(jugadorUno, jugadorDos);
         }
 
-        assertEquals(jugadorUno.tieneElPais(brasil), true);
+        assertTrue(jugadorUno.tieneElPais(brasil));
     }
 
 }

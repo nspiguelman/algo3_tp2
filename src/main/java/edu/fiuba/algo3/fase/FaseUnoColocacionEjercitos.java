@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.Jugador;
 import java.util.ArrayList;
 
 public class FaseUnoColocacionEjercitos implements Fase {
-    private int cantidadEjercitosFaseUno;
+    private final int cantidadEjercitosFaseUno;
 
     public FaseUnoColocacionEjercitos() {
         this.cantidadEjercitosFaseUno = 5;
@@ -33,6 +33,21 @@ public class FaseUnoColocacionEjercitos implements Fase {
     public int ejercitosPorFase(){
         return this.cantidadEjercitosFaseUno;
     }
+
+    @Override
+    public void siguienteMovimiento(){
+    }
+
+    @Override
+    public int movimientoActual(){
+        return 3;
+    }
+
+    @Override
+    public void reiniciarMovimientos(){
+
+    }
+
 }
 
 /* Dos validaciones... Para pasar de fase

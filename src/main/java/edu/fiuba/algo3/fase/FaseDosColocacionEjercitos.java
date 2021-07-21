@@ -32,4 +32,19 @@ public class FaseDosColocacionEjercitos implements Fase {
     public int ejercitosPorFase() {
         return cantidadEjercitosFaseDos;
     }
+
+    @Override
+    public void siguienteMovimiento() {
+
+    }
+
+    @Override
+    public int movimientoActual() {
+        return 3;
+    }
+
+    @Override
+    public void reiniciarMovimientos(){
+
+    }
 }

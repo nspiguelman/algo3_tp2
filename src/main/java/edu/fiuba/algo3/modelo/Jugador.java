@@ -96,4 +96,8 @@ public class Jugador {
     public Pais paisEnBatalla() {
         return this.paisEnBatalla;
     }
+
+    public boolean esElJugador(String colorJugador) {
+        return this.color.equals(colorJugador);
+    }
 }

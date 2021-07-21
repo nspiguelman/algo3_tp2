@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Turno {
     int turnoActual = 1;
     private Jugador jugadorActual;
-    private ArrayList<Jugador> jugadores;
+    private final ArrayList<Jugador> jugadores;
 
     public Turno(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
@@ -20,4 +20,9 @@ public class Turno {
     public Jugador turnoActual() {
         return jugadorActual;
     }
+
+    public boolean esElTurnoDe(String unColor) {
+        return jugadorActual.esElJugador(unColor);
+    }
+
 }

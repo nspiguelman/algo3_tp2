@@ -8,6 +8,8 @@ import edu.fiuba.algo3.modelo.Jugador;
 import java.util.ArrayList;
 
 public class FaseDeJuego implements Fase {
+    private int movimientoActual = 1;
+
     public FaseDeJuego() {}
 
     public Fase siguienteFase(ArrayList<Jugador> jugadores) throws SiguienteFaseException {
@@ -27,6 +29,20 @@ public class FaseDeJuego implements Fase {
 
     @Override
     public int ejercitosPorFase() {
-        return 0;
+        return 99;
+    }
+
+    @Override
+    public void siguienteMovimiento() {
+        movimientoActual++;
+    }
+
+    @Override
+    public int movimientoActual() {
+        return movimientoActual;
+    }
+    @Override
+    public void reiniciarMovimientos(){
+        movimientoActual = 1;
     }
 }
