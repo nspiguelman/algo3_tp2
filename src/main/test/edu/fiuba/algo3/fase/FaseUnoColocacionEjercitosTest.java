@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FaseUnoColocacionEjercitosTest {
     @Test
-    public void asignarEjercitosEnPrimeraRonda() throws SiguienteFaseException, ColocarEjercitosException, PaisNoPerteneceAJugadorException {
+    public void asignarEjercitosEnPrimeraRonda() throws SiguienteFaseException, Exception {
         Pais bolivia = new Pais("Bolivia", "America", "a, b, c");
         Jugador jugador = new Jugador("Rojo");
         ArrayList<Jugador> jugadores = new ArrayList<>();
@@ -27,7 +27,7 @@ public class FaseUnoColocacionEjercitosTest {
     }
 
     @Test
-    public void validarCantidadEjercitosSatisfactoriamente() throws TegException {
+    public void validarCantidadEjercitosSatisfactoriamente() throws Exception {
         FaseUnoColocacionEjercitos fase = new FaseUnoColocacionEjercitos();
         Jugador jugador = new Jugador("Azul");
         Pais brasil = new Pais("Brasil", "America", "a, b, c");
@@ -37,7 +37,7 @@ public class FaseUnoColocacionEjercitosTest {
     }
 
     @Test
-    public void validarCantidadEjercitosFalla() throws TegException {
+    public void validarCantidadEjercitosFalla() throws Exception {
         FaseUnoColocacionEjercitos fase = new FaseUnoColocacionEjercitos();
         Jugador jugador = new Jugador("Azul");
         Pais brasil = new Pais("Brasil", "America", "a, b, c");

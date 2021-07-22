@@ -36,7 +36,7 @@ public class Jugador {
         return estadoPaises.obtenerEjercitosEnBatalla();
     }
 
-    public void agregarEjercitos(Pais unPais, int cantidadEjercitos) throws PaisNoPerteneceAJugadorException {
+    public void agregarEjercitos(Pais unPais, int cantidadEjercitos) throws Exception {
         try {
             estadoPaises.agregarEjercitos(unPais, cantidadEjercitos);
         } catch (PaisInvalidoException e) {
@@ -45,24 +45,26 @@ public class Jugador {
     }
 
     public void validarCantidadEjercitos(int ejercitosASumar, int ejercitosPorFase) throws TegException { estadoPaises.validarCantidadEjercitos(ejercitosASumar, ejercitosPorFase); }
-    public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPais(paisDefensor); }
+    public boolean tieneElPais(Pais paisDefensor) throws TegException{ return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
 
     public void eliminarPaisEnBatalla() {
         estadoPaises.eliminarPaisEnBatalla();
     }
 
-    public void conquistar(Pais unPais) {
-        this.estadoPaises.reducirEjercitos(unPais, 1);
+    public void conquistar(Pais unPais) throws Exception{
+        Pais paisEnBatalla = this.paisEnBatalla();
+        this.estadoPaises.reducirEjercitos(paisEnBatalla, 1);
         unPais.agregarEjercitos(1);
         this.agregarPais(unPais);
+
     }
 
-    public void matarEjercito(int cantidadEjercitos) throws Exception {
-        this.paisEnBatalla.matarEjercitos(cantidadEjercitos);
+    public void matarEjercito(Pais unPais, int cantidadEjercitos) throws Exception {
+        this.estadoPaises.reducirEjercitos(unPais, cantidadEjercitos);
     }
 
     public Pais paisEnBatalla() {
-        return this.paisEnBatalla;
+        return this.estadoPaises.obtenerPaisEnBatalla();
     }
 
     public boolean esElJugador(String colorJugador) {

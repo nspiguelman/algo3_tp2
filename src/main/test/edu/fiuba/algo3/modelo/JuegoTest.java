@@ -30,7 +30,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void primerFaseAsignarEjercitosAPaisesExitosamente() throws TegException, FileNotFoundException {
+    public void primerFaseAsignarEjercitosAPaisesExitosamente() throws Exception {
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
         coloresJugadores.add("Rojo");
@@ -60,7 +60,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void asignarEjercitosPrimeraRondaTerminaSatisfactoriamente() throws TegException, FileNotFoundException {
+    public void asignarEjercitosPrimeraRondaTerminaSatisfactoriamente() throws Exception, FileNotFoundException {
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
         coloresJugadores.add("Rojo");
@@ -77,7 +77,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void asignarEjercitosADiferentesPaisesPrimeraRondaTerminaSatisfactoriamente() throws TegException, FileNotFoundException {
+    public void asignarEjercitosADiferentesPaisesPrimeraRondaTerminaSatisfactoriamente() throws Exception, FileNotFoundException {
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
         coloresJugadores.add("Rojo");
@@ -97,7 +97,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void asignarEjercitosIncompletosSiguienteFaseFalla() throws TegException, FileNotFoundException {
+    public void asignarEjercitosIncompletosSiguienteFaseFalla() throws Exception, FileNotFoundException {
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
         coloresJugadores.add("Rojo");
@@ -118,7 +118,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void asignarEjercitosDeMasEnPrimeraRondaFalla() throws TegException, FileNotFoundException {
+    public void asignarEjercitosDeMasEnPrimeraRondaFalla() throws Exception, FileNotFoundException {
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
         Juego juego = new Juego(coloresJugadores);
@@ -135,7 +135,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void asignarEjercitosSegundaRondaTerminaSatisfactoriamente() throws TegException, FileNotFoundException {
+    public void asignarEjercitosSegundaRondaTerminaSatisfactoriamente() throws Exception, FileNotFoundException {
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
 
@@ -151,7 +151,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void asignarEjercitosIncompletosEnSegundaRondaFalla() throws TegException, FileNotFoundException {
+    public void asignarEjercitosIncompletosEnSegundaRondaFalla() throws Exception, FileNotFoundException {
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
 
@@ -171,7 +171,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void asignarEjercitosDeMasEnSegundaRondaFalla() throws TegException, FileNotFoundException {
+    public void asignarEjercitosDeMasEnSegundaRondaFalla() throws Exception, FileNotFoundException {
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
         Juego juego = new Juego(coloresJugadores);
@@ -188,7 +188,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void juegoDeUnaRondaCon2JugadoresColocanEjercitosNuevos() throws TegException, FileNotFoundException{
+    public void juegoDeUnaRondaCon2JugadoresColocanEjercitosNuevos() throws Exception, FileNotFoundException{
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
         coloresJugadores.add("Verde");

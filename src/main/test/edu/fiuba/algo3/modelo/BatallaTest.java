@@ -35,8 +35,10 @@ public class BatallaTest {
     public void UnJugadorAtacaYHayPerdidaDeEjercitosConAtacante3DadosDefensa2Dados() throws Exception {
         jugadorUno.agregarPais(argentina);
         jugadorDos.agregarPais(brasil);
+
         jugadorUno.agregarEjercitos(argentina, 10);
-        jugadorUno.agregarEjercitos(brasil, 2);
+        jugadorDos.agregarEjercitos(brasil, 2);
+
         jugadorUno.elegirPais(argentina);
         jugadorDos.elegirPais(brasil);
 

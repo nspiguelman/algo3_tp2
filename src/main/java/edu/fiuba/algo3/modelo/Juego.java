@@ -46,7 +46,7 @@ public class Juego {
         return unJugador.obtenerPaises();
     }
 
-    public void agregarEjercitos(Jugador unJugador, Pais unPais, int cantidadEjercitos) throws TegException {
+    public void agregarEjercitos(Jugador unJugador, Pais unPais, int cantidadEjercitos) throws Exception {
         this.verificarTurno(unJugador);
         this.verificarMovimiento(3); /* necesita tener 3 puntos para agregar ejercitos
                                             1 - atacar 2 - reagrupar 3 - colocar ejercitos */

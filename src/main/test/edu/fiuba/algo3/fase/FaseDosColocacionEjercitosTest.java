@@ -34,7 +34,7 @@ public class FaseDosColocacionEjercitosTest {
     }
 
     @Test
-    public void validarCantidadEjercitosFalla() throws TegException {
+    public void validarCantidadEjercitosFalla() throws Exception {
         FaseDosColocacionEjercitos fase = new FaseDosColocacionEjercitos();
         Jugador jugador = new Jugador("Azul");
         Pais brasil = new Pais("Brasil", "America", "a, b, c");

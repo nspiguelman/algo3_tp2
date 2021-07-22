@@ -59,7 +59,7 @@ public class JugadorTest {
     }
 
     @Test
-    public void validarCantidadEjercitosAAgregarEnFaseUnoExitosamente() throws TegException {
+    public void validarCantidadEjercitosAAgregarEnFaseUnoExitosamente() throws Exception {
         FaseUnoColocacionEjercitos faseUno = new FaseUnoColocacionEjercitos();
         Jugador jugador = new Jugador("Rojo");
         Pais pais = new Pais("Argentina", "America", "a,b");
@@ -70,7 +70,7 @@ public class JugadorTest {
     }
 
     @Test
-    public void validarCantidadEjercitosAAgregarEnFaseUnoFalla() throws TegException {
+    public void validarCantidadEjercitosAAgregarEnFaseUnoFalla() throws Exception {
         FaseUnoColocacionEjercitos faseUno = new FaseUnoColocacionEjercitos();
         Jugador jugador = new Jugador("Rojo");
         Pais pais = new Pais("Argentina", "America", "a,b");
