@@ -59,7 +59,7 @@ public class EstadoPaisesTest {
     }
 
     @Test
-    public void creaUnPaisYALoBorroEjercitosFunciona() {
+    public void creaUnPaisYLoBorroEjercitosFunciona() {
         EstadoPaises estado = new EstadoPaises();
         Pais pais = new Pais("Argentina", "America", "Brasil");
         estado.agregarPais(pais);

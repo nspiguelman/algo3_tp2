@@ -3,21 +3,18 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.estadoPaises.EstadoPaises;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.paises.PaisEnPaz;
-import edu.fiuba.algo3.excepciones.PaisNoPerteneceAJugadorException;
+import edu.fiuba.algo3.excepciones.*;
 
 import java.util.ArrayList;
 
 public class Jugador {
 
-    private Pais paisEnBatalla;
     private String color;
-    private ArrayList<PaisEnPaz> paises;
     private final EstadoPaises estadoPaises;
     private ArrayList<TarjetaPais> tarjetas;
 
     public Jugador(String color) {
         this.estadoPaises = new EstadoPaises();
-        this.paisEnBatalla = null;
         this.color = color;
     }
 
@@ -26,10 +23,7 @@ public class Jugador {
     }
 
     public void elegirPais(Pais unPais) throws Exception {
-        if (!paises.contains(unPais)) {
-            throw new Exception("El atacante no contiene el pais");
-        }
-        this.paisEnBatalla = unPais;
+        this.estadoPaises.elegirPaisEnBatalla(unPais);
     }
 
     public void agregarPais(Pais unPais) { estadoPaises.agregarPais(unPais); }
@@ -39,7 +33,7 @@ public class Jugador {
     private int obtenerCantidadTotalDeEjercitos() { return estadoPaises.obtenerCantidadTotalDeEjercitos();}
     public int obtenerCantidadDeEjercitos(){ return estadoPaises.obtenerCantidadDeEjercitosAgregados(); }
     public int obtenerEjercitosEnBatalla() {
-        return paisEnBatalla.obtenerEjercitos();
+        return estadoPaises.obtenerEjercitosEnBatalla();
     }
 
     public void agregarEjercitos(Pais unPais, int cantidadEjercitos) throws PaisNoPerteneceAJugadorException {
@@ -58,12 +52,12 @@ public class Jugador {
     }
 
     public void conquistar(Pais unPais) {
-        this.paisEnBatalla.reducirEjercitos(1);
+        this.estadoPaises.reducirEjercitos(unPais, 1);
         unPais.agregarEjercitos(1);
         this.agregarPais(unPais);
     }
 
-    public void matarEjercito(int cantidadEjercitos) {
+    public void matarEjercito(int cantidadEjercitos) throws Exception {
         this.paisEnBatalla.matarEjercitos(cantidadEjercitos);
     }
 

@@ -17,7 +17,7 @@ public class Pais {
         this.limitrofes = new ArrayList<>(Arrays.asList(limitaCon.split(",")));
         this.continente = continente;
         this.cantidadEjercitos = 1;
-        this.estadoBelico = new PaisEnPaz();
+        this.estadoBelico = new PaisEnPaz(this);
     }
 
     public String obtenerNombrePais() {
@@ -36,7 +36,7 @@ public class Pais {
         return this.cantidadEjercitos;
     }
 
-    public void limitaCon(PaisEnPaz unPais) throws Exception {
+    public void limitaCon(Pais unPais) throws Exception {
         if (!limitrofes.stream().anyMatch(paisLimitrofe -> paisLimitrofe == unPais.obtenerNombrePais())) {
             throw new Exception("Los paises no son limitrofes");
         }
@@ -60,4 +60,9 @@ public class Pais {
         throw new PaisInvalidoException();
     }
     private boolean esElPais(ArrayList<Pais> paises) { return paises.stream().anyMatch(pais -> pais.obtenerNombrePais() != this.obtenerNombrePais()); }
+
+    public void cambiarEstadoDeBatalla(){
+        this.estadoBelico = this.estadoBelico.cambiarEstadoDeBatalla();
+    }
 }
+

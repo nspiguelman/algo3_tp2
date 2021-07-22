@@ -1,19 +1,18 @@
 package edu.fiuba.algo3.estadoPaises;
 
 import edu.fiuba.algo3.excepciones.*;
-import edu.fiuba.algo3.paises.Pais;
-import edu.fiuba.algo3.paises.PaisEnPaz;
-import edu.fiuba.algo3.paises.PaisEnBatalla;
+import edu.fiuba.algo3.paises.*;
+
 
 import java.util.ArrayList;
 
 public class EstadoPaises {
 
     private final ArrayList<Pais> paises;
-    private final PaisEnBatalla paisEnBatalla;
+    private Pais paisEnBatalla;
 
     public EstadoPaises() {
-        this.paisEnBatalla = new EstadoBatalla();
+        this.paisEnBatalla = null;
         this.paises = new ArrayList<>();
     }
 
@@ -46,17 +45,33 @@ public class EstadoPaises {
         }
     }
 
-    public boolean tieneElPais(Pais unPais) {
-        try {
-            unPais.validarPais(paises);
-            return true;
-        } catch (PaisInvalidoException e) {
-            return false;
+    public boolean tieneElPais(Pais unPais) throws TegException{
+        if (!paises.contains(unPais)){
+            throw new PaisInvalidoException();
         }
+        return true; //refactorizar para eliminar if's
     }
 
     public void eliminarPaisEnBatalla() {
-        paisEnBatalla.finalizarBatalla();
+        paisEnBatalla.cambiarEstadoDeBatalla();
         paises.remove(paisEnBatalla);
+    }
+
+
+    public void elegirPaisEnBatalla(Pais unPais) throws Exception{
+        boolean tieneElPais = this.tieneElPais(unPais);
+        if (!tieneElPais){
+            throw new Exception("El jugador no tiene el pais");
+        }
+        this.paisEnBatalla = unPais;
+        unPais.cambiarEstadoDeBatalla();
+    }
+
+    public int obtenerEjercitosEnBatalla() {
+        return paisEnBatalla.obtenerEjercitos();
+    }
+
+    public void reducirEjercitos(Pais unPais,int ejercitos) {
+        this
     }
 }

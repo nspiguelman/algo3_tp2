@@ -65,7 +65,7 @@ public class JugadorTest {
         Pais pais = new Pais("Argentina", "America", "a,b");
         jugador.agregarPais(pais);
         // Se valida que la cantidad (1) de ejercitos a agregar, sea valida en el entorno de la Fase Uno
-        jugador.validarCantidadEjercitos(1, faseUno.ejercitosPorFase());
+        jugador.validarCantidadEjercitos(1, faseUno.ejercitosPorFase(jugador));
         jugador.agregarEjercitos(pais, 1);
     }
 
@@ -77,7 +77,7 @@ public class JugadorTest {
         jugador.agregarPais(pais);
         jugador.agregarEjercitos(pais, 4);
         Exception exception = assertThrows(ColocarEjercitosException.class, () -> {
-            jugador.validarCantidadEjercitos(2, faseUno.ejercitosPorFase());
+            jugador.validarCantidadEjercitos(2, faseUno.ejercitosPorFase(jugador));
         });
         String expectedMessage = "En la fase actual no es posible tener mas de 5 ejercitos.";
         String actualMessage = exception.getMessage();
