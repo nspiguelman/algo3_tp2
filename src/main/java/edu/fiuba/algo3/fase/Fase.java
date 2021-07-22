@@ -12,7 +12,7 @@ public interface Fase {
     void validarCantidadEjercitos(Jugador unJugador) throws TegException;
 
     int ejercitosPorFase(Jugador unJugador);
-    void siguienteAccion();
+    void siguienteAccion(Jugador unJugador);
     int accionActual();
     void reiniciarAcciones();
 }

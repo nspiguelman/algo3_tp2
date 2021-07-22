@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class FaseDosColocacionEjercitos implements Fase {
     private final int cantidadEjercitosFaseDos;
+    private int accionActual=1;
 
     public FaseDosColocacionEjercitos() { this.cantidadEjercitosFaseDos = 8; }
 
@@ -30,11 +31,12 @@ public class FaseDosColocacionEjercitos implements Fase {
     }
     @Override
     public int ejercitosPorFase(Jugador unJugador) {
-        return cantidadEjercitosFaseDos;
+        unJugador.setearEjercitosMaximos();
+        return 3;
     }
 
     @Override
-    public void siguienteAccion() {
+    public void siguienteAccion(Jugador unJugador) {
 
     }
 

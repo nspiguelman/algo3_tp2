@@ -54,6 +54,10 @@ public class Juego {
         unJugador.agregarEjercitos(unPais, cantidadEjercitos);
     }
 
+    private void verificacionDeEjercitos(Jugador unJugador, int cantidadEjercitos) throws TegException {
+        int cantidadEjercitosPorFase = fase.ejercitosPorFase(unJugador);
+        unJugador.validarCantidadEjercitos(cantidadEjercitos, cantidadEjercitosPorFase);
+    }
     private void verificarMovimiento(int accion) throws TegException {
         if (fase.accionActual() != accion){
             throw new AccionesException(); // seria Numero de movimiento 1 - atacar 2 - reagrupar 3 - colocar ejercitos
@@ -68,12 +72,10 @@ public class Juego {
         }
     }
 
-    private void verificacionDeEjercitos(Jugador unJugador, int cantidadEjercitos) throws TegException {
-        int cantidadEjercitosPorFase = fase.ejercitosPorFase(unJugador);
-        unJugador.validarCantidadEjercitos(cantidadEjercitos, cantidadEjercitosPorFase);
-    }
 
     public void ataqueDeA(Jugador atacante, Jugador defensor) throws Exception {
+        this.verificarTurno(atacante);
+        this.verificarMovimiento(1);
         batalla.batallar(atacante, defensor);
     }
 
@@ -81,8 +83,9 @@ public class Juego {
         fase = fase.siguienteFase(jugadores);
     }
 
-    public void siguienteMovimiento(){
-        fase.siguienteAccion();    // esto para verificar que se realice en el orden ataque-reagrupacion-agregarEjercitos
+    public void siguienteAccion(){
+        Jugador jugadorActual = this.esElTurnoDe();
+        fase.siguienteAccion(jugadorActual);    // esto para verificar que se realice en el orden ataque-reagrupacion-agregarEjercitos
     }
 
     public Jugador esElTurnoDe() {

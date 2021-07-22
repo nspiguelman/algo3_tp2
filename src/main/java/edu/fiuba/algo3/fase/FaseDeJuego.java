@@ -30,15 +30,18 @@ public class FaseDeJuego implements Fase {
     public int ejercitosPorFase(Jugador unJugador) {
         int extras = unJugador.obtenerEjercitosExtraAColocar();
         int cantidadPaisesJugador = unJugador.obtenerPaises().size();
-        if ((cantidadPaisesJugador%2) != 0) {
-            return (cantidadPaisesJugador-1)/2 + 8;
-        }
-        return cantidadPaisesJugador/2 + 8 + extras;
+        int resto;
+        resto = cantidadPaisesJugador%2;
+
+        return (cantidadPaisesJugador-resto/2) + extras;
     }
 
     @Override
-    public void siguienteAccion() {
+    public void siguienteAccion(Jugador unJugador) {
         accionActual++;
+        if (accionActual==3){
+            unJugador.setearEjercitosMaximos();
+        }
     }
 
     @Override

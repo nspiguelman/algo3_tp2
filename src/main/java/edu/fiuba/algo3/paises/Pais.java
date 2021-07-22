@@ -37,7 +37,7 @@ public class Pais {
     }
 
     public boolean limitaCon(Pais unPais) {
-        if (!limitrofes.stream().anyMatch(paisLimitrofe -> paisLimitrofe == unPais.obtenerNombrePais())) {
+        if (!limitrofes.stream().anyMatch(paisLimitrofe -> paisLimitrofe.equals(unPais.obtenerNombrePais()))) {
             return false;
         }
         return true;

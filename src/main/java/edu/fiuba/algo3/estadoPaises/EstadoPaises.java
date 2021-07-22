@@ -38,9 +38,12 @@ public class EstadoPaises {
         unPais.agregarEjercitos(cantidadDeEjercitos);
     }
 
-    public void validarCantidadEjercitos(int ejercitosASumar, int ejercitosPorFase) throws ColocarEjercitosException {
-        int ejercitosDeJugador = this.obtenerCantidadDeEjercitosAgregados() + ejercitosASumar;
-        if (ejercitosDeJugador > ejercitosPorFase) {
+    public void validarCantidadEjercitos(int cantidadEjercitosMaximos, int ejercitosASumar, int ejercitosPorFase) throws ColocarEjercitosException {
+
+        int ejercitosJugador = obtenerCantidadTotalDeEjercitos();
+        int diferencia = cantidadEjercitosMaximos + ejercitosPorFase - ejercitosASumar - ejercitosJugador;
+
+        if (diferencia < 0) {
             throw new ColocarEjercitosException(ejercitosPorFase);
         }
     }
@@ -54,10 +57,14 @@ public class EstadoPaises {
     public void eliminarPaisEnBatalla() {
         paisEnBatalla.cambiarEstadoDeBatalla();
         paises.remove(paisEnBatalla);
+        paisEnBatalla = null;
     }
 
 
     public void elegirPaisEnBatalla(Pais unPais) throws Exception{
+        if (paisEnBatalla!=null){
+            paisEnBatalla.cambiarEstadoDeBatalla();
+        }
         this.tieneElPais(unPais);
         this.paisEnBatalla = unPais;
         unPais.cambiarEstadoDeBatalla();
@@ -84,7 +91,7 @@ public class EstadoPaises {
         int paisesAsiaticos = 0;
         int ejercitosExtra = 0;
         for (int i = 0; i< paises.size(); i++){
-            if (paises.get(i).obtenerNombreContinente() == "Asia"){
+            if (paises.get(i).obtenerNombreContinente().equals("Asia")){
                 paisesAsiaticos += 1;
             }
         }
@@ -96,7 +103,7 @@ public class EstadoPaises {
     public boolean domina(String continente){
         int paisesAsiaticos = 0;
         for (int i = 0; i< paises.size(); i++){
-            if (paises.get(i).obtenerNombreContinente() == "Asia"){
+            if (paises.get(i).obtenerNombreContinente().equals("Asia")){
                 paisesAsiaticos += 1;
             }
         }
@@ -105,4 +112,15 @@ public class EstadoPaises {
         }
         return false;
     }
+
+    public int obtenerPaisesEnAsia() {
+        int paisesAsiaticos = 0;
+        for (int i = 0; i< paises.size(); i++){
+            if (paises.get(i).obtenerNombreContinente().equals("Asia")){
+                paisesAsiaticos += 1;
+            }
+        }
+        return paisesAsiaticos;
+    }
+
 }

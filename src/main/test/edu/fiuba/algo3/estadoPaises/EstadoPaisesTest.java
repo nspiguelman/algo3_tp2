@@ -3,6 +3,8 @@ package edu.fiuba.algo3.estadoPaises;
 import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.PaisInvalidoException;
 import edu.fiuba.algo3.excepciones.TegException;
+import edu.fiuba.algo3.fase.FaseUnoColocacionEjercitos;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.paises.Pais;
 import org.junit.jupiter.api.Test;
 
@@ -50,9 +52,11 @@ public class EstadoPaisesTest {
         EstadoPaises estado = new EstadoPaises();
         Pais pais = new Pais("Argentina", "America", "Brasil");
         estado.agregarPais(pais);
+        FaseUnoColocacionEjercitos fase = new FaseUnoColocacionEjercitos();
+        int cantidadEjercitosPorFase = fase.ejercitosPorFase(new Jugador("Azul"));
 
         Exception exception = assertThrows(ColocarEjercitosException.class, () -> {
-            estado.validarCantidadEjercitos(10, 5);
+            estado.validarCantidadEjercitos(1, 6, cantidadEjercitosPorFase);
         });
         String expectedMessage = "En la fase actual no es posible tener mas de 5 ejercitos.";
         String actualMessage = exception.getMessage();

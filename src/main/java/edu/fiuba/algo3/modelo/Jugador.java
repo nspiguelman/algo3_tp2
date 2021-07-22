@@ -12,6 +12,7 @@ public class Jugador {
     private String color;
     private final EstadoPaises estadoPaises;
     private ArrayList<TarjetaPais> tarjetas;
+    private int ejercitosMaximosPorTurno;
 
     public Jugador(String color) {
         this.estadoPaises = new EstadoPaises();
@@ -24,6 +25,7 @@ public class Jugador {
 
     public void elegirPais(Pais unPais) throws Exception {
         this.estadoPaises.elegirPaisEnBatalla(unPais);
+
     }
 
     public void agregarPais(Pais unPais) { estadoPaises.agregarPais(unPais); }
@@ -44,7 +46,10 @@ public class Jugador {
         }
     }
 
-    public void validarCantidadEjercitos(int ejercitosASumar, int ejercitosPorFase) throws TegException { estadoPaises.validarCantidadEjercitos(ejercitosASumar, ejercitosPorFase); }
+    public void validarCantidadEjercitos(int cantidadASumar, int ejercitosPorFase) throws TegException {
+        estadoPaises.validarCantidadEjercitos(ejercitosMaximosPorTurno, cantidadASumar, ejercitosPorFase);
+    }
+
     public boolean tieneElPais(Pais paisDefensor) throws TegException{ return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
 
     public void eliminarPaisEnBatalla() {
@@ -56,7 +61,6 @@ public class Jugador {
         this.estadoPaises.reducirEjercitos(paisEnBatalla, 1);
         unPais.agregarEjercitos(1);
         this.agregarPais(unPais);
-
     }
 
     public void matarEjercito(Pais unPais, int cantidadEjercitos) throws Exception {
@@ -77,4 +81,19 @@ public class Jugador {
      public boolean domina(String continente){
         return this.estadoPaises.domina(continente);
      }
+
+    public int obtenerPaisesEnAsia() {
+        return this.estadoPaises.obtenerPaisesEnAsia();
+    }
+
+    public void setearEjercitosMaximos() {
+        ejercitosMaximosPorTurno = estadoPaises.obtenerCantidadTotalDeEjercitos();
+    }
 }
+
+
+//           ejercitosMaximos + ejercitosPorFase > ejercitosActuales + cantAsUMAR
+//              28                 14                   28               1
+//              28                 14                   29               1
+///
+//
