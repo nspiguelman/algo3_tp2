@@ -5,7 +5,8 @@ import edu.fiuba.algo3.excepciones.PaisNoPerteneceAJugadorException;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
 import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Pais;
+import edu.fiuba.algo3.paises.Pais;
+import edu.fiuba.algo3.paises.PaisEnPaz;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 

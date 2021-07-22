@@ -10,8 +10,9 @@ import java.util.ArrayList;
 public interface Fase {
     Fase siguienteFase(ArrayList<Jugador> jugadores) throws TegException;
     void validarCantidadEjercitos(Jugador unJugador) throws TegException;
-    int ejercitosPorFase();
-    void siguienteMovimiento();
-    int movimientoActual();
-    void reiniciarMovimientos();
+
+    int ejercitosPorFase(Jugador unJugador);
+    void siguienteAccion();
+    int accionActual();
+    void reiniciarAcciones();
 }

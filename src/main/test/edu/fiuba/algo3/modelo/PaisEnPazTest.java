@@ -1,16 +1,15 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.excepciones.TegException;
-import edu.fiuba.algo3.fase.FaseUnoColocacionEjercitos;
+import edu.fiuba.algo3.paises.PaisEnPaz;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PaisTest {
+public class PaisEnPazTest {
     @Test
     public void inicioUnPaisConNombreContinenteYLimitrofes() {
-        Pais pais = new Pais("Argentina", "America", "a,b,c");
+        PaisEnPaz pais = new PaisEnPaz("Argentina", "America", "a,b,c");
         assertEquals(pais.obtenerEjercitos(), 1);
         assertEquals(pais.obtenerNombrePais(), "Argentina");
         assertEquals(pais.obtenerNombreContinente(), "America");
@@ -22,7 +21,7 @@ public class PaisTest {
 
     @Test
     public void inicioUnPaisConNombreContinenteYLimitrofe() {
-        Pais pais = new Pais("Argentina", "America", "a");
+        PaisEnPaz pais = new PaisEnPaz("Argentina", "America", "a");
         assertEquals(pais.obtenerEjercitos(), 1);
         assertEquals(pais.obtenerNombrePais(), "Argentina");
         assertEquals(pais.obtenerNombreContinente(), "America");

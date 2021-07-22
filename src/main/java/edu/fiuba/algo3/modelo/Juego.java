@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.excepciones.*;
 import edu.fiuba.algo3.fase.Fase;
 import edu.fiuba.algo3.fase.FaseUnoColocacionEjercitos;
+import edu.fiuba.algo3.paises.Pais;
+import edu.fiuba.algo3.paises.PaisEnPaz;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class Juego {
     }
 
     public void siguienteTurno(){
-        fase.reiniciarMovimientos();
+        fase.reiniciarAcciones();
         turno.pasarTurno();
     }
 
@@ -53,7 +55,7 @@ public class Juego {
     }
 
     private void verificarMovimiento(int accion) throws TegException {
-        if (fase.movimientoActual() != accion){
+        if (fase.accionActual() != accion){
             throw new AccionesException(); // seria Numero de movimiento 1 - atacar 2 - reagrupar 3 - colocar ejercitos
         }
     }
@@ -67,7 +69,7 @@ public class Juego {
     }
 
     private void verificacionDeEjercitos(Jugador unJugador, int cantidadEjercitos) throws TegException {
-        int cantidadEjercitosPorFase = fase.ejercitosPorFase();
+        int cantidadEjercitosPorFase = fase.ejercitosPorFase(unJugador);
         unJugador.validarCantidadEjercitos(cantidadEjercitos, cantidadEjercitosPorFase);
     }
 
@@ -80,7 +82,7 @@ public class Juego {
     }
 
     public void siguienteMovimiento(){
-        fase.siguienteMovimiento();    // esto para verificar que se realice en el orden ataque-reagrupacion-agregarEjercitos
+        fase.siguienteAccion();    // esto para verificar que se realice en el orden ataque-reagrupacion-agregarEjercitos
     }
 
     public Jugador esElTurnoDe() {

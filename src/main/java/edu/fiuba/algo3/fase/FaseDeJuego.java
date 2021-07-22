@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.fase;
 
-import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
 import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
@@ -8,7 +7,7 @@ import edu.fiuba.algo3.modelo.Jugador;
 import java.util.ArrayList;
 
 public class FaseDeJuego implements Fase {
-    private int movimientoActual = 1;
+    private int accionActual = 1; // 1 - Ataque... 2 - Reagrupar.... 3 - Colocar Ejercitos
 
     public FaseDeJuego() {}
 
@@ -28,21 +27,25 @@ public class FaseDeJuego implements Fase {
     }
 
     @Override
-    public int ejercitosPorFase() {
-        return 20;
+    public int ejercitosPorFase(Jugador unJugador) {
+        int cantidadPaisesJugador = unJugador.obtenerPaises().size();
+        if ((cantidadPaisesJugador%2) != 0) {
+            return (cantidadPaisesJugador-1)/2;
+        }
+        return cantidadPaisesJugador/2;
     }
 
     @Override
-    public void siguienteMovimiento() {
-        movimientoActual++;
+    public void siguienteAccion() {
+        accionActual++;
     }
 
     @Override
-    public int movimientoActual() {
-        return movimientoActual;
+    public int accionActual() {
+        return accionActual;
     }
     @Override
-    public void reiniciarMovimientos(){
-        movimientoActual = 1;
+    public void reiniciarAcciones(){
+        accionActual = 1;
     }
 }

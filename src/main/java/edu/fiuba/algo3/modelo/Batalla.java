@@ -17,7 +17,7 @@ public class Batalla {
 
         if (defensor.obtenerEjercitosEnBatalla() == 0) {
             atacante.conquistar(defensor.paisEnBatalla());
-            defensor.eliminarPais();
+            defensor.eliminarPaisEnBatalla();
         }
     }
 }

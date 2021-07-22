@@ -1,11 +1,10 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.paises;
 
 import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 

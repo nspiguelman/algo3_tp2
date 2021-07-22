@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.excepciones.*;
+import edu.fiuba.algo3.paises.Pais;
+import edu.fiuba.algo3.paises.PaisEnPaz;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -213,8 +215,7 @@ public class JuegoTest {
             juego.siguienteTurno();
         }
         juego.siguienteFase();
-        // FULL TDD. Verificar la cantidad de ejercitos en Fase de Juego,
-        //        debe ser paises.size() / 2, para cada jugador, y que el jugador los agregue correctamente
+
         for(int i=0; i<2; i++)
         {
             Jugador jugadorActual = jugadores.get(i%2);
