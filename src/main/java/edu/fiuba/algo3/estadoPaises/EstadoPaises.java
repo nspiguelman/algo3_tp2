@@ -79,4 +79,30 @@ public class EstadoPaises {
     public boolean tieneElPaisARREGLAR(Pais paisDefensor) {
         return paises.contains(paisDefensor);
     }
+
+    public int obtenerEjercitosExtraAColocar(){
+        int paisesAsiaticos = 0;
+        int ejercitosExtra = 0;
+        for (int i = 0; i< paises.size(); i++){
+            if (paises.get(i).obtenerNombreContinente() == "Asia"){
+                paisesAsiaticos += 1;
+            }
+        }
+        if (paisesAsiaticos == 15){
+            ejercitosExtra = 7;
+        }
+        return ejercitosExtra;
+    }
+    public boolean domina(String continente){
+        int paisesAsiaticos = 0;
+        for (int i = 0; i< paises.size(); i++){
+            if (paises.get(i).obtenerNombreContinente() == "Asia"){
+                paisesAsiaticos += 1;
+            }
+        }
+        if (paisesAsiaticos == 15){
+            return true ;
+        }
+        return false;
+    }
 }

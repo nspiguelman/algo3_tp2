@@ -228,4 +228,120 @@ public class JuegoTest {
             juego.siguienteTurno();
         }
     }
+    @Test
+    public void juegoDeUnaRondaCon2JugadoresJugadorUnoAtacaYConquista2PaisesDelJugadorDos() throws Exception, FileNotFoundException {
+        ArrayList<String> coloresJugadores = new ArrayList<>();
+        coloresJugadores.add("Azul");
+        coloresJugadores.add("Verde");
+        Juego juego = new Juego(coloresJugadores);
+
+        ArrayList<Jugador> jugadores = juego.obtenerJugadores();
+        int faseDeColocacion = 0;
+        int totalEjercitos = 5;
+        // Colocacion de ejercitos fases 1 y 2
+        for (int i = 0; i < 4; i++) {
+            Jugador jugadorActual = jugadores.get(i % 2);
+            if (faseDeColocacion > 1) {
+                totalEjercitos = 3;
+            }
+            ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
+            for (int m = 0; m < totalEjercitos; m++) {
+                Pais paisDeJugador = paises.get(m);
+                juego.agregarEjercitos(jugadorActual, paisDeJugador, 1);
+            }
+            faseDeColocacion++;
+            if (faseDeColocacion == 2) {
+                juego.siguienteFase();
+            }
+            juego.siguienteTurno();
+        }
+        juego.siguienteFase();
+
+        Jugador jugadorUno = jugadores.get(0);
+        Jugador jugadorDos = jugadores.get(1);
+        ArrayList<Pais> paisesUno = juego.obtenerPaisesDeJugador(jugadorUno);
+        ArrayList<Pais> paisesDos = juego.obtenerPaisesDeJugador(jugadorDos);
+
+        for (int i = 0; i < 2; i++) {
+            Pais paisActualJugadorUno = paisesUno.get(i);
+            int contador = 0;
+            Pais paisActualJugadorDos = paisesDos.get(contador);
+            boolean frenar = false;
+            while (contador < paisesUno.size() && !frenar) {
+                paisActualJugadorUno = paisesUno.get(contador);
+                int contador2 = 0;
+                while (!paisActualJugadorUno.limitaCon(paisActualJugadorDos)) {
+                    contador2++;
+                    if (contador2 < paisesDos.size()) {
+                        paisActualJugadorDos = paisesDos.get(contador2);
+                    } else {
+                        break;
+                    }
+
+                    if (paisActualJugadorUno.limitaCon(paisActualJugadorDos)) {
+                        frenar = true;
+                    } else {
+                        if (contador == 23) {
+                            frenar = true;
+                        }
+                    }
+                    contador++;
+
+
+                }
+            }
+            jugadorUno.elegirPais(paisActualJugadorUno);
+            paisActualJugadorUno.agregarEjercitos(10);
+            jugadorDos.elegirPais(paisActualJugadorDos);
+            while (!jugadorUno.tieneElPais(paisActualJugadorDos)) {
+                juego.ataqueDeA(jugadorUno, jugadorDos);
+            }
+        }
+    }
+    @Test
+    public void JuegoDeUnaRondaCon3JugadoresEl2ControlaAsiaColocanNuevosEjercitos() throws Exception, FileNotFoundException {
+        ArrayList<String> coloresJugadores = new ArrayList<>();
+        coloresJugadores.add("Azul");
+        coloresJugadores.add("Verde");
+        coloresJugadores.add("Rojo");
+        Juego juego = new Juego(coloresJugadores);
+
+        ArrayList<Jugador> jugadores = juego.obtenerJugadores();
+        int faseDeColocacion = 0;
+        int totalEjercitos = 5;
+        // Colocacion de ejercitos fases 1 y 2
+        for (int i = 0; i < 6; i++) {
+            Jugador jugadorActual = jugadores.get(i % 3);
+            if (faseDeColocacion > 1) {
+                totalEjercitos = 3;
+            }
+            ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
+            for (int m = 0; m < totalEjercitos; m++) {
+                Pais paisDeJugador = paises.get(m);
+                juego.agregarEjercitos(jugadorActual, paisDeJugador, 1);
+            }
+            faseDeColocacion++;
+            if (faseDeColocacion == 2) {
+                juego.siguienteFase();
+            }
+            juego.siguienteTurno();
+        }
+        juego.siguienteFase();
+
+        Jugador jugadorUno = jugadores.get(0);
+        Jugador jugadorDos = jugadores.get(1);
+        Jugador jugadorTres = jugadores.get(2);
+        ArrayList<Pais> paisesUno = juego.obtenerPaisesDeJugador(jugadorUno);
+        ArrayList<Pais> paisesDos = juego.obtenerPaisesDeJugador(jugadorDos);
+        ArrayList<Pais> paisesTres = juego.obtenerPaisesDeJugador(jugadorDos);
+        boolean parada = false;
+        int contador =0;
+
+        while(jugadorDos.domina("Asia")){
+
+            for (int i = 0; i < paisesDos.size(); i++){
+                if()
+            }
+        }
+    }
 }

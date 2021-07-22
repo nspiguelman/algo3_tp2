@@ -70,4 +70,11 @@ public class Jugador {
     public boolean esElJugador(String colorJugador) {
         return this.color.equals(colorJugador);
     }
+
+    public int obtenerEjercitosExtraAColocar(){
+        return this.estadoPaises.obtenerEjercitosExtraAColocar();
+    }
+     public boolean domina(String continente){
+        return this.estadoPaises.domina(continente);
+     }
 }

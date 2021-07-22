@@ -36,10 +36,11 @@ public class Pais {
         return this.cantidadEjercitos;
     }
 
-    public void limitaCon(Pais unPais) throws Exception {
+    public boolean limitaCon(Pais unPais) {
         if (!limitrofes.stream().anyMatch(paisLimitrofe -> paisLimitrofe == unPais.obtenerNombrePais())) {
-            throw new Exception("Los paises no son limitrofes");
+            return false;
         }
+        return true;
     }
 
     public void trasferirEjercito(int cantidadEjercitos) {

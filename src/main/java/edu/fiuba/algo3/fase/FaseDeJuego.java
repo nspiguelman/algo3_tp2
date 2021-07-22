@@ -28,11 +28,12 @@ public class FaseDeJuego implements Fase {
 
     @Override
     public int ejercitosPorFase(Jugador unJugador) {
+        int extras = unJugador.obtenerEjercitosExtraAColocar();
         int cantidadPaisesJugador = unJugador.obtenerPaises().size();
         if ((cantidadPaisesJugador%2) != 0) {
             return (cantidadPaisesJugador-1)/2 + 8;
         }
-        return cantidadPaisesJugador/2 + 8;
+        return cantidadPaisesJugador/2 + 8 + extras;
     }
 
     @Override
