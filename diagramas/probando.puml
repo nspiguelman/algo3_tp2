@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class Juego{
+    atacar()
+    reagrupar()
+    agregarEjercitos()
+}
+interface Validacion
+class ValidacionFaseUno
+class ValidacionFaseDos
+class ValidacionFaseDeJuego
+
+Validacion <|.. ValidacionFaseUno
+Validacion <|.. ValidacionFaseDos
+Validacion <|.. ValidacionFaseDeJuego
+
+
+Juego ..|> Validacion
+
+
+@enduml

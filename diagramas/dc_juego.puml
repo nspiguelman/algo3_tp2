@@ -1,27 +1,72 @@
 @startuml
-'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
+class Juego {
 
-class ArrayList {
-Object[] elementData
-size()
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class Tablero {
+
 }
+
+class Batalla {
+
+}
+
+class TarjetaPais{
+
+}
+class Turno {
+
+}
+
+class Dados{
+
+}
+
+class Jugador{
+
+}
+class Pais{
+
+}
+abstract EstadoBelico{
+
+}
+
+class PaisEnPaz extends EstadoBelico{
+
+}
+class PaisEnBatalla extends EstadoBelico{
+
+}
+
+interface Fase{
+
+}
+class EstadoPais{
+
+}
+
+
+
+Juego *-> Tablero
+Juego *-left-> Batalla
+Juego *-left-> Fase
+Juego *--> Turno
+
+Juego o-->"2...n" Jugador
+Batalla o->"2" Jugador
+Jugador *--> EstadoPais
+EstadoPais o--> "0...50" Pais
+Pais *--> EstadoBelico
+Jugador o--> "0...n" TarjetaPais
+Batalla -.-> Dados
+Tablero *-> TarjetaPais
+Tablero -.-> Jugador
+Tablero *-> Pais
+
+
 
 @enduml

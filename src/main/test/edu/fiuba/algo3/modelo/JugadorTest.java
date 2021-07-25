@@ -1,8 +1,9 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.excepciones.CantidadDeEjercitosInvalida;
+import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.fase.FaseUnoColocacionEjercitos;
+import edu.fiuba.algo3.paises.Pais;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class JugadorTest {
         Jugador jugador = new Jugador("Rojo");
         Pais pais = new Pais("Argentina", "America", "a,b");
         jugador.agregarPais(pais);
-        jugador.agregarEjercitos(pais, 1, new FaseUnoColocacionEjercitos());
+        jugador.agregarEjercitos(pais, 1);
         jugador.elegirPais(pais);
         assertEquals(jugador.obtenerEjercitosEnBatalla(), 2);
     }
@@ -49,7 +50,7 @@ public class JugadorTest {
         jugadorDos.agregarPais(paisJugadorDos);
 
         Exception exception = assertThrows(Exception.class, () -> {
-            jugadorUno.agregarEjercitos(paisJugadorDos, 1, new FaseUnoColocacionEjercitos());
+            jugadorUno.agregarEjercitos(paisJugadorDos, 1);
         });
 
         String expectedMessage = "pais2 no pertenece al jugador: Rojo";
@@ -58,36 +59,31 @@ public class JugadorTest {
     }
 
     @Test
-    public void agregarEjercitosEnFaseUnoExitoso() throws TegException {
+    public void validarCantidadEjercitosAAgregarEnFaseUnoExitosamente() throws Exception {
         FaseUnoColocacionEjercitos faseUno = new FaseUnoColocacionEjercitos();
         Jugador jugador = new Jugador("Rojo");
-        Pais pais = new Pais("pais1", "continente", "pais2");
+        Pais pais = new Pais("Argentina", "America", "a,b");
         jugador.agregarPais(pais);
-        jugador.agregarEjercitos(pais, 1, faseUno);
+        // Se valida que la cantidad (1) de ejercitos a agregar, sea valida en el entorno de la Fase Uno
+        jugador.validarCantidadEjercitos(1, faseUno.ejercitosPorFase(jugador));
+        jugador.agregarEjercitos(pais, 1);
     }
 
     @Test
-    public void validarCantidadEjercitosExitosamente() throws TegException {
+    public void validarCantidadEjercitosAAgregarEnFaseUnoFalla() throws Exception {
+        FaseUnoColocacionEjercitos faseUno = new FaseUnoColocacionEjercitos();
         Jugador jugador = new Jugador("Rojo");
         Pais pais = new Pais("Argentina", "America", "a,b");
         jugador.agregarPais(pais);
-        jugador.agregarEjercitos(pais, 1, new FaseUnoColocacionEjercitos());
-        jugador.validarCantidadEjercitos(1);
+        jugador.agregarEjercitos(pais, 4);
+        //Exception exception = assertThrows(ColocarEjercitosException.class, () -> {
+          //  jugador.validarCantidadEjercitos(2, faseUno.ejercitosPorFase(jugador));
+        //});
+        //String expectedMessage = "En la fase actual no es posible tener mas de 5 ejercitos.";
+        //String actualMessage = exception.getMessage();
+        //assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    @Test
-    public void validarCantidadEjercitosFalla() throws TegException {
-        Jugador jugador = new Jugador("Rojo");
-        Pais pais = new Pais("Argentina", "America", "a,b");
-        jugador.agregarPais(pais);
-        jugador.agregarEjercitos(pais, 1, new FaseUnoColocacionEjercitos());
-        Exception exception = assertThrows(CantidadDeEjercitosInvalida.class, () -> {
-            jugador.validarCantidadEjercitos(5);
-        });
-        String expectedMessage = "El jugador deberia tener 5 ejercitos. Debe agregar 4 ejercitos para poder continuar.";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
+    // FALTA AGREGAR TEST DE VALIDACIONES PARA FASE DOS EXITOSO, Y FASE DOS FALLA
 
 }

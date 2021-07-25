@@ -5,12 +5,17 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Random;
 import com.google.gson.stream.JsonReader;
+import edu.fiuba.algo3.paises.Pais;
+import edu.fiuba.algo3.paises.PaisEnPaz;
+import edu.fiuba.algo3.paises.PaisDeserializer;
+import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.excepciones.*;
 
 public class Tablero {
     private final int CANTIDAD_DE_PAISES = 49;
 
-    private ArrayList<Pais> paises;
     private ArrayList<TarjetaPais> tarjetasPaises;
+    private ArrayList<Pais> paises;
 
     public Tablero(ArrayList<Jugador> jugadores) throws FileNotFoundException {
         this.inicializarPaises();
