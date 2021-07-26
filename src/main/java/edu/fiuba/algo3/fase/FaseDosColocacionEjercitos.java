@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.fase;
 
+import edu.fiuba.algo3.acciones.*;
 import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
 import edu.fiuba.algo3.excepciones.TegException;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 public class FaseDosColocacionEjercitos implements Fase {
     private final int cantidadEjercitosFaseDos;
-    private int accionActual=1;
+    private Accion accionActual= new Colocar();
 
     public FaseDosColocacionEjercitos() { this.cantidadEjercitosFaseDos = 8; }
 
@@ -42,11 +43,11 @@ public class FaseDosColocacionEjercitos implements Fase {
 
     @Override
     public int accionActual() {
-        return 3;
+        return accionActual.numeroAccion();
     }
 
     @Override
-    public void reiniciarAcciones(){
+    public void reiniciarAcciones() {
 
     }
 }

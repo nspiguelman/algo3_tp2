@@ -54,6 +54,12 @@ public class Juego {
         unJugador.agregarEjercitos(unPais, cantidadEjercitos);
     }
 
+    public void reagrupar(Jugador unJugador, Pais unPais, Pais otroPais, int cantidadEjercitos) throws TegException{
+        this.verificarTurno(unJugador);
+        this.verificarMovimiento(2);
+        unJugador.reagrupar(unPais, otroPais, cantidadEjercitos);
+    }
+
     private void verificacionDeEjercitos(Jugador unJugador, int cantidadEjercitos) throws TegException {
         int cantidadEjercitosPorFase = fase.ejercitosPorFase(unJugador);
         unJugador.validarCantidadEjercitos(cantidadEjercitos, cantidadEjercitosPorFase);

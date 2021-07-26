@@ -56,9 +56,10 @@ public class Pais {
         this.cantidadEjercitos = this.cantidadEjercitos - cantidadEjercitos;
     }
 
-    public void validarPais (ArrayList<Pais> paises) throws PaisInvalidoException {
-        if (!esElPais(paises)) return;
-        throw new PaisInvalidoException();
+    public void tieneLosEjercitos(int cantidadEjercitos) throws TegException {
+        if (this.cantidadEjercitos <= cantidadEjercitos) {
+            throw new CantidadEjercitosInsuficientesException();
+        }
     }
     private boolean esElPais(ArrayList<Pais> paises) { return paises.stream().anyMatch(pais -> pais.obtenerNombrePais() != this.obtenerNombrePais()); }
 

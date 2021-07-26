@@ -40,13 +40,15 @@ public class EstadoPaises {
 
     public void validarCantidadEjercitos(int cantidadEjercitosMaximos, int ejercitosASumar, int ejercitosPorFase) throws ColocarEjercitosException {
 
-        int ejercitosJugador = obtenerCantidadTotalDeEjercitos();
+        int ejercitosJugador = this.obtenerCantidadTotalDeEjercitos();
         int diferencia = cantidadEjercitosMaximos + ejercitosPorFase - ejercitosASumar - ejercitosJugador;
 
         if (diferencia < 0) {
             throw new ColocarEjercitosException(ejercitosPorFase);
         }
     }
+
+
 
     public void tieneElPais(Pais unPais) throws TegException{
         if (!paises.contains(unPais)){
@@ -88,39 +90,47 @@ public class EstadoPaises {
     }
 
     public int obtenerEjercitosExtraAColocar(){
-        int paisesAsiaticos = 0;
         int ejercitosExtra = 0;
-        for (int i = 0; i< paises.size(); i++){
-            if (paises.get(i).obtenerNombreContinente().equals("Asia")){
-                paisesAsiaticos += 1;
-            }
+        if (this.domina("Asia", 15)){
+            ejercitosExtra += 7;
         }
-        if (paisesAsiaticos == 15){
-            ejercitosExtra = 7;
+        if(this.domina("Europa", 8)){
+            ejercitosExtra += 5;
+        }
+        if(this.domina("America del Norte", 11)){
+            ejercitosExtra += 5;
+        }
+        if(this.domina("America del Sur", 6)){
+            ejercitosExtra += 3;
+        }
+        if(this.domina("Africa", 6)){
+            ejercitosExtra += 3;
+        }
+        if(this.domina("Oceania", 4)){
+            ejercitosExtra += 2;
         }
         return ejercitosExtra;
     }
-    public boolean domina(String continente){
-        int paisesAsiaticos = 0;
+
+    public boolean domina(String continente, int paisesParaDominar){
+        int paisesDominados = 0;
         for (int i = 0; i< paises.size(); i++){
-            if (paises.get(i).obtenerNombreContinente().equals("Asia")){
-                paisesAsiaticos += 1;
+            if (paises.get(i).obtenerNombreContinente().equals(continente)){
+                paisesDominados += 1;
             }
         }
-        if (paisesAsiaticos == 15){
+        if (paisesDominados == paisesParaDominar){
             return true ;
         }
         return false;
     }
 
-    public int obtenerPaisesEnAsia() {
-        int paisesAsiaticos = 0;
-        for (int i = 0; i< paises.size(); i++){
-            if (paises.get(i).obtenerNombreContinente().equals("Asia")){
-                paisesAsiaticos += 1;
-            }
-        }
-        return paisesAsiaticos;
+    public void reagrupar(Pais unPais, Pais otroPais, int cantidadEjercitos) throws TegException{
+        this.tieneElPais(unPais);
+        this.tieneElPais(otroPais);
+        unPais.tieneLosEjercitos(cantidadEjercitos);
+        unPais.reducirEjercitos(cantidadEjercitos);
+        otroPais.agregarEjercitos(cantidadEjercitos);
     }
-
 }
+

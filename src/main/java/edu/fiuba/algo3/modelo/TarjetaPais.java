@@ -8,4 +8,10 @@ public class TarjetaPais {
         this.nombre = nombrePais;
         this.simbolo = unSimbolo;
     }
+
+    public String obtenerSimbolo() {
+        return this.simbolo;
+    }
+
+
 }

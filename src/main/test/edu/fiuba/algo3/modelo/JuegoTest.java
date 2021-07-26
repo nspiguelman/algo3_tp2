@@ -352,7 +352,7 @@ public class JuegoTest {
                     Pais paisActualUno = paisesUno.get(i);
                     if (paisActualDos.limitaCon(paisActualUno) && paisActualUno.obtenerNombreContinente().equals("Asia")){
                         paisesDeAtaque.add(paisActualDos);
-                        paisActualDos.agregarEjercitos(10);
+                        paisActualDos.agregarEjercitos(100);
                         jugadorUno.elegirPais(paisActualUno);
                         while (!jugadorDos.tieneElPais(paisActualUno)){
                             juego.ataqueDeA(jugadorDos, jugadorUno);
@@ -365,7 +365,7 @@ public class JuegoTest {
 
                     if (paisActualDos.limitaCon(paisActualTres) && paisActualTres.obtenerNombreContinente().equals("Asia")){
                         paisesDeAtaque.add(paisActualDos);
-                        paisActualDos.agregarEjercitos(10);
+                        paisActualDos.agregarEjercitos(100);
                         jugadorTres.elegirPais(paisActualTres);
                         while (!jugadorDos.tieneElPais(paisActualTres)){
                             juego.ataqueDeA(jugadorDos, jugadorTres);
@@ -407,7 +407,7 @@ public class JuegoTest {
 
         int restoDos = jugadorDos.obtenerPaises().size() % 2;
         int cantidadPaisesJugadorDos = (jugadorDos.obtenerPaises().size() - restoDos)/ 2;
-        juego.agregarEjercitos(jugadorDos, paisesDos.get(10), cantidadPaisesJugadorDos + 8);
+        juego.agregarEjercitos(jugadorDos, paisesDos.get(10), cantidadPaisesJugadorDos+7);
 
         juego.siguienteTurno();
         juego.siguienteAccion();
@@ -416,6 +416,5 @@ public class JuegoTest {
         int restoTres = jugadorTres.obtenerPaises().size() % 2;
         int cantidadPaisesJugadorTres = (jugadorTres.obtenerPaises().size() - restoTres)/ 2;
         juego.agregarEjercitos(jugadorTres, paisesTres.get(3), cantidadPaisesJugadorTres);
-
     }
 }

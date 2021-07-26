@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.fase;
 
+import edu.fiuba.algo3.acciones.Accion;
+import edu.fiuba.algo3.acciones.Colocar;
 import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
 import edu.fiuba.algo3.modelo.Jugador;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 
 public class FaseUnoColocacionEjercitos implements Fase {
     private final int cantidadEjercitosFaseUno;
-    private int accionActual=1;
+    private Accion accionActual= new Colocar();
 
 
     public FaseUnoColocacionEjercitos() {
@@ -44,11 +46,11 @@ public class FaseUnoColocacionEjercitos implements Fase {
     }
     @Override
     public int accionActual(){
-        return 3;
-    }
+        return accionActual.numeroAccion();
+    };
 
     @Override
-    public void reiniciarAcciones(){
+    public void reiniciarAcciones() {
 
     }
 
