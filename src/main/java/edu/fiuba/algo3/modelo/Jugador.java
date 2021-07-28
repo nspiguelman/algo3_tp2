@@ -97,4 +97,8 @@ public class Jugador {
     public boolean cumplioObjetivos() {
         return (estadoPaises.obtenerPaises().size() == 30);
     }
+
+    public boolean domina(String continente, int paisesParaDominar){
+        return this.estadoPaises.domina(continente, paisesParaDominar);
+    }
 }
