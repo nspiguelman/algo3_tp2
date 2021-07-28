@@ -1,7 +1,6 @@
 package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.controladores.BotonIniciarEventHandler;
-import edu.fiuba.algo3.vista.ContenedorEntrada;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
