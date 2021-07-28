@@ -35,7 +35,19 @@ public class Juego {
 
     public void siguienteTurno(){
         fase.reiniciarAcciones();
-        turno.pasarTurno();
+        if (!this.verificarObjetivos())
+        {
+            turno.pasarTurno();
+        }
+    }
+
+    private boolean verificarObjetivos() {
+        Jugador jugadorActual = turno.turnoActual();
+        if (!jugadorActual.cumplioObjetivos())
+        {
+            return false;
+        }
+        return true;
     }
 
     public ArrayList<Jugador> obtenerJugadores() {

@@ -93,4 +93,8 @@ public class Jugador {
     public void reagrupar(Pais unPais, Pais otroPais, int cantidadEjercitos) throws TegException{
         this.estadoPaises.reagrupar(unPais, otroPais, cantidadEjercitos);
     }
+
+    public boolean cumplioObjetivos() {
+        return (estadoPaises.obtenerPaises().size() == 30);
+    }
 }
