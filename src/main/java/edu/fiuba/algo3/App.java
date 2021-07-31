@@ -30,10 +30,10 @@ public class App extends Application {
 
         stage.setTitle("TEG");
 
-        ContenedorEntrada contenedorEntrada = new ContenedorEntrada();
+        ContenedorEntrada contenedorEntrada = new ContenedorEntrada(stage);
 
         VBox contenedorPrincipal = contenedorEntrada.obtenerContenedorEntrada();
-        Scene escenaJuego = new Scene(contenedorPrincipal, 800, 600);
+        Scene escenaJuego = new Scene(contenedorPrincipal, 1024, 768);
         stage.setScene(escenaJuego);
         stage.show();
 

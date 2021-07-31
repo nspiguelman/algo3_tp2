@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controladores.BotonIniciarEventHandler;
+import edu.fiuba.algo3.excepciones.TegException;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
@@ -10,18 +11,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
+import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
 
 public class ContenedorEntrada {
     private VBox contenedorEntrada;
     private int botonCordX = 200;
     private int botonCordY = 400;
 
-    public ContenedorEntrada() {
-        StackPane layout = new StackPane();
-        layout.setStyle("-fx-background-color: #FFECB9");
-
+    public ContenedorEntrada(Stage stage) throws FileNotFoundException, TegException {
+        //StackPane layout = new Stac
         Image imagen = new Image("file:src/main/java/edu/fiuba/algo3/imagenes/teg.jpeg");
-        BackgroundPosition backgroundImagePosition = new BackgroundPosition(null, 300,false,null, 20, false);
+        BackgroundPosition backgroundImagePosition = new BackgroundPosition(null, 410,false,null, 20, false);
 
         BackgroundImage imagenDeFondo = new BackgroundImage(imagen, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, backgroundImagePosition, BackgroundSize.DEFAULT);
         //final ImageView imagenVista = new ImageView(imagen);
@@ -66,17 +68,19 @@ public class ContenedorEntrada {
                 jugadorVerde.isSelected(),
                 jugadorNaranja.isSelected(),
                 jugadorNegro.isSelected(),
-                jugadorRosa.isSelected()
+                jugadorRosa.isSelected(),
+                stage
         );
         //botonIniciar.setOnAction(handler);
         HBox contenedorHorizontal = new HBox(botonIniciar);
+        contenedorHorizontal.setBackground(new Background(imagenDeFondo));
 
-        VBox contenedorPrincipal = new VBox(jugadorAzul, jugadorRojo, jugadorVerde, jugadorNaranja, jugadorNegro, jugadorRosa, contenedorHorizontal, etiqueta);
+        VBox contenedorPrincipal = new VBox(contenedorHorizontal, botonIniciar, jugadorAzul, jugadorRojo, jugadorVerde, jugadorNaranja, jugadorNegro, jugadorRosa, etiqueta);
 
         contenedorPrincipal.setAlignment(Pos.CENTER);
         contenedorPrincipal.setSpacing(20);
         contenedorPrincipal.setPadding(new Insets(25));
-        contenedorPrincipal.setBackground(new Background(imagenDeFondo));
+        contenedorPrincipal.setStyle("-fx-background-color: #b18151");
 
         this.contenedorEntrada = contenedorPrincipal;
     }
