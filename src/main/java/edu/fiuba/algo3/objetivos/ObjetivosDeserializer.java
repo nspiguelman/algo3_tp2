@@ -12,14 +12,16 @@ public class ObjetivosDeserializer {
     private JsonReader reader;
 
     @SerializedName("Descripcion") private String descripcion;
-    @SerializedName("Continentes") private ArrayList<ObjetivoContinente> continentes;
+    @SerializedName("Objetivo") private ArrayList<TipoObjetivoDeserializer> objetivo;
+    @SerializedName("Tipo") private String tipo;
 
     public ObjetivosDeserializer(JsonReader reader) {
         this.reader = reader;
     }
 
     private String obtenerDescripcion() { return descripcion; }
-    private ArrayList<ObjetivoContinente> obtenerContinentes() { return continentes; }
+    private ArrayList<TipoObjetivoDeserializer> obtenerObjetivo() { return objetivo; }
+    private String obtenerTipo() { return tipo; }
 
     public ArrayList<Objetivo> getObjetivos() {
         ArrayList<Objetivo> objetivosADevolver = new ArrayList<>();
@@ -27,7 +29,7 @@ public class ObjetivosDeserializer {
         Gson gson = new Gson();
         ArrayList<ObjetivosDeserializer> objetivos = gson.fromJson(reader, userListType);
         for (ObjetivosDeserializer objetivo : objetivos) {
-            objetivosADevolver.add(new Objetivo(objetivo.obtenerDescripcion(), objetivo.obtenerContinentes()));
+            objetivosADevolver.add(new Objetivo(objetivo.obtenerDescripcion(), objetivo.obtenerTipo(), objetivo.obtenerObjetivo()));
         }
         return objetivosADevolver;
     }

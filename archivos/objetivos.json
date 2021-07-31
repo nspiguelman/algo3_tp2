@@ -1,7 +1,8 @@
 [
   {
     "Descripcion": "Ocupar África, 5 países de América del Norte y 4 países de Europa.",
-    "Continentes" : [
+    "Tipo": "Conquista",
+    "Objetivo" : [
       {
         "Continente": "Africa",
         "CantidadDePaises": 6
@@ -18,7 +19,8 @@
   },
   {
     "Descripcion": "Ocupar América del Sur, 7 países de Europa y 3 países limítrofes entre sí en cualquier lugar del mapa.",
-    "Continentes" : [
+    "Tipo": "Conquista",
+    "Objetivo" : [
       {
         "Continente": "America del Sur",
         "CantidadDePaises": "6"
@@ -31,7 +33,8 @@
   },
   {
     "Descripcion": "Ocupar Asia y 2 países de América del Sur.",
-    "Continentes" : [
+    "Tipo": "Conquista",
+    "Objetivo" : [
       {
         "Continente": "Asia",
         "CantidadDePaises": "15"
@@ -44,7 +47,8 @@
   },
   {
     "Descripcion": "Ocupar Europa, 4 países de Asia y 2 países de América de Sur.",
-    "Continentes" : [
+    "Tipo": "Conquista",
+    "Objetivo" : [
       {
         "Continente": "Europa",
         "CantidadDePaises": "9"
@@ -61,7 +65,8 @@
   },
   {
     "Descripcion": "Ocupar América del Norte, 2 países de Oceanía y 4 de Asia.",
-    "Continentes" : [
+    "Tipo": "Conquista",
+    "Objetivo" : [
       {
         "Continente": "America del Norte",
         "CantidadDePaises": "10"
@@ -78,7 +83,8 @@
   },
   {
     "Descripcion": "Ocupar 2 países de Oceanía, 2 países de África, 2 países de América del Sur, 3 países de Europa, 4 de América del Norte y 3 de Asia.",
-    "Continentes" : [
+    "Tipo": "Conquista",
+    "Objetivo" : [
       {
         "Continente": "Africa",
         "CantidadDePaises": "2"
@@ -107,7 +113,8 @@
   },
   {
     "Descripcion": "Ocupar Oceanía, América del Norte y 2 países de Europa.",
-    "Continentes" : [
+    "Tipo": "Conquista",
+    "Objetivo" : [
       {
         "Continente": "Oceania",
         "CantidadDePaises": "4"
@@ -124,7 +131,8 @@
   },
   {
     "Descripcion" : "Ocupar América del Sur, África y 5 países de América del Norte.",
-    "Continentes" : [
+    "Tipo": "Conquista",
+    "Objetivo" : [
       {
         "Continente": "America del Sur",
         "CantidadDePaises": "6"
@@ -141,30 +149,41 @@
   },
   {
     "Descripcion": "Destruir al ejército negro de ser imposible al jugador de la derecha.",
-    "Continentes": []
+    "Tipo": "Destrucción",
+    "Objetivo": []
   },
   {
     "Descripcion": "Destruir el ejército azul de ser imposible al jugador de la derecha.",
-    "Continentes": []
+    "Tipo": "Destrucción",
+    "Objetivo": []
   },
   {
     "Descripcion":  "Destruir al ejército rojo de ser imposible al jugador de la derecha.",
-    "Continentes": []
+    "Tipo": "Destrucción",
+    "Objetivo": []
   },
   {
     "Descripcion":  "Destruir al ejército verde de ser imposible al jugador de la derecha.",
-    "Continentes": []
+    "Tipo": "Destrucción",
+    "Objetivo": []
   },
   {
     "Descripcion":  "Destruir al ejército magenta de ser imposible al jugador de la derecha.",
-    "Continentes": []
+    "Tipo": "Destrucción",
+    "Objetivo": []
   },
   {
     "Descripcion":  "Objetivo común: ocupar 30 países.",
-    "Continentes": []
+    "Tipo": "Destrucción",
+    "Objetivo": []
   },
   {
     "Descripcion": "Destruir al ejército amarillo de ser imposible al jugador de la derecha.",
-    "Continentes": []
+    "Tipo": "Destrucción",
+    "Objetivo": [
+      {
+        "Color": "Rojo"
+      }
+    ]
   }
 ]

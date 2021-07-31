@@ -4,13 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class ObjetivoContinente {
+public class TipoObjetivoDeserializer {
     @SerializedName("Continente") private String continente;
     @SerializedName("CantidadDePaises") private int cantidadDePaises;
+    @SerializedName("Color") private String color;
 
-    public ObjetivoContinente() {}
+    public TipoObjetivoDeserializer() {}
 
     public String obtenerContinente() { return continente; }
     public int obtenerCantidadDePaises() { return cantidadDePaises; }
-
+    public String obtenerColor() { return color; }
 }
