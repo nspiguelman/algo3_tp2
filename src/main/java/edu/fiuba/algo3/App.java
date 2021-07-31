@@ -29,12 +29,16 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
 
         stage.setTitle("TEG");
+        stage.setResizable(false);
 
         ContenedorEntrada contenedorEntrada = new ContenedorEntrada(stage);
 
         VBox contenedorPrincipal = contenedorEntrada.obtenerContenedorEntrada();
         Scene escenaJuego = new Scene(contenedorPrincipal, 1024, 768);
         stage.setScene(escenaJuego);
+        contenedorEntrada.iniciarJuego(stage);
+
+
         stage.show();
 
     }
