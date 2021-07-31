@@ -10,5 +10,7 @@ public class ObjetivoContinente {
 
     public ObjetivoContinente() {}
 
+    public String obtenerContinente() { return continente; }
+    public int obtenerCantidadDePaises() { return cantidadDePaises; }
 
 }

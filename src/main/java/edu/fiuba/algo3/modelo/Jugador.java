@@ -53,16 +53,14 @@ public class Jugador {
         }
     }
 
-    public void validarCantidadEjercitos(int cantidadASumar, int ejercitosPorFase) throws TegException{
+    public void validarCantidadEjercitos(int cantidadASumar, int ejercitosPorFase) throws TegException {
         this.estadoPaises.validarCantidadEjercitos(ejercitosMaximosPorTurno, cantidadASumar, ejercitosPorFase);
     }
 
     public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
-
     public void eliminarPaisEnBatalla() {
         estadoPaises.eliminarPaisEnBatalla();
     }
-
     public void conquistar(Pais unPais) throws Exception{
         Pais paisEnBatalla = this.paisEnBatalla();
         this.estadoPaises.reducirEjercitos(paisEnBatalla, 1);
