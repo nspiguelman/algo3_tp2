@@ -5,6 +5,7 @@ import edu.fiuba.algo3.vistas.ContenedorEntrada;
 import edu.fiuba.algo3.vistas.ContenedorMapa;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -12,6 +13,7 @@ import edu.fiuba.algo3.modelo.Juego;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.util.*;
 import java.io.FileNotFoundException;
@@ -35,15 +37,16 @@ public class BotonIniciarEventHandler implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        ContenedorMapa contenedorEntrada = new ContenedorMapa();
-        VBox contenedorPrincipal = contenedorEntrada.obtenerContenedorMapa();
-        Scene escenaMapa = new Scene(contenedorPrincipal, 1024, 768);
-
         this.agregarJugadores();
-        if (!this.arrancarJuego(escenaMapa)) {
+        if (!this.arrancarJuego()) {
             this.validacion.setText("Cantidad de Jugadores invalida. ");
             System.out.println("asd");
         }
+
+        stage.setX(100);
+        stage.setY(10);
+        stage.setMinWidth(1400);
+        stage.setMinHeight(800);
     }
 
 
@@ -55,11 +58,15 @@ public class BotonIniciarEventHandler implements EventHandler<ActionEvent> {
         }
     }
 
-    public boolean arrancarJuego(Scene escenaMapa) {
+    public boolean arrancarJuego() {
         if (this.jugadores.size() > 1) {
             try {
                 Juego juego = new Juego(this.jugadores);
+                ContenedorMapa contenedorEntrada = new ContenedorMapa(juego);
+                VBox contenedorPrincipal = contenedorEntrada.obtenerContenedorMapa();
+                Scene escenaMapa = new Scene(contenedorPrincipal);
                 this.stage.setScene(escenaMapa);
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

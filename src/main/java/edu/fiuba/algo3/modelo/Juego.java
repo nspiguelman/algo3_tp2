@@ -34,9 +34,9 @@ public class Juego {
     }
 
     public void siguienteTurno(){
-        fase.reiniciarAcciones();
         if (!this.verificarObjetivos())
         {
+            fase.reiniciarAcciones();
             turno.pasarTurno();
         }
     }
@@ -108,5 +108,9 @@ public class Juego {
 
     public Jugador esElTurnoDe() {
         return turno.turnoActual();
+    }
+
+    public int obtenerAccion(){
+        return this.fase.accionActual();
     }
 }

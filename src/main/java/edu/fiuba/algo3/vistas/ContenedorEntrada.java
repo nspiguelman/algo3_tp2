@@ -42,7 +42,7 @@ public class ContenedorEntrada {
 
         CheckBox jugadorRojo = new CheckBox("Rojo");
         jugadorRojo.setIndeterminate(false);
-        jugadorRojo.setStyle("-fx-text-box-border: black; -fx-font-scale: 20 ; -fx-text-fill: white ; -fx-background-color: #cc3311;-fx-font-weight: 900; -fx-max-width: 200px");
+        jugadorRojo.setStyle("-fx-text-box-border: black; -fx-font-scale: 20 ; -fx-text-fill: white ; -fx-background-color: #cc3311; -fx-font-weight: 900; -fx-max-width: 200px");
 
         CheckBox jugadorVerde = new CheckBox("Verde");
         jugadorVerde.setIndeterminate(false);

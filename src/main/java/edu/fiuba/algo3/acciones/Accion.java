@@ -7,4 +7,5 @@ public interface Accion {
     public Accion siguienteAccion(Jugador unJugador);
     public int numeroAccion();
 
+
 }
