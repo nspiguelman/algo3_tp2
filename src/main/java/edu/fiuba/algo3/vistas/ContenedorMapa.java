@@ -9,44 +9,30 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
 
 public class ContenedorMapa {
     private VBox contenedorMapa;
-    private int botonCordX = 200;
-    private int botonCordY = 400;
 
     public ContenedorMapa() {
         StackPane layout = new StackPane();
         layout.setStyle("-fx-background-color: #FFECB9");
 
-        //Image imagen = new Image("file:src/main/java/edu/fiuba/algo3/imagenes/teg.jpeg");
-        //BackgroundPosition backgroundImagePosition = new BackgroundPosition(null, 300,false,null, 20, false);
+        Label labelMapaTeg = new Label();
+        Image imagenGlobo = new Image("file:src/main/java/edu/fiuba/algo3/imagenes/mapaTeg.png");
+        ImageView view = new ImageView(imagenGlobo);
+        view.setPreserveRatio(true);
+        labelMapaTeg.setGraphic(view);
 
-        //BackgroundImage imagenDeFondo = new BackgroundImage(imagen, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, backgroundImagePosition, BackgroundSize.DEFAULT);
-        //final ImageView imagenVista = new ImageView(imagen);
-
-        Label etiqueta = new Label();
-
-        Button botonIniciar = new Button();
-
-        botonIniciar.setText("Pasar Turno");
-        botonIniciar.setAlignment(Pos.BOTTOM_CENTER);
-
-        botonIniciar.setTranslateX(botonCordX);
-        botonIniciar.setTranslateX(botonCordY);
-
-        //botonIniciar.setOnAction(handler);
-        HBox contenedorHorizontal = new HBox(botonIniciar);
-
-        VBox contenedorMapa = new VBox(contenedorHorizontal, etiqueta);
+        VBox contenedorMapa = new VBox(labelMapaTeg);
 
         contenedorMapa.setAlignment(Pos.CENTER);
         contenedorMapa.setSpacing(20);
         contenedorMapa.setPadding(new Insets(25));
-        //contenedorMapa.setBackground(new Background(imagenDeFondo));
+        contenedorMapa.setStyle("-fx-background-color: #b18151");
 
         this.contenedorMapa = contenedorMapa;
     }

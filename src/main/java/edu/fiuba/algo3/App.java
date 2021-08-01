@@ -34,7 +34,7 @@ public class App extends Application {
         ContenedorEntrada contenedorEntrada = new ContenedorEntrada(stage);
 
         VBox contenedorPrincipal = contenedorEntrada.obtenerContenedorEntrada();
-        Scene escenaJuego = new Scene(contenedorPrincipal, 1024, 768);
+        Scene escenaJuego = new Scene(contenedorPrincipal, 800, 600);
         stage.setScene(escenaJuego);
         contenedorEntrada.iniciarJuego(stage);
 

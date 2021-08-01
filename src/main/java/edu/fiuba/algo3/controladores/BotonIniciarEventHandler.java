@@ -37,7 +37,7 @@ public class BotonIniciarEventHandler implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         ContenedorMapa contenedorEntrada = new ContenedorMapa();
         VBox contenedorPrincipal = contenedorEntrada.obtenerContenedorMapa();
-        Scene escenaMapa = new Scene(contenedorPrincipal, 800, 600);
+        Scene escenaMapa = new Scene(contenedorPrincipal, 1024, 768);
 
         this.agregarJugadores();
         if (!this.arrancarJuego(escenaMapa)) {
@@ -45,6 +45,7 @@ public class BotonIniciarEventHandler implements EventHandler<ActionEvent> {
             System.out.println("asd");
         }
     }
+
 
     private void agregarJugadores() {
         for (int i = 0; i < this.checkboxes.size(); i++) {
