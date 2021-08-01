@@ -58,7 +58,7 @@ public class VistaTurno {
     }
 
     public void actualizarVista(){
-
+        System.out.println(this.juego.esElTurnoDe().obtenerColor() + " " +  this.juego.obtenerAccion());
         this.setLabelFase();
         this.setLabelTurno();
     }

@@ -102,8 +102,14 @@ public class Juego {
     }
 
     public void siguienteAccion(){
+
         Jugador jugadorActual = this.esElTurnoDe();
-        fase.siguienteAccion(jugadorActual);    // esto para verificar que se realice en el orden ataque-reagrupacion-agregarEjercitos
+        if (this.obtenerAccion() == 3){
+            this.siguienteTurno();
+        }
+        else{
+            fase.siguienteAccion(jugadorActual);    // esto para verificar que se realice en el orden ataque-reagrupacion-agregarEjercitos
+        }
     }
 
     public Jugador esElTurnoDe() {
@@ -112,5 +118,9 @@ public class Juego {
 
     public int obtenerAccion(){
         return this.fase.accionActual();
+    }
+
+    public int obtenerEjercitosPorFase(){
+        return this.fase.ejercitosPorFase(new Jugador("Azul"));
     }
 }
