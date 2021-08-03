@@ -1,4 +1,4 @@
 package edu.fiuba.algo3.controladores;
 
-public class Sistema {
+public class Atacar {
 }

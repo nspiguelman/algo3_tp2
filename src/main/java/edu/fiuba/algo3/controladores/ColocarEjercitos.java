@@ -1,0 +1,39 @@
+package edu.fiuba.algo3.controladores;
+
+import edu.fiuba.algo3.excepciones.TegException;
+import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.paises.Pais;
+import edu.fiuba.algo3.vistas.ContenedorMapa;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.ComboBox;
+
+import java.util.ArrayList;
+
+public class ColocarEjercitos implements EventHandler<ActionEvent> {
+    private Juego juego;
+    private ComboBox<String> pais;
+    private ComboBox<String> cantidadEjercitos;
+
+
+    public ColocarEjercitos(Juego juego, ComboBox<String> box, ComboBox<String> cbx) {
+        this.juego = juego;
+        this.pais = box;
+        this.cantidadEjercitos = cbx;
+    }
+
+    @Override
+    public void handle(ActionEvent event) {
+        String nombrePais = pais.getValue();
+        int ejercitos = Integer.parseInt(cantidadEjercitos.getValue());
+        Jugador jugadorActual = juego.esElTurnoDe();
+        ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
+        for (Pais pais: paisesJugador){
+            if (pais.esElPais(nombrePais)){
+                pais.agregarEjercitos(ejercitos);
+            }
+        }
+        ContenedorMapa.actualizarVista();
+    }
+}

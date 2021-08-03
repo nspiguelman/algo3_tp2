@@ -11,16 +11,30 @@ import edu.fiuba.algo3.vistas.ContenedorMapa;
 import java.util.ArrayList;
 
 
-public class BotonPasarAccionEventHandler implements EventHandler<ActionEvent> {
+public class PasarAccion implements EventHandler<ActionEvent> {
 
     private Juego juego;
 
-    public BotonPasarAccionEventHandler(Juego juego){
+    public PasarAccion(Juego juego){
         this.juego = juego;
     }
 
     @Override
     public void handle(ActionEvent event) {
+        // Refactorizar, aca estamos agregado los ejercitos de fase uno y fase dos.
+        // La funcion que deberia cumplir es la de pasar de accion, actualizar el controlador del boton Pasar Accion
+
+
+
+        /*juego.siguienteAccion();
+        if (juego.obtenerAccion() == 3){
+            int n = juego.obtenerEjercitosPorFase();
+            vista.guardarEjercitos(n);
+        }
+        // Deberia mostrar 5.
+*/
+        //ColocarEjercitos -> vista.reducirEjercitosAMostrar(n);
+
         int ej = juego.obtenerEjercitosPorFase();
         Jugador jugador = juego.esElTurnoDe();
         ArrayList<Pais> paises = jugador.obtenerPaises();

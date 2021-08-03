@@ -61,7 +61,10 @@ public class Pais {
             throw new CantidadEjercitosInsuficientesException();
         }
     }
-    private boolean esElPais(ArrayList<Pais> paises) { return paises.stream().anyMatch(pais -> pais.obtenerNombrePais() != this.obtenerNombrePais()); }
+
+    public boolean esElPais(String nombrePais){
+        return (this.nombre.equals(nombrePais));
+    }
 
     public void cambiarEstadoDeBatalla(){
         this.estadoBelico = this.estadoBelico.cambiarEstadoDeBatalla();

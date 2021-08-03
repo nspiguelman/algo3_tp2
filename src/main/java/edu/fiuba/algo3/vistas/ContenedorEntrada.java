@@ -1,14 +1,11 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.controladores.BotonIniciarEventHandler;
+import edu.fiuba.algo3.controladores.Iniciar;
 import edu.fiuba.algo3.excepciones.TegException;
-import javafx.collections.ArrayChangeListener;
 import javafx.geometry.Pos;
-import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -104,7 +101,7 @@ public class ContenedorEntrada {
 
         botonIniciar.setTranslateX(botonCordX);
         botonIniciar.setTranslateX(botonCordY);
-        BotonIniciarEventHandler handler = new BotonIniciarEventHandler(checkboxes, stage, validacion);
+        Iniciar handler = new Iniciar(checkboxes, stage, validacion);
         botonIniciar.setOnAction(handler);
 
         this.contenedorEntrada.getChildren().add(botonIniciar);

@@ -12,7 +12,7 @@ public class Jugador {
     private String color;
     private final EstadoPaises estadoPaises;
     private Tarjetas tarjetas;
-    int ejercitosMaximosPorTurno;
+    public int ejercitosMaximosPorTurno;
 
     public Jugador(String color) {
         this.estadoPaises = new EstadoPaises();
@@ -39,8 +39,12 @@ public class Jugador {
         return tarjetas.obtenerCanjeActual();
     }
 
-    private int obtenerCantidadTotalDeEjercitos() { return estadoPaises.obtenerCantidadTotalDeEjercitos();}
-    public int obtenerCantidadDeEjercitos(){ return estadoPaises.obtenerCantidadDeEjercitosAgregados(); }
+    public int obtenerCantidadTotalDeEjercitos() {
+        return estadoPaises.obtenerCantidadTotalDeEjercitos();
+    }
+    public int obtenerCantidadDeEjercitos(){
+        return estadoPaises.obtenerCantidadDeEjercitosAgregados();
+    }
     public int obtenerEjercitosEnBatalla() {
         return estadoPaises.obtenerEjercitosEnBatalla();
     }
@@ -100,5 +104,9 @@ public class Jugador {
 
     public boolean domina(String continente, int paisesParaDominar){
         return this.estadoPaises.domina(continente, paisesParaDominar);
+    }
+
+    public int obtenerEjercitosAAgregar(int cantidadEjercitosPorFase) {
+        return this.estadoPaises.ejercitosAAgregar(this.ejercitosMaximosPorTurno, cantidadEjercitosPorFase);
     }
 }

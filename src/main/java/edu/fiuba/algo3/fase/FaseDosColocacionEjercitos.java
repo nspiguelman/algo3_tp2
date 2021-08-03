@@ -30,6 +30,7 @@ public class FaseDosColocacionEjercitos implements Fase {
             throw new ColocarEjercitosException(cantidadEjercitosFaseDos);
         }
     }
+
     @Override
     public int ejercitosPorFase(Jugador unJugador) {
         unJugador.setearEjercitosMaximos();
@@ -49,5 +50,10 @@ public class FaseDosColocacionEjercitos implements Fase {
     @Override
     public void reiniciarAcciones() {
 
+    }
+
+    @Override
+    public String obtenerFase(){
+        return "ColocacionDos";
     }
 }

@@ -47,8 +47,13 @@ public class EstadoPaises {
             throw new ColocarEjercitosException(ejercitosPorFase);
         }
     }
+    public int ejercitosAAgregar(int cantidadEjercitosMaximos, int ejercitosPorFase) {
 
+        int ejercitosJugador = this.obtenerCantidadTotalDeEjercitos();
+        int diferencia = cantidadEjercitosMaximos + ejercitosPorFase  - ejercitosJugador;
 
+        return diferencia;
+    }
 
     public void tieneElPais(Pais unPais) throws TegException{
         if (!paises.contains(unPais)){

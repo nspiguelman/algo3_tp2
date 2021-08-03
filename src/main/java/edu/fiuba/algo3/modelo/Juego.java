@@ -1,10 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.excepciones.*;
-import edu.fiuba.algo3.fase.Fase;
-import edu.fiuba.algo3.fase.FaseUnoColocacionEjercitos;
+import edu.fiuba.algo3.fase.*;
 import edu.fiuba.algo3.paises.Pais;
-import edu.fiuba.algo3.paises.PaisEnPaz;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -60,8 +58,7 @@ public class Juego {
 
     public void agregarEjercitos(Jugador unJugador, Pais unPais, int cantidadEjercitos) throws Exception {
         this.verificarTurno(unJugador);
-        this.verificarMovimiento(3); /* necesita tener 3 puntos para agregar ejercitos
-                                            1 - atacar 2 - reagrupar 3 - colocar ejercitos */
+        this.verificarMovimiento(3);
         this.verificacionDeEjercitos(unJugador, cantidadEjercitos);
         unJugador.agregarEjercitos(unPais, cantidadEjercitos);
     }
@@ -70,6 +67,11 @@ public class Juego {
         this.verificarTurno(unJugador);
         this.verificarMovimiento(2);
         unJugador.reagrupar(unPais, otroPais, cantidadEjercitos);
+    }
+
+    public int obtenerEjercitosAMostrar(Jugador unJugador){
+        int cantidadEjercitosPorFase = fase.ejercitosPorFase(unJugador);
+        return unJugador.obtenerEjercitosAAgregar(cantidadEjercitosPorFase);
     }
 
     private void verificacionDeEjercitos(Jugador unJugador, int cantidadEjercitos) throws TegException {
@@ -121,6 +123,11 @@ public class Juego {
     }
 
     public int obtenerEjercitosPorFase(){
-        return this.fase.ejercitosPorFase(new Jugador("Azul"));
+        Jugador jugador = this.esElTurnoDe();
+        return this.fase.ejercitosPorFase(jugador);
+    }
+
+    public String obtenerFase() {
+        return this.fase.obtenerFase();
     }
 }

@@ -1,12 +1,18 @@
 package edu.fiuba.algo3.vistas;
 
 
+import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
+import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.paises.Pais;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class VistaTurno {
     private Juego juego;
@@ -14,16 +20,23 @@ public class VistaTurno {
     private HashMap<Integer, String> acciones = new HashMap<>();
     private Label labelFase;
     private Label labelTurno;
+    private ComboBox boxPaises;
+    private ComboBox boxEjercitos;
+    private int ejercitosFaseUno = 5;
+    private int ejercitosFaseDos = 3;
 
-
-    public VistaTurno(Label labelTurno, Label labelFase, Juego juego) {
+    public VistaTurno(Label labelTurno, Label labelFase, Juego juego, ComboBox box, ComboBox cbx) throws TegException {
         this.juego = juego;
         this.labelFase = labelFase;
         this.labelTurno = labelTurno;
+        this.boxPaises = box;
+        this.boxEjercitos = cbx;
         this.inicializarColores();
         this.inicializarAcciones();
         this.setLabelTurno();
         this.setLabelFase();
+        this.setSeleccionPaises();
+        this.setColocarEjercitos();
     }
 
     private void setLabelFase() {
@@ -33,13 +46,48 @@ public class VistaTurno {
         this.labelFase.setText("FASE: " + accion);
     }
 
-
     private void setLabelTurno(){
         Jugador jugadorActual = this.juego.esElTurnoDe();
         String colorJugador = jugadorActual.obtenerColor();
         String colorLabel = this.colores.get(colorJugador);
         this.labelTurno.setText("TURNO: " + colorJugador);
         this.labelTurno.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color:" + colorLabel + "; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6");
+    }
+
+    public void setSeleccionPaises(){
+        ObservableList<String> items = FXCollections.observableArrayList();
+
+        Jugador jugadorActual = this.juego.esElTurnoDe();
+
+        ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
+        for (int i=0; i<paisesJugador.size(); i++){
+            Pais paisActual = paisesJugador.get(i);
+            items.add(paisActual.obtenerNombrePais());
+        }
+        boxPaises.setItems(items);
+    }
+
+    public void setColocarEjercitos() {
+        Jugador jugadorActual = juego.esElTurnoDe();
+        int ejercitosAMostrar;
+        String faseActual = juego.obtenerFase();
+        if (faseActual.equals("Juego")){
+            ejercitosAMostrar = juego.obtenerEjercitosPorFase();
+        }
+        else{
+            if (faseActual.equals("ColocacionUno")){
+                ejercitosAMostrar = ejercitosFaseUno - jugadorActual.obtenerCantidadDeEjercitos();
+            }
+            else{
+                ejercitosAMostrar = ejercitosFaseDos - jugadorActual.obtenerCantidadDeEjercitos();
+            }
+        }
+        System.out.println(jugadorActual.obtenerColor() + " " + ejercitosAMostrar);
+        ObservableList<String> ejercitos = FXCollections.observableArrayList();
+        for (int i=0; i<ejercitosAMostrar; i++){
+            ejercitos.add(String.valueOf(i + 1));
+        }
+        boxEjercitos.setItems(ejercitos);
     }
 
     public void inicializarColores() {
@@ -58,9 +106,10 @@ public class VistaTurno {
     }
 
     public void actualizarVista(){
-        System.out.println(this.juego.esElTurnoDe().obtenerColor() + " " +  this.juego.obtenerAccion());
         this.setLabelFase();
         this.setLabelTurno();
+        this.setSeleccionPaises();
+        this.setColocarEjercitos();
     }
 }
 

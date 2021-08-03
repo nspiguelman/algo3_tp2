@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class FaseUnoColocacionEjercitos implements Fase {
     private final int cantidadEjercitosFaseUno;
-    private Accion accionActual= new Colocar();
+    private Accion accionActual = new Colocar();
 
 
     public FaseUnoColocacionEjercitos() {
@@ -35,7 +35,7 @@ public class FaseUnoColocacionEjercitos implements Fase {
     }
 
     @Override
-    public int ejercitosPorFase(Jugador unJugador){
+    public int ejercitosPorFase(Jugador unJugador) {
         unJugador.setearEjercitosMaximos();
         return 5;
     }
@@ -54,6 +54,10 @@ public class FaseUnoColocacionEjercitos implements Fase {
 
     }
 
+    @Override
+    public String obtenerFase(){
+        return "ColocacionUno";
+    }
 }
 
 /* Dos validaciones... Para pasar de fase

@@ -19,7 +19,7 @@ import java.util.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class BotonIniciarEventHandler implements EventHandler<ActionEvent> {
+public class Iniciar implements EventHandler<ActionEvent> {
     private Button unBoton;
     private ArrayList<String> jugadores = new ArrayList<>();
     private ArrayList<String> colores;
@@ -27,7 +27,7 @@ public class BotonIniciarEventHandler implements EventHandler<ActionEvent> {
     public Stage stage;
     public Label validacion;
 
-    public BotonIniciarEventHandler(ArrayList<CheckBox> checkboxes, Stage stage, Label validacion) {
+    public Iniciar(ArrayList<CheckBox> checkboxes, Stage stage, Label validacion) {
         this.colores = new ArrayList<>(Arrays.asList("Azul", "Rojo", "Verde", "Naranja", "Negro", "Rosa"));
         this.checkboxes = checkboxes;
 
