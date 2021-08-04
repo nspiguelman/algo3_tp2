@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.controladores;
 
-import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.paises.Pais;

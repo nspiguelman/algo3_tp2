@@ -1,12 +1,10 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.controladores.ActualizarPaisesDestino;
+import edu.fiuba.algo3.controladores.ActualizarDestino;
+import edu.fiuba.algo3.controladores.ActualizarOrigen;
 import edu.fiuba.algo3.controladores.ColocarEjercitos;
 import edu.fiuba.algo3.controladores.PasarAccion;
 import edu.fiuba.algo3.excepciones.TegException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -34,7 +32,6 @@ public class ContenedorMapa {
         Button pasarAccion = new Button();
         Button ejecutarAccion = new Button();
 
-
         Label labelTurno = new Label();
         Label labelFase = new Label();
 
@@ -43,11 +40,13 @@ public class ContenedorMapa {
         ComboBox<String> boxDestino = new ComboBox<>();
         ComboBox<String> cbx = new ComboBox<>();
 
-        PasarAccion handler = new PasarAccion(this.juego);
-        ColocarEjercitos handlerDos = new ColocarEjercitos(this.juego, boxOrigen, cbx);
+        Label labelCantidadEjercitosDestino = new Label();
+        Label labelCantidadEjercitosOrigen = new Label();
 
-        VBox contenedorPaisUno = new VBox(elegirPaisUno, boxOrigen, cbx);
-        VBox contenedorPaisDos = new VBox(elegirPaisDos, boxDestino);
+        PasarAccion handler = new PasarAccion(this.juego, ejecutarAccion, boxOrigen, boxDestino, cbx);
+
+        VBox contenedorPaisUno = new VBox(elegirPaisUno, boxOrigen, cbx, labelCantidadEjercitosOrigen);
+        VBox contenedorPaisDos = new VBox(elegirPaisDos, boxDestino, labelCantidadEjercitosDestino);
         HBox contenedorTurno = new HBox(pasarAccion, labelTurno, labelFase, ejecutarAccion);
 
         HBox contenedorPaisesElegidos = new HBox(contenedorPaisUno, labelMapaTeg, contenedorPaisDos);
@@ -59,16 +58,18 @@ public class ContenedorMapa {
 
         this.contenedorMapa = contenedorMapa;
         this.setVisualBotones(elegirPaisUno, elegirPaisDos);
-        this.setVisualContenedores(pasarAccion, ejecutarAccion, contenedorTurno, contenedorPaisUno, contenedorPaisDos, handler, handlerDos);
-        this.setVistaTurno(labelTurno, labelFase, boxOrigen, boxDestino, cbx);
+        this.setVisualContenedores(pasarAccion, ejecutarAccion, contenedorTurno, contenedorPaisUno, contenedorPaisDos, handler);
+        this.setVistaTurno(labelTurno, labelFase, labelCantidadEjercitosOrigen, labelCantidadEjercitosDestino, boxOrigen, boxDestino, cbx);
 
-        ActualizarPaisesDestino actualizarPaisesDestinoHandler = new ActualizarPaisesDestino(this.vistaTurno, juego);
+        ActualizarOrigen actualizarPaisesDestinoHandler = new ActualizarOrigen(this.vistaTurno, juego);
         boxOrigen.setOnAction(actualizarPaisesDestinoHandler);
+        ActualizarDestino actualizarEjercitosDestinoHandler = new ActualizarDestino(this.vistaTurno);
+        boxDestino.setOnAction(actualizarEjercitosDestinoHandler);
     }
 
-    private void setVistaTurno(Label labelTurno, Label labelFase, ComboBox box, ComboBox boxDestino, ComboBox cbx) {
+    private void setVistaTurno(Label labelTurno, Label labelFase, Label labelEjercitosOrigen, Label labelEjercitosDestino, ComboBox box, ComboBox boxDestino, ComboBox cbx) {
         try {
-            this.vistaTurno = new VistaTurno(labelTurno, labelFase, juego, box, boxDestino, cbx);
+            this.vistaTurno = new VistaTurno(labelTurno, labelFase, labelEjercitosOrigen, labelEjercitosDestino, juego, box, boxDestino, cbx);
         } catch (TegException e) {
             e.printStackTrace();
         }
@@ -76,28 +77,29 @@ public class ContenedorMapa {
 
     private void setVisualBotones(Button elegirPaisUno, Button elegirPaisDos){
 
-        elegirPaisUno.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color: #283618; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6;");
-        elegirPaisUno.setText("Elegir Pais: ATACANTE");
+        elegirPaisUno.setStyle("-fx-font-size: 20; -fx-min-width: 230; -fx-font-weight: 800; -fx-background-color: #283618; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6;");
+        elegirPaisUno.setText("ATACANTE");
         elegirPaisUno.setTextFill(Color.WHITE);
-        elegirPaisDos.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color: #283618; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6");
-        elegirPaisDos.setText("Elegir Pais: DEFENSOR");
+        elegirPaisDos.setStyle("-fx-font-size: 20; -fx-min-width: 230;  -fx-font-weight: 800; -fx-background-color: #283618; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6");
+        elegirPaisDos.setText("DEFENSOR");
         elegirPaisDos.setTextFill(Color.WHITE);
         }
 
-    private void setVisualContenedores(Button pasarAccion, Button ejecutarAccion, HBox contenedorTurno, VBox contenedorPaisUno, VBox contenedorPaisDos, PasarAccion handler, ColocarEjercitos handlerDos){
+    private void setVisualContenedores(Button pasarAccion, Button ejecutarAccion, HBox contenedorTurno, VBox contenedorPaisUno, VBox contenedorPaisDos, PasarAccion handler){
         pasarAccion.setText("PASAR ACCION");
         pasarAccion.setTextFill(Color.WHITE);
         pasarAccion.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color: #283618; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6;");
         pasarAccion.setOnAction(handler);
-        ejecutarAccion.setOnAction(handlerDos);
         ejecutarAccion.setText("EJECUTAR ACCION");
         ejecutarAccion.setTextFill(Color.WHITE);
         ejecutarAccion.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color: #283618; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6;");
         contenedorTurno.setAlignment(Pos.BOTTOM_LEFT);
-        contenedorTurno.setSpacing(200);
+        contenedorTurno.setSpacing(160);
         contenedorPaisUno.setSpacing(20);
         contenedorPaisDos.setSpacing(20);
         contenedorPaisUno.setAlignment(Pos.TOP_LEFT);
+        contenedorPaisUno.setPadding(new Insets(0,15,0,0));
+        contenedorPaisDos.setPadding(new Insets(0,0,0,15));
         contenedorPaisDos.setAlignment(Pos.TOP_RIGHT);
         contenedorMapa.setAlignment(Pos.TOP_CENTER);
         contenedorMapa.setSpacing(20);

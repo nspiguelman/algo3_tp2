@@ -27,7 +27,6 @@ public class Jugador {
 
     public void elegirPais(Pais unPais) throws Exception {
         this.estadoPaises.elegirPaisEnBatalla(unPais);
-
     }
 
     public Tarjetas obtenerTarjetas() {return tarjetas;}

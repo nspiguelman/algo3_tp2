@@ -125,4 +125,8 @@ public class Juego {
     public String obtenerFase() {
         return this.fase.obtenerFase();
     }
+
+    public ArrayList<Pais> obtenerPaises() {
+        return this.tablero.obtenerPaises();
+    }
 }

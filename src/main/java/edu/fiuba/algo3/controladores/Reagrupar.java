@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.controladores;
 
+import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.paises.Pais;
@@ -26,15 +27,27 @@ public class Reagrupar implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        String nombrePais = paisDestino.getValue();
-        int ejercitos = Integer.parseInt(cantidadEjercitos.getValue());
         Jugador jugadorActual = juego.esElTurnoDe();
-        ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
-        for (Pais pais: paisesJugador){
-            if (pais.esElPais(nombrePais)){
-                pais.agregarEjercitos(ejercitos);
-            }
+        Pais origen = buscarPais(paisOrigen.getValue());
+        Pais destino = buscarPais(paisDestino.getValue());
+        int ejercitosATransferir = Integer.parseInt(cantidadEjercitos.getValue());
+        try {
+            juego.reagrupar(jugadorActual, origen, destino, ejercitosATransferir);
+        } catch (TegException e) {
+            e.printStackTrace();
         }
         ContenedorMapa.actualizarVista();
     }
+
+    public Pais buscarPais(String nombre){
+        Jugador jugadorActual = juego.esElTurnoDe();
+        ArrayList<Pais> paises = jugadorActual.obtenerPaises();
+        for (Pais pais: paises){
+            if (pais.esElPais(nombre)){
+                return pais;
+            }
+        }
+        return new Pais("a", "b", "c");
+    }
+
 }

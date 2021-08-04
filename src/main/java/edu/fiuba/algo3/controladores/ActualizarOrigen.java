@@ -5,11 +5,11 @@ import edu.fiuba.algo3.vistas.VistaTurno;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class ActualizarPaisesDestino implements EventHandler<ActionEvent> {
+public class ActualizarOrigen implements EventHandler<ActionEvent> {
     private VistaTurno vista;
     private Juego juego;
 
-    public ActualizarPaisesDestino (VistaTurno vista, Juego juego) {
+    public ActualizarOrigen(VistaTurno vista, Juego juego) {
         this.vista = vista;
         this.juego = juego;
     }
@@ -23,6 +23,7 @@ public class ActualizarPaisesDestino implements EventHandler<ActionEvent> {
         } else {
             accionAEjecutar="Ataque";
         }
+        this.vista.setCantidadDeEjercitosOrigen();
         this.vista.setSeleccionPaisesDestino(accionAEjecutar);
     }
 }
