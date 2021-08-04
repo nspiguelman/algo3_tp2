@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
+import edu.fiuba.algo3.controladores.ActualizarPaisesDestino;
 import edu.fiuba.algo3.controladores.ColocarEjercitos;
 import edu.fiuba.algo3.controladores.PasarAccion;
 import edu.fiuba.algo3.excepciones.TegException;
@@ -15,7 +16,6 @@ import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.scene.paint.Color;
 import edu.fiuba.algo3.modelo.Juego;
-import org.w3c.dom.events.MouseEvent;
 
 public class ContenedorMapa {
     private VBox contenedorMapa;
@@ -39,6 +39,7 @@ public class ContenedorMapa {
         Label labelFase = new Label();
 
         ComboBox<String> boxOrigen = new ComboBox<>();
+
         ComboBox<String> boxDestino = new ComboBox<>();
         ComboBox<String> cbx = new ComboBox<>();
 
@@ -60,6 +61,9 @@ public class ContenedorMapa {
         this.setVisualBotones(elegirPaisUno, elegirPaisDos);
         this.setVisualContenedores(pasarAccion, ejecutarAccion, contenedorTurno, contenedorPaisUno, contenedorPaisDos, handler, handlerDos);
         this.setVistaTurno(labelTurno, labelFase, boxOrigen, boxDestino, cbx);
+
+        ActualizarPaisesDestino actualizarPaisesDestinoHandler = new ActualizarPaisesDestino(this.vistaTurno, juego);
+        boxOrigen.setOnAction(actualizarPaisesDestinoHandler);
     }
 
     private void setVistaTurno(Label labelTurno, Label labelFase, ComboBox box, ComboBox boxDestino, ComboBox cbx) {

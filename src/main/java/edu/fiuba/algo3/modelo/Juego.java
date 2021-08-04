@@ -69,11 +69,6 @@ public class Juego {
         unJugador.reagrupar(unPais, otroPais, cantidadEjercitos);
     }
 
-    public int obtenerEjercitosAMostrar(Jugador unJugador){
-        int cantidadEjercitosPorFase = fase.ejercitosPorFase(unJugador);
-        return unJugador.obtenerEjercitosAAgregar(cantidadEjercitosPorFase);
-    }
-
     private void verificacionDeEjercitos(Jugador unJugador, int cantidadEjercitos) throws TegException {
         int cantidadEjercitosPorFase = fase.ejercitosPorFase(unJugador);
         unJugador.validarCantidadEjercitos(cantidadEjercitos, cantidadEjercitosPorFase);

@@ -57,9 +57,7 @@ public class VistaTurno {
 
     public void setSeleccionPaisesOrigen(){
         ObservableList<String> items = FXCollections.observableArrayList();
-
         Jugador jugadorActual = this.juego.esElTurnoDe();
-
         ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
         for (int i=0; i<paisesJugador.size(); i++){
             Pais paisActual = paisesJugador.get(i);
@@ -68,16 +66,23 @@ public class VistaTurno {
         boxPaisesOrigen.setItems(items);
     }
 
-    public void setSeleccionPaisesDestino(){
+    public void setSeleccionPaisesDestino(String accion){
         ObservableList<String> itemsDestino = FXCollections.observableArrayList();
         Jugador jugadorActual = juego.esElTurnoDe();
         ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
         String paisOrigen = (String) boxPaisesOrigen.getValue();
+
         for (Pais pais: paisesJugador){
             if (pais.esElPais(paisOrigen)){
                 ArrayList<String> limitrofes = pais.obtenerNombrePaisesLimitrofes();
                 for (String paisLimitrofe: limitrofes){
-                    itemsDestino.add(paisLimitrofe);
+                    if (accion.equals("Ataque") && !jugadorActual.tieneElPais(paisLimitrofe)){
+                        itemsDestino.add(paisLimitrofe);
+                    } else  {
+                        if (!accion.equals("Ataque") && jugadorActual.tieneElPais(paisLimitrofe)){
+                            itemsDestino.add(paisLimitrofe);
+                        }
+                    }
                 }
             }
         }
@@ -94,12 +99,13 @@ public class VistaTurno {
         else{
             if (faseActual.equals("ColocacionUno")){
                 ejercitosAMostrar = ejercitosFaseUno - jugadorActual.obtenerCantidadDeEjercitos();
+                //jugadorActual.obtenerPaises().get(2).agregarEjercitos(ejercitosFaseUno);
             }
             else{
                 ejercitosAMostrar = ejercitosFaseDos - jugadorActual.obtenerCantidadDeEjercitos();
+                //jugadorActual.obtenerPaises().get(2).agregarEjercitos(3);
             }
         }
-        System.out.println(jugadorActual.obtenerColor() + " " + ejercitosAMostrar);
         ObservableList<String> ejercitos = FXCollections.observableArrayList();
         for (int i=0; i<ejercitosAMostrar; i++){
             ejercitos.add(String.valueOf(i + 1));
@@ -122,10 +128,18 @@ public class VistaTurno {
         this.acciones.put(3, "Colocacion de Ejercitos");
     }
 
-    public void actualizarVista(){
+    public void actualizarVista() {
+        int accion = this.juego.obtenerAccion();
+        String accionAEjecutar;
+        if (accion == 2) {
+            accionAEjecutar = "Reagrupar";
+        } else{
+            accionAEjecutar="Ataque";
+        }
         this.setLabelFase();
         this.setLabelTurno();
         this.setSeleccionPaisesOrigen();
+        this.setSeleccionPaisesDestino(accionAEjecutar);
         this.setColocarEjercitos();
     }
 }

@@ -60,13 +60,3 @@ public class FaseUnoColocacionEjercitos implements Fase {
     }
 }
 
-/* Dos validaciones... Para pasar de fase
-
-    siguienteFase()   -> debo verificar que la cantidad de ejercitos sea IGUAL a la cantidad necesaria por fase
-
-    jugador.agregarEjercitos()     -> debo verificar que el jugador no se pase de los ejercitos maximos por fase
-
-*
-
-*/
-

@@ -137,5 +137,14 @@ public class EstadoPaises {
         unPais.reducirEjercitos(cantidadEjercitos);
         otroPais.agregarEjercitos(cantidadEjercitos);
     }
+
+    public boolean tieneElPais(String otroPais) {
+        for (Pais pais: paises) {
+            if (pais.esElPais(otroPais)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 

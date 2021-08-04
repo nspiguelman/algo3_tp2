@@ -28,12 +28,15 @@ public class PasarAccion implements EventHandler<ActionEvent> {
         if (jugadores.get(jugadores.size() - 1).obtenerColor().equals(jugador.obtenerColor()) && !juego.obtenerFase().equals("Juego")){
             try {
                 juego.siguienteFase();
+                juego.siguienteTurno();
             } catch (TegException e) {
                 e.printStackTrace();
             }
         }
-        this.juego.siguienteAccion();
-        ContenedorMapa.actualizarVista();
+        else{
+            this.juego.siguienteAccion();
+        }
 
+        ContenedorMapa.actualizarVista();
     }
 }

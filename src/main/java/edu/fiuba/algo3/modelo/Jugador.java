@@ -62,6 +62,8 @@ public class Jugador {
     }
 
     public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
+    public boolean tieneElPais(String otroPais) { return estadoPaises.tieneElPais(otroPais); }
+
 
     public void eliminarPaisEnBatalla() {
         estadoPaises.eliminarPaisEnBatalla();

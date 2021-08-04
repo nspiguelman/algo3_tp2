@@ -16,7 +16,6 @@ public class ColocarEjercitos implements EventHandler<ActionEvent> {
     private ComboBox<String> pais;
     private ComboBox<String> cantidadEjercitos;
 
-
     public ColocarEjercitos(Juego juego, ComboBox<String> box, ComboBox<String> cbx) {
         this.juego = juego;
         this.pais = box;
@@ -25,15 +24,20 @@ public class ColocarEjercitos implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
+        this.handler();
+    }
+
+    public void handler() {
         String nombrePais = pais.getValue();
         int ejercitos = Integer.parseInt(cantidadEjercitos.getValue());
         Jugador jugadorActual = juego.esElTurnoDe();
         ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
         for (Pais pais: paisesJugador){
-            if (pais.esElPais(nombrePais)){
+            if (pais.esElPais(nombrePais)) {
                 pais.agregarEjercitos(ejercitos);
             }
         }
         ContenedorMapa.actualizarVista();
     }
+
 }
