@@ -20,6 +20,7 @@ public class ActualizarOrigen implements EventHandler<ActionEvent> {
         String accionAEjecutar;
         if (accion==2) {
             accionAEjecutar = "Reagrupar";
+            this.vista.setEjercitosReagrupar();
         } else {
             accionAEjecutar="Ataque";
         }

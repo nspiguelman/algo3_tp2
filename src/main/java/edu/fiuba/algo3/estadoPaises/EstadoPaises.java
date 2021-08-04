@@ -56,9 +56,13 @@ public class EstadoPaises {
     }
 
     public void tieneElPais(Pais unPais) throws TegException{
-        if (!paises.contains(unPais)){
-            throw new PaisInvalidoException();
+        for (Pais pais: paises){
+            if (pais.obtenerNombrePais().equals(unPais.obtenerNombrePais())){
+                return;
+            }
         }
+        throw new PaisInvalidoException();
+
     }
 
     public void eliminarPaisEnBatalla() {

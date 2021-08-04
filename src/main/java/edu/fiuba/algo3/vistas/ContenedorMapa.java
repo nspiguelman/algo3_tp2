@@ -15,10 +15,13 @@ import javafx.geometry.Insets;
 import javafx.scene.paint.Color;
 import edu.fiuba.algo3.modelo.Juego;
 
+import java.util.ArrayList;
+
 public class ContenedorMapa {
     private VBox contenedorMapa;
     private static VistaTurno vistaTurno;
     private Juego juego;
+    private ArrayList<VistaAccion> vistasTablero;
 
     public ContenedorMapa(Juego juego) {
         this.juego = juego;
@@ -35,18 +38,17 @@ public class ContenedorMapa {
         Label labelTurno = new Label();
         Label labelFase = new Label();
 
-        ComboBox<String> boxOrigen = new ComboBox<>();
+        ComboBox<String> boxPaisesOrigen = new ComboBox<>();
 
-        ComboBox<String> boxDestino = new ComboBox<>();
-        ComboBox<String> cbx = new ComboBox<>();
+        ComboBox<String> boxPaisesDestino = new ComboBox<>();
+        ComboBox<String> boxEjercitosOrigen = new ComboBox<>();
 
         Label labelCantidadEjercitosDestino = new Label();
         Label labelCantidadEjercitosOrigen = new Label();
 
-        PasarAccion handler = new PasarAccion(this.juego, ejecutarAccion, boxOrigen, boxDestino, cbx);
 
-        VBox contenedorPaisUno = new VBox(elegirPaisUno, boxOrigen, cbx, labelCantidadEjercitosOrigen);
-        VBox contenedorPaisDos = new VBox(elegirPaisDos, boxDestino, labelCantidadEjercitosDestino);
+        VBox contenedorPaisUno = new VBox(elegirPaisUno, boxPaisesOrigen, boxEjercitosOrigen, labelCantidadEjercitosOrigen);
+        VBox contenedorPaisDos = new VBox(elegirPaisDos, boxPaisesDestino, labelCantidadEjercitosDestino);
         HBox contenedorTurno = new HBox(pasarAccion, labelTurno, labelFase, ejecutarAccion);
 
         HBox contenedorPaisesElegidos = new HBox(contenedorPaisUno, labelMapaTeg, contenedorPaisDos);
@@ -55,16 +57,32 @@ public class ContenedorMapa {
 
         ejecutarAccion.setCursor(Cursor.HAND);
         pasarAccion.setCursor(Cursor.HAND);
+        this.vistasTablero = this.setVistasTablero(labelFase, labelCantidadEjercitosOrigen, labelCantidadEjercitosDestino, boxPaisesOrigen, boxPaisesDestino, boxEjercitosOrigen);
+
 
         this.contenedorMapa = contenedorMapa;
         this.setVisualBotones(elegirPaisUno, elegirPaisDos);
+        this.setVistaTurno(labelTurno, labelFase, labelCantidadEjercitosOrigen, labelCantidadEjercitosDestino, boxPaisesOrigen, boxPaisesDestino, boxEjercitosOrigen);
+        PasarAccion handler = new PasarAccion(this.juego, ejecutarAccion, boxPaisesOrigen, boxPaisesDestino, boxEjercitosOrigen, this.vistaTurno, vistasTablero);
+        ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, boxPaisesOrigen, boxEjercitosOrigen, this.vistaTurno);
+        ejecutarAccion.setOnAction(handlerColocar);
         this.setVisualContenedores(pasarAccion, ejecutarAccion, contenedorTurno, contenedorPaisUno, contenedorPaisDos, handler);
-        this.setVistaTurno(labelTurno, labelFase, labelCantidadEjercitosOrigen, labelCantidadEjercitosDestino, boxOrigen, boxDestino, cbx);
 
         ActualizarOrigen actualizarPaisesDestinoHandler = new ActualizarOrigen(this.vistaTurno, juego);
-        boxOrigen.setOnAction(actualizarPaisesDestinoHandler);
+        boxPaisesOrigen.setOnAction(actualizarPaisesDestinoHandler);
         ActualizarDestino actualizarEjercitosDestinoHandler = new ActualizarDestino(this.vistaTurno);
-        boxDestino.setOnAction(actualizarEjercitosDestinoHandler);
+        boxPaisesDestino.setOnAction(actualizarEjercitosDestinoHandler);
+    }
+
+    private ArrayList<VistaAccion> setVistasTablero(Label labelFase,Label ejercitosOrigen, Label ejercitosDestino, ComboBox boxOrigen, ComboBox boxDestino, ComboBox boxEjercitos){
+        labelFase.setText("FASE: Colocacion Ejercitos");
+        VistaAccion colocacion = new VistaColocacion(labelFase, ejercitosOrigen, ejercitosDestino, boxOrigen, boxDestino, boxEjercitos);
+        colocacion.activar();
+        ArrayList<VistaAccion> vistas = new ArrayList<>();
+        vistas.add(new VistaAtaque(labelFase, ejercitosOrigen, ejercitosDestino, boxOrigen, boxDestino, boxEjercitos));
+        vistas.add(new VistaReagrupacion(labelFase, ejercitosOrigen, ejercitosDestino, boxOrigen, boxDestino, boxEjercitos));
+        vistas.add(new VistaColocacion(labelFase, ejercitosOrigen, ejercitosDestino, boxOrigen, boxDestino, boxEjercitos));
+        return vistas;
     }
 
     private void setVistaTurno(Label labelTurno, Label labelFase, Label labelEjercitosOrigen, Label labelEjercitosDestino, ComboBox box, ComboBox boxDestino, ComboBox cbx) {

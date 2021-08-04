@@ -22,19 +22,20 @@ public class AtacarAccion implements EventHandler<ActionEvent> {
         this.juego = juego;
         this.boxOrigen = boxOrigen;
         this.boxDestino = boxDestino;
-        this.jugadorAtacante = juego.esElTurnoDe();
     }
 
     @Override
     public void handle(ActionEvent event) {
         ArrayList<Jugador> jugadores =  juego.obtenerJugadores();
+        this.jugadorAtacante = juego.esElTurnoDe();
         for (Jugador jugador: jugadores) {
             if (jugador.tieneElPais(boxDestino.getValue())) {
                 this.jugadorDefensor = jugador;
             }
         }
         try {
-            this.jugadorAtacante.elegirPais(this.buscarPais(this.boxOrigen.getValue()));
+            Pais paisAtacante = this.buscarPais(this.boxOrigen.getValue());
+            this.jugadorAtacante.elegirPais(paisAtacante);
             this.jugadorDefensor.elegirPais(this.buscarPais(this.boxDestino.getValue()));
             juego.ataqueDeA(jugadorAtacante, jugadorDefensor);
         } catch (Exception e) {
@@ -44,8 +45,7 @@ public class AtacarAccion implements EventHandler<ActionEvent> {
     }
 
     public Pais buscarPais(String nombre){
-        Jugador jugadorActual = juego.esElTurnoDe();
-        ArrayList<Pais> paises = jugadorActual.obtenerPaises();
+        ArrayList<Pais> paises = juego.obtenerPaises();
         for (Pais pais: paises){
             if (pais.esElPais(nombre)){
                 return pais;

@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.vistas.ContenedorMapa;
+import edu.fiuba.algo3.vistas.VistaTurno;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
@@ -14,11 +15,13 @@ public class ColocarEjercitos implements EventHandler<ActionEvent> {
     private Juego juego;
     private ComboBox<String> pais;
     private ComboBox<String> cantidadEjercitos;
+    private VistaTurno vista;
 
-    public ColocarEjercitos(Juego juego, ComboBox<String> box, ComboBox<String> cbx) {
+    public ColocarEjercitos(Juego juego, ComboBox<String> box, ComboBox<String> cbx, VistaTurno vista) {
         this.juego = juego;
         this.pais = box;
         this.cantidadEjercitos = cbx;
+        this.vista = vista;
     }
 
     @Override
@@ -36,6 +39,7 @@ public class ColocarEjercitos implements EventHandler<ActionEvent> {
                 pais.agregarEjercitos(ejercitos);
             }
         }
+        this.vista.actualizarEjercitosPorFase(ejercitos);
         ContenedorMapa.actualizarVista();
     }
 

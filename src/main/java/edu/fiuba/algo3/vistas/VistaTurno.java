@@ -27,6 +27,7 @@ public class VistaTurno {
     private ComboBox boxEjercitos;
     private int ejercitosFaseUno = 5;
     private int ejercitosFaseDos = 8;
+    private int ejercitosEnFaseDeJuego;
 
     public VistaTurno(Label labelTurno, Label labelFase,Label ejercitosOrigen, Label ejercitosDestino, Juego juego, ComboBox boxOrigen, ComboBox boxDestino, ComboBox cbx) throws TegException {
         this.juego = juego;
@@ -56,7 +57,6 @@ public class VistaTurno {
         int accionActual = juego.obtenerAccion();
         String accion = acciones.get(accionActual);
         this.labelFase.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color: #dda15e; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6");
-        this.labelFase.setText("FASE: " + accion);
     }
 
     private void setLabelTurno(){
@@ -108,16 +108,17 @@ public class VistaTurno {
         int ejercitosAMostrar;
         String faseActual = juego.obtenerFase();
         if (faseActual.equals("Juego")){
-            ejercitosAMostrar = juego.obtenerEjercitosPorFase();
+            ejercitosAMostrar = this.ejercitosEnFaseDeJuego;
         }
         else{
+            ejercitosEnFaseDeJuego = 99;
             if (faseActual.equals("ColocacionUno")){
                 ejercitosAMostrar = ejercitosFaseUno - jugadorActual.obtenerCantidadDeEjercitos();
-                jugadorActual.obtenerPaises().get(2).agregarEjercitos(ejercitosFaseUno);
+                //jugadorActual.obtenerPaises().get(2).agregarEjercitos(ejercitosFaseUno);
             }
             else{
                 ejercitosAMostrar = ejercitosFaseDos - jugadorActual.obtenerCantidadDeEjercitos();
-                jugadorActual.obtenerPaises().get(2).agregarEjercitos(3);
+                //jugadorActual.obtenerPaises().get(2).agregarEjercitos(3);
             }
         }
         ObservableList<String> ejercitos = FXCollections.observableArrayList();
@@ -125,6 +126,14 @@ public class VistaTurno {
             ejercitos.add(String.valueOf(i + 1));
         }
         boxEjercitos.setItems(ejercitos);
+    }
+
+    public void fijarEjercitosPorFase() {
+        this.ejercitosEnFaseDeJuego = juego.obtenerEjercitosPorFase();
+    }
+
+    public void actualizarEjercitosPorFase(int cantidadColocados) {
+        this.ejercitosEnFaseDeJuego -= cantidadColocados;
     }
 
     public void setCantidadDeEjercitosOrigen() {
@@ -137,6 +146,15 @@ public class VistaTurno {
         String nombrePais = (String) boxPaisesDestino.getValue();
         int ejercitosDestino = this.buscarPais(nombrePais).obtenerEjercitos();
         this.labelEjercitosDestino.setText("Ejercitos de " + nombrePais + ": " + ejercitosDestino);
+    }
+    public void setEjercitosReagrupar() {
+        String nombrePais = (String) boxPaisesOrigen.getValue();
+        Pais pais = this.buscarPais(nombrePais);
+        ObservableList<String> ejercitos = FXCollections.observableArrayList();
+        for (int i=0; i<(pais.obtenerEjercitos() - 1); i++){
+            ejercitos.add(String.valueOf(i + 1));
+        }
+        boxEjercitos.setItems(ejercitos);
     }
 
     public Pais buscarPais(String nombre){
@@ -179,6 +197,7 @@ public class VistaTurno {
         this.setSeleccionPaisesDestino(accionAEjecutar);
         this.setColocarEjercitos();
     }
+
 
 }
 
