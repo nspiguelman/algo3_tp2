@@ -21,37 +21,19 @@ public class PasarAccion implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        // Refactorizar, aca estamos agregado los ejercitos de fase uno y fase dos.
-        // La funcion que deberia cumplir es la de pasar de accion, actualizar el controlador del boton Pasar Accion
-
-
-
-        /*juego.siguienteAccion();
-        if (juego.obtenerAccion() == 3){
-            int n = juego.obtenerEjercitosPorFase();
-            vista.guardarEjercitos(n);
-        }
-        // Deberia mostrar 5.
-*/
-        //ColocarEjercitos -> vista.reducirEjercitosAMostrar(n);
-
-        int ej = juego.obtenerEjercitosPorFase();
+        // Pasar a siguiente fase
         Jugador jugador = juego.esElTurnoDe();
-        ArrayList<Pais> paises = jugador.obtenerPaises();
-        try {
-            juego.agregarEjercitos(jugador, paises.get(2), ej);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
-        this.juego.siguienteAccion();
-        if (jugadores.get(jugadores.size() - 1).obtenerColor().equals(jugador.obtenerColor())){
+        //Si es el ultimo jugador y no es fase de juego
+        if (jugadores.get(jugadores.size() - 1).obtenerColor().equals(jugador.obtenerColor()) && !juego.obtenerFase().equals("Juego")){
             try {
                 juego.siguienteFase();
             } catch (TegException e) {
                 e.printStackTrace();
             }
         }
+        this.juego.siguienteAccion();
         ContenedorMapa.actualizarVista();
+
     }
 }

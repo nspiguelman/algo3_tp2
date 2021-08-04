@@ -37,16 +37,16 @@ public class ContenedorMapa {
 
         Label labelTurno = new Label();
         Label labelFase = new Label();
-        Label paisDos = new Label();
 
-        ComboBox<String> box = new ComboBox<>();
+        ComboBox<String> boxOrigen = new ComboBox<>();
+        ComboBox<String> boxDestino = new ComboBox<>();
         ComboBox<String> cbx = new ComboBox<>();
 
         PasarAccion handler = new PasarAccion(this.juego);
-        ColocarEjercitos handlerDos = new ColocarEjercitos(this.juego, box, cbx);
+        ColocarEjercitos handlerDos = new ColocarEjercitos(this.juego, boxOrigen, cbx);
 
-        VBox contenedorPaisUno = new VBox(elegirPaisUno, box, cbx);
-        VBox contenedorPaisDos = new VBox(elegirPaisDos,paisDos);
+        VBox contenedorPaisUno = new VBox(elegirPaisUno, boxOrigen, cbx);
+        VBox contenedorPaisDos = new VBox(elegirPaisDos, boxDestino);
         HBox contenedorTurno = new HBox(pasarAccion, labelTurno, labelFase, ejecutarAccion);
 
         HBox contenedorPaisesElegidos = new HBox(contenedorPaisUno, labelMapaTeg, contenedorPaisDos);
@@ -57,20 +57,20 @@ public class ContenedorMapa {
         pasarAccion.setCursor(Cursor.HAND);
 
         this.contenedorMapa = contenedorMapa;
-        this.setVisualBotones(elegirPaisUno, elegirPaisDos, paisDos);
+        this.setVisualBotones(elegirPaisUno, elegirPaisDos);
         this.setVisualContenedores(pasarAccion, ejecutarAccion, contenedorTurno, contenedorPaisUno, contenedorPaisDos, handler, handlerDos);
-        this.setVistaTurno(labelTurno, labelFase, box, cbx);
+        this.setVistaTurno(labelTurno, labelFase, boxOrigen, boxDestino, cbx);
     }
 
-    private void setVistaTurno(Label labelTurno, Label labelFase, ComboBox box, ComboBox cbx) {
+    private void setVistaTurno(Label labelTurno, Label labelFase, ComboBox box, ComboBox boxDestino, ComboBox cbx) {
         try {
-            this.vistaTurno = new VistaTurno(labelTurno, labelFase, juego, box, cbx);
+            this.vistaTurno = new VistaTurno(labelTurno, labelFase, juego, box, boxDestino, cbx);
         } catch (TegException e) {
             e.printStackTrace();
         }
     }
 
-    private void setVisualBotones(Button elegirPaisUno, Button elegirPaisDos, Label paisDos){
+    private void setVisualBotones(Button elegirPaisUno, Button elegirPaisDos){
 
         elegirPaisUno.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color: #283618; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6;");
         elegirPaisUno.setText("Elegir Pais: ATACANTE");
@@ -78,10 +78,6 @@ public class ContenedorMapa {
         elegirPaisDos.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color: #283618; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6");
         elegirPaisDos.setText("Elegir Pais: DEFENSOR");
         elegirPaisDos.setTextFill(Color.WHITE);
-        paisDos.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-min-width: 30; -fx-min-height: 30 ; -fx-background-color: #000000; -fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6");
-
-
-
         }
 
     private void setVisualContenedores(Button pasarAccion, Button ejecutarAccion, HBox contenedorTurno, VBox contenedorPaisUno, VBox contenedorPaisDos, PasarAccion handler, ColocarEjercitos handlerDos){

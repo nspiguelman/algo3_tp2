@@ -30,7 +30,6 @@ public class Iniciar implements EventHandler<ActionEvent> {
     public Iniciar(ArrayList<CheckBox> checkboxes, Stage stage, Label validacion) {
         this.colores = new ArrayList<>(Arrays.asList("Azul", "Rojo", "Verde", "Naranja", "Negro", "Rosa"));
         this.checkboxes = checkboxes;
-
         this.stage = stage;
         this.validacion = validacion;
     }

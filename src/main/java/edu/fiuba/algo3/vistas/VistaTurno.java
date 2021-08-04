@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
 
-import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Juego;
@@ -20,22 +19,24 @@ public class VistaTurno {
     private HashMap<Integer, String> acciones = new HashMap<>();
     private Label labelFase;
     private Label labelTurno;
-    private ComboBox boxPaises;
+    private ComboBox boxPaisesOrigen;
+    private ComboBox boxPaisesDestino;
     private ComboBox boxEjercitos;
     private int ejercitosFaseUno = 5;
-    private int ejercitosFaseDos = 3;
+    private int ejercitosFaseDos = 8;
 
-    public VistaTurno(Label labelTurno, Label labelFase, Juego juego, ComboBox box, ComboBox cbx) throws TegException {
+    public VistaTurno(Label labelTurno, Label labelFase, Juego juego, ComboBox boxOrigen, ComboBox boxDestino, ComboBox cbx) throws TegException {
         this.juego = juego;
         this.labelFase = labelFase;
         this.labelTurno = labelTurno;
-        this.boxPaises = box;
+        this.boxPaisesOrigen = boxOrigen;
+        this.boxPaisesDestino = boxDestino;
         this.boxEjercitos = cbx;
         this.inicializarColores();
         this.inicializarAcciones();
         this.setLabelTurno();
         this.setLabelFase();
-        this.setSeleccionPaises();
+        this.setSeleccionPaisesOrigen();
         this.setColocarEjercitos();
     }
 
@@ -54,7 +55,7 @@ public class VistaTurno {
         this.labelTurno.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color:" + colorLabel + "; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6");
     }
 
-    public void setSeleccionPaises(){
+    public void setSeleccionPaisesOrigen(){
         ObservableList<String> items = FXCollections.observableArrayList();
 
         Jugador jugadorActual = this.juego.esElTurnoDe();
@@ -64,7 +65,23 @@ public class VistaTurno {
             Pais paisActual = paisesJugador.get(i);
             items.add(paisActual.obtenerNombrePais());
         }
-        boxPaises.setItems(items);
+        boxPaisesOrigen.setItems(items);
+    }
+
+    public void setSeleccionPaisesDestino(){
+        ObservableList<String> itemsDestino = FXCollections.observableArrayList();
+        Jugador jugadorActual = juego.esElTurnoDe();
+        ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
+        String paisOrigen = (String) boxPaisesOrigen.getValue();
+        for (Pais pais: paisesJugador){
+            if (pais.esElPais(paisOrigen)){
+                ArrayList<String> limitrofes = pais.obtenerNombrePaisesLimitrofes();
+                for (String paisLimitrofe: limitrofes){
+                    itemsDestino.add(paisLimitrofe);
+                }
+            }
+        }
+        boxPaisesDestino.setItems(itemsDestino);
     }
 
     public void setColocarEjercitos() {
@@ -108,7 +125,7 @@ public class VistaTurno {
     public void actualizarVista(){
         this.setLabelFase();
         this.setLabelTurno();
-        this.setSeleccionPaises();
+        this.setSeleccionPaisesOrigen();
         this.setColocarEjercitos();
     }
 }
