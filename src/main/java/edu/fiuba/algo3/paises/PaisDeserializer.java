@@ -4,33 +4,30 @@ import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class PaisDeserializer {
-    private JsonReader reader;
-
     @SerializedName("Limita con") private String limitaCon;
     @SerializedName("Pais") private String nombre;
     @SerializedName("Continente") private String continente;
 
-    public PaisDeserializer(JsonReader reader) {
-        this.reader = reader;
-    }
+    private String obtenerPais() { return nombre; }
+    private String obtenerContinente() { return continente; }
+    private String obtenerPaisesLimitrofes() { return limitaCon; }
 
-    private String pais() { return nombre; }
-    private String continente() { return continente; }
-    private String limitrofes() { return limitaCon; }
+    public static ArrayList<Pais> deserializarPaises(JsonReader reader) {
+        ArrayList<Pais> nuevosPaises = new ArrayList<>();
 
-    public ArrayList<Pais> getPaises() {
-        ArrayList<Pais> paisesADevolver = new ArrayList<>();
-        Type userListType = new TypeToken<ArrayList<PaisDeserializer>>(){}.getType();
+        Type paisesType = new TypeToken<ArrayList<PaisDeserializer>>(){}.getType();
         Gson gson = new Gson();
-        ArrayList<PaisDeserializer> paises = gson.fromJson(reader, userListType);
+        ArrayList<PaisDeserializer> paises = gson.fromJson(reader, paisesType);
+
         for (PaisDeserializer pais : paises) {
-            paisesADevolver.add(new Pais(pais.pais(), pais.continente(), pais.limitrofes()));
+            Pais nuevoPais = new Pais(pais.obtenerPais(), pais.obtenerContinente(), pais.obtenerPaisesLimitrofes());
+            nuevosPaises.add(nuevoPais);
         }
-        return paisesADevolver;
+
+        return nuevosPaises;
     }
 }

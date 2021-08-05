@@ -28,6 +28,7 @@ public class BatallaTest {
         }
 
         assertTrue(jugadorUno.tieneElPais(brasil));
+        assertFalse(jugadorDos.sigueEnJuego());
     }
 
 
@@ -49,5 +50,6 @@ public class BatallaTest {
         }
         assertTrue(jugadorUno.tieneElPais(brasil));
         assertFalse(jugadorDos.tieneElPais(brasil));
+        assertFalse(jugadorDos.sigueEnJuego());
     }
 }

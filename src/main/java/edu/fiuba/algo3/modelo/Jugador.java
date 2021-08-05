@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.continente.Continente;
 import edu.fiuba.algo3.estadoPaises.EstadoPaises;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.excepciones.*;
@@ -98,5 +99,17 @@ public class Jugador {
 
     public boolean domina(String continente, int paisesParaDominar){
         return this.estadoPaises.domina(continente, paisesParaDominar);
+    }
+
+    public boolean tieneNPaisesLimitrofesEntreSi(int obtenerCantidadDePaises) {
+        return true;
+    }
+
+    public boolean tieneNPaisesEnContinente(int cantidadDePaises, String continente) {
+        return cantidadDePaises == (int)estadoPaises.obtenerPaises().stream().filter(pais -> pais.obtenerNombreContinente().equals(continente)).count();
+    }
+
+    public boolean sigueEnJuego() {
+        return obtenerCantidadTotalDeEjercitos() > 0;
     }
 }

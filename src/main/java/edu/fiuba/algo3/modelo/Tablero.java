@@ -1,31 +1,47 @@
 package edu.fiuba.algo3.modelo;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import com.google.gson.stream.JsonReader;
+import edu.fiuba.algo3.continente.ContinenteDeserializer;
+import edu.fiuba.algo3.helper.Helper;
+import edu.fiuba.algo3.continente.Continente;
+import edu.fiuba.algo3.objetivos.Objetivo;
+import edu.fiuba.algo3.objetivos.ObjetivosDeserializer;
 import edu.fiuba.algo3.paises.Pais;
-import edu.fiuba.algo3.paises.PaisEnPaz;
 import edu.fiuba.algo3.paises.PaisDeserializer;
-import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.excepciones.*;
 
 public class Tablero {
     private final int CANTIDAD_DE_PAISES = 49;
 
     private ArrayList<TarjetaPais> tarjetasPaises;
     private ArrayList<Pais> paises;
+    private ArrayList<Objetivo> objetivos;
+    private HashMap<String, HashMap> continentes;
 
     public Tablero(ArrayList<Jugador> jugadores) throws FileNotFoundException {
         this.inicializarPaises();
         this.hacerRandomElOrdenDePaises();
         this.asignarPaises(jugadores);
+        this.inicializarContinentes();
+        this.inicializarObjetivos(continentes, jugadores);
+    }
+
+    private void inicializarContinentes() throws FileNotFoundException {
+        JsonReader reader = Helper.crearJsonReader("archivos/continentes.json");
+        this.continentes = ContinenteDeserializer.deserializarContinentes(reader);
+    }
+
+    private void inicializarObjetivos(HashMap<String, HashMap> continentes, ArrayList<Jugador> jugadores) throws FileNotFoundException {
+        JsonReader reader = Helper.crearJsonReader("archivos/objetivos.json");
+        this.objetivos = ObjetivosDeserializer.deserializarObjetivos(reader, continentes, jugadores);
     }
 
     private void inicializarPaises() throws FileNotFoundException {
-        JsonReader reader = new JsonReader(new FileReader("archivos/paises-fronteras.json"));
-        this.paises = new PaisDeserializer(reader).getPaises();
+        JsonReader reader = Helper.crearJsonReader("archivos/paises-fronteras.json");
+        this.paises = PaisDeserializer.deserializarPaises(reader);
     }
 
     private void hacerRandomElOrdenDePaises() {
@@ -47,6 +63,7 @@ public class Tablero {
 
             paises.remove(value);
         }
+
         Pais pais = paises.get(0);
         nuevosPaises.add(pais);
         this.paises = nuevosPaises;

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public interface TipoObjetivo {
     boolean validarObjetivo(Jugador unJugador);
-    boolean estaVigente(Jugador unJugador);
-    ArrayList<TipoObjetivoDeserializer> obtenerObjetivo();
+    String obtenerTipo();
 }
 

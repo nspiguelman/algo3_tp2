@@ -1,36 +1,34 @@
 package edu.fiuba.algo3.objetivos;
 
+import edu.fiuba.algo3.continente.Continente;
 import edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class Objetivo {
     private String descripcion;
     private TipoObjetivo tipo;
-    private Boolean estaVigente;
 
-    public Objetivo(String descripcion, String tipo, ArrayList<TipoObjetivoDeserializer> objetivo) {
+    public Objetivo(String descripcion, String tipoObjetivo, ArrayList<TipoObjetivoDeserializer> objetivo, HashMap<String, HashMap> continentes, ArrayList<Jugador> jugadores) {
         this.descripcion = descripcion;
-        this.tipo = tipo == "Conquista" ? new Conquista(objetivo) : new Destruccion(objetivo);
-        this.estaVigente = true;
+        this.tipo = tipoObjetivo.equals("Conquista") ? new Conquista(objetivo) : new Destruccion(objetivo, jugadores);
     }
 
     public String obtenerDescripcion() {
         return descripcion;
     }
-    public ArrayList<TipoObjetivoDeserializer> obtenerObjetivo() { return tipo.obtenerObjetivo(); }
-    public String obtenerContinente(TipoObjetivoDeserializer objetivo) { return objetivo.obtenerContinente(); }
-    public int obtenerCantidadDePaises(TipoObjetivoDeserializer objetivo) { return objetivo.obtenerCantidadDePaises(); }
-    public String obtenerColor(TipoObjetivoDeserializer objetivo) { return objetivo.obtenerColor(); };
-
-    // Cuando se valida Conquista el jugador es el mismo.
-    // Cuando se valida Destrucción el jugador es el oponente.
+    public String obtenerTipo() { return tipo.obtenerTipo(); }
     public boolean validarObjetivo(Jugador unJugador) {
-        if (estaVigente) return tipo.validarObjetivo(unJugador);
-        return false;
+        return tipo.validarObjetivo(unJugador);
     }
 
-    public void validarVigencia(Jugador unJugador) {
-        estaVigente = tipo.estaVigente(unJugador);
-    }
+
+
+
+
+    // public String obtenerContinente(TipoObjetivoDeserializer objetivo) { return objetivo.obtenerContinente(); }
+    // public int obtenerCantidadDePaises(TipoObjetivoDeserializer objetivo) { return objetivo.obtenerCantidadDePaises(); }
+    // public String obtenerColor(TipoObjetivoDeserializer objetivo) { return objetivo.obtenerColor(); };
 }

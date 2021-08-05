@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.continente.Continente;
 import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.fase.FaseUnoColocacionEjercitos;
@@ -83,6 +84,29 @@ public class JugadorTest {
         //String actualMessage = exception.getMessage();
         //assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    public void jugadorTieneUnPaisEnContinente() throws Exception {
+        Continente continente = new Continente("America",1,0);
+        Jugador jugador = new Jugador("Rojo");
+        Pais pais = new Pais("Argentina", "America", "a,b");
+        jugador.agregarPais(pais);
+        assertTrue(jugador.tieneNPaisesEnContinente(1, continente.obtenerNombreContinente()));
+    }
+
+    @Test
+    public void jugadorSinPaisesNoEstaEnJuego() {
+        Jugador jugador = new Jugador("Rojo");
+        assertFalse(jugador.sigueEnJuego());
+    }
+
+    @Test
+    public void jugadorConPaisesEstaEnJuego() {
+        Jugador jugador = new Jugador("Rojo");
+        jugador.agregarPais(new Pais("pais", "continente", "a,b"));
+        assertTrue(jugador.sigueEnJuego());
+    }
+
 
     // FALTA AGREGAR TEST DE VALIDACIONES PARA FASE DOS EXITOSO, Y FASE DOS FALLA
 

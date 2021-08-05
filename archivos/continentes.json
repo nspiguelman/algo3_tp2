@@ -2,26 +2,31 @@
   {
     "Continente": "Asia",
     "CantidadPaises": "15",
-    "Extras": "7"
+    "FichasExtra": "7"
   },
   {
     "Continente": "America del Sur",
     "CantidadPaises": "6",
-    "Extras": "7"
+    "FichasExtra": "3"
   },
   {
-    "Continente": "Asia",
-    "CantidadPaises": "15",
-    "Extras": "7"
+    "Continente": "America del Norte",
+    "CantidadPaises": "10",
+    "FichasExtra": "5"
   },
   {
-    "Continente": "Asia",
-    "CantidadPaises": "15",
-    "Extras": "7"
+    "Continente": "Europa",
+    "CantidadPaises": "9",
+    "FichasExtra": "5"
   },
   {
-    "Continente": "Asia",
-    "CantidadPaises": "15",
-    "Extras": "7"
+    "Continente": "Oceania",
+    "CantidadPaises": "4",
+    "FichasExtra": "2"
+  },
+  {
+    "Continente": "Africa",
+    "CantidadPaises": "6",
+    "FichasExtra": "3"
   }
 ]
