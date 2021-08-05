@@ -10,6 +10,6 @@ public class Reagrupar implements Accion{
     }
 
     public int numeroAccion(){
-        return 1;
+        return 2;
     }
 }

@@ -50,4 +50,9 @@ public class FaseDeJuego implements Fase {
     public void reiniciarAcciones() {
         accionActual = new Atacar();
     }
+
+    @Override
+    public String obtenerFase(){
+        return "Juego";
+    }
 }

@@ -41,8 +41,8 @@ public class JuegoTest {
             ArrayList<Pais> paisesDeJugador = juego.obtenerPaisesDeJugador(jugador);
             Pais paisAAgregarEjercitos = paisesDeJugador.get(numeroRandomPaisASeleccionar);
 
-            juego.agregarEjercitos(jugador, paisAAgregarEjercitos, 1);
-            assertEquals(paisAAgregarEjercitos.obtenerEjercitos(), 2);
+            juego.agregarEjercitos(jugador, paisAAgregarEjercitos, 5);
+            assertEquals(paisAAgregarEjercitos.obtenerEjercitos(), 6);
             juego.siguienteTurno();
         }
     }
@@ -87,10 +87,12 @@ public class JuegoTest {
 
         for (Jugador jugador : jugadores) {
             ArrayList<Pais> paisesDeJugadorActual = juego.obtenerPaisesDeJugador(jugador);
-            for (int i = 0; i < 5; i++) {
-                Pais paisDeJugador = paisesDeJugadorActual.get(i);
-                juego.agregarEjercitos(jugador, paisDeJugador, 1);
-            }
+            paisesDeJugadorActual.get(0).agregarEjercitos(1);
+            paisesDeJugadorActual.get(1).agregarEjercitos(1);
+            paisesDeJugadorActual.get(2).agregarEjercitos(1);
+            paisesDeJugadorActual.get(3).agregarEjercitos(1);
+            paisesDeJugadorActual.get(4).agregarEjercitos(1);
+
             juego.siguienteTurno();
         }
         juego.siguienteFase();
@@ -104,17 +106,15 @@ public class JuegoTest {
         Juego juego = new Juego(coloresJugadores);
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
 
-        for (Jugador jugador : jugadores) {
-            ArrayList<Pais> paisesDeJugadorActual = juego.obtenerPaisesDeJugador(jugador);
-            Pais paisDeJugador = paisesDeJugadorActual.get(4);
-            juego.agregarEjercitos(jugador, paisDeJugador, 4);
-            juego.siguienteTurno();
-        }
-        Exception exception = assertThrows(SiguienteFaseException.class, juego::siguienteFase);
+        ArrayList<Pais> paisesDeJugadorActual = juego.obtenerPaisesDeJugador(jugadores.get(0));
+        Pais paisDeJugador = paisesDeJugadorActual.get(4);
+        juego.agregarEjercitos(jugadores.get(0), paisDeJugador, 4);
 
-        String expectedMessage = "Para pasar a la siguiente fase cada jugador debe tener 5 ejercitos agregados.";
+        Exception exception = assertThrows(ColocarEjercitosException.class, () -> { juego.siguienteTurno(); });
+
+        /*String expectedMessage = "Antes de pasar de turno, el jugador actual debe colocar todos sus ejercitos";
         String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertTrue(actualMessage.contains(expectedMessage));*/
     }
 
     @Test
@@ -204,10 +204,9 @@ public class JuegoTest {
                 totalEjercitos = 3;
             }
             ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
-            for (int m=0; m < totalEjercitos; m++){
-                Pais paisDeJugador = paises.get(m);
-                juego.agregarEjercitos(jugadorActual, paisDeJugador, 1);
-            }
+            Pais paisDeJugador = paises.get(1);
+            juego.agregarEjercitos(jugadorActual, paisDeJugador, totalEjercitos);
+
             faseDeColocacion++;
             if (faseDeColocacion==2) {
                 juego.siguienteFase();
@@ -220,12 +219,13 @@ public class JuegoTest {
         {
             Jugador jugadorActual = jugadores.get(i%2);
             ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
-            juego.siguienteAccion(); // No ataca
-            juego.siguienteAccion(); // No reagrupa
+            juego.siguienteAccion();
+            juego.siguienteAccion();
             juego.agregarEjercitos(jugadorActual, paises.get(3), 4);
             juego.agregarEjercitos(jugadorActual, paises.get(4), 4);
             juego.agregarEjercitos(jugadorActual, paises.get(5), 4);
             juego.siguienteTurno();
+            
         }
     }
     @Test
@@ -238,17 +238,16 @@ public class JuegoTest {
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int faseDeColocacion = 0;
         int totalEjercitos = 5;
-        // Colocacion de ejercitos fases 1 y 2
+
         for (int i = 0; i < 4; i++) {
             Jugador jugadorActual = jugadores.get(i % 2);
             if (faseDeColocacion > 1) {
                 totalEjercitos = 3;
             }
             ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
-            for (int m = 0; m < totalEjercitos; m++) {
-                Pais paisDeJugador = paises.get(m);
-                juego.agregarEjercitos(jugadorActual, paisDeJugador, 1);
-            }
+            Pais paisDeJugador = paises.get(1);
+            juego.agregarEjercitos(jugadorActual, paisDeJugador, totalEjercitos);
+
             faseDeColocacion++;
             if (faseDeColocacion == 2) {
                 juego.siguienteFase();
@@ -315,10 +314,9 @@ public class JuegoTest {
                 totalEjercitos = 3;
             }
             ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
-            for (int m = 0; m < totalEjercitos; m++) {
-                Pais paisDeJugador = paises.get(m);
-                juego.agregarEjercitos(jugadorActual, paisDeJugador, 1);
-            }
+            Pais paisDeJugador = paises.get(1);
+            juego.agregarEjercitos(jugadorActual, paisDeJugador, totalEjercitos);
+
             faseDeColocacion++;
             if (faseDeColocacion == 3) {
                 juego.siguienteFase();
@@ -338,6 +336,10 @@ public class JuegoTest {
 
         ArrayList<Pais> paisesDeAtaque = new ArrayList<>();
         // Paso de turno para que el Jugador Dos realice los ataques a Asia
+        Jugador jugadorActual = juego.esElTurnoDe();
+        int ejercitosParaPasarTurno = jugadorActual.obtenerPaises().size();
+        jugadorActual.obtenerPaises().get(0).agregarEjercitos(ejercitosParaPasarTurno);
+
         juego.siguienteTurno();
         while (contador < paisesDos.size()){
             Pais paisActualDos = paisesDos.get(contador);
@@ -377,9 +379,17 @@ public class JuegoTest {
         juego.siguienteAccion();
         juego.siguienteAccion(); // Paso de ataque a reagrupamiento, y de reagrupamiento a colocacion de ejercitos
 
+        jugadorActual = juego.esElTurnoDe();
+        ejercitosParaPasarTurno = jugadorActual.obtenerPaises().size();
+        jugadorActual.obtenerPaises().get(0).agregarEjercitos(ejercitosParaPasarTurno);
+
         juego.siguienteTurno(); // Turno del Jugador Tres
         juego.siguienteAccion();
         juego.siguienteAccion(); // Paso de ataque a reagrupamiento, y de reagrupamiento a colocacion de ejercitos
+
+        jugadorActual = juego.esElTurnoDe();
+        ejercitosParaPasarTurno = jugadorActual.obtenerPaises().size();
+        jugadorActual.obtenerPaises().get(0).agregarEjercitos(ejercitosParaPasarTurno);
 
         juego.siguienteTurno();
 
@@ -436,10 +446,9 @@ public class JuegoTest {
                 totalEjercitos = 3;
             }
             ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
-            for (int m = 0; m < totalEjercitos; m++) {
-                Pais paisDeJugador = paises.get(m);
-                juego.agregarEjercitos(jugadorActual, paisDeJugador, 1);
-            }
+            Pais paisDeJugador = paises.get(2);
+            juego.agregarEjercitos(jugadorActual, paisDeJugador, totalEjercitos);
+
             faseDeColocacion++;
             if (faseDeColocacion == 3) {
                 juego.siguienteFase();
@@ -459,7 +468,12 @@ public class JuegoTest {
 
         ArrayList<Pais> paisesDeAtaque = new ArrayList<>();
         // Paso de turno para que el Jugador Dos realice los ataques a Asia
-        juego.siguienteTurno();
+       Jugador jugadorActual = juego.esElTurnoDe();
+       int ejercitosParaPasarTurno = jugadorActual.obtenerPaises().size();
+       jugadorActual.obtenerPaises().get(0).agregarEjercitos(ejercitosParaPasarTurno);
+
+
+       juego.siguienteTurno();
         while (contador < paisesDos.size()){
             Pais paisActualDos = paisesDos.get(contador);
 
@@ -497,10 +511,17 @@ public class JuegoTest {
         /// Actualmente es el turno del Jugador Dos.
         juego.siguienteAccion();
         juego.siguienteAccion(); // Paso de ataque a reagrupamiento, y de reagrupamiento a colocacion de ejercitos
+        jugadorActual = juego.esElTurnoDe();
+        ejercitosParaPasarTurno = jugadorActual.obtenerPaises().size();
+        jugadorActual.obtenerPaises().get(0).agregarEjercitos(ejercitosParaPasarTurno);
+
 
         juego.siguienteTurno(); // Turno del Jugador Tres
         juego.siguienteAccion();
         juego.siguienteAccion(); // Paso de ataque a reagrupamiento, y de reagrupamiento a colocacion de ejercitos
+        jugadorActual = juego.esElTurnoDe();
+        ejercitosParaPasarTurno = jugadorActual.obtenerPaises().size();
+        jugadorActual.obtenerPaises().get(0).agregarEjercitos(ejercitosParaPasarTurno);
 
         juego.siguienteTurno();
 

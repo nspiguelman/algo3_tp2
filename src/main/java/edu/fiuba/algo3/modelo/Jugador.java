@@ -13,7 +13,7 @@ public class Jugador {
     private String color;
     private final EstadoPaises estadoPaises;
     private Tarjetas tarjetas;
-    int ejercitosMaximosPorTurno;
+    public int ejercitosMaximosPorTurno;
 
     public Jugador(String color) {
         this.estadoPaises = new EstadoPaises();
@@ -28,7 +28,6 @@ public class Jugador {
 
     public void elegirPais(Pais unPais) throws Exception {
         this.estadoPaises.elegirPaisEnBatalla(unPais);
-
     }
 
     public Tarjetas obtenerTarjetas() {return tarjetas;}
@@ -40,8 +39,12 @@ public class Jugador {
         return tarjetas.obtenerCanjeActual();
     }
 
-    private int obtenerCantidadTotalDeEjercitos() { return estadoPaises.obtenerCantidadTotalDeEjercitos();}
-    public int obtenerCantidadDeEjercitos(){ return estadoPaises.obtenerCantidadDeEjercitosAgregados(); }
+    public int obtenerCantidadTotalDeEjercitos() {
+        return estadoPaises.obtenerCantidadTotalDeEjercitos();
+    }
+    public int obtenerCantidadDeEjercitos(){
+        return estadoPaises.obtenerCantidadDeEjercitosAgregados();
+    }
     public int obtenerEjercitosEnBatalla() {
         return estadoPaises.obtenerEjercitosEnBatalla();
     }
@@ -56,6 +59,10 @@ public class Jugador {
 
     public void validarCantidadEjercitos(int cantidadASumar, int ejercitosPorFase) throws TegException {
         this.estadoPaises.validarCantidadEjercitos(ejercitosMaximosPorTurno, cantidadASumar, ejercitosPorFase);
+    }
+
+    public void puedeAgregarMasEjercitos(int cantidadPorFase) throws TegException{
+        this.estadoPaises.faltaAgregarEjercitos(ejercitosMaximosPorTurno, cantidadPorFase);
     }
 
     public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
@@ -94,7 +101,7 @@ public class Jugador {
     }
 
     public boolean cumplioObjetivos() {
-        return (estadoPaises.obtenerPaises().size() == 30);
+        return (estadoPaises.obtenerPaises().size() >= 30);
     }
 
     public boolean domina(String continente, int paisesParaDominar){
@@ -114,4 +121,9 @@ public class Jugador {
     }
 
     public boolean equals(Jugador unJugador) { return (this.obtenerColor().equals(unJugador.obtenerColor())); }
+    public int obtenerEjercitosAAgregar(int cantidadEjercitosPorFase) {
+        return this.estadoPaises.ejercitosAAgregar(this.ejercitosMaximosPorTurno, cantidadEjercitosPorFase);
+    }
+
+
 }

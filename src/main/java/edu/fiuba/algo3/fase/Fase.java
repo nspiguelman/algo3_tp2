@@ -16,4 +16,5 @@ public interface Fase {
     void siguienteAccion(Jugador unJugador);
     int accionActual();
     void reiniciarAcciones();
+    String obtenerFase();
 }
