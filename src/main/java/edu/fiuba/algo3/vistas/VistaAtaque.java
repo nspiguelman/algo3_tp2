@@ -26,7 +26,7 @@ public class VistaAtaque implements VistaAccion {
         this.labelFase.setText("FASE: Ataque");
         this.labelEjercitosOrigen.setText("");
         this.labelEjercitosDestino.setText("");
-        this.ejercitosOrigen.setDisable(false);
+        this.ejercitosOrigen.setDisable(true);
         this.boxPaisesOrigen.getSelectionModel().clearSelection();
         this.boxPaisesDestino.getSelectionModel().clearSelection();
         this.boxPaisesOrigen.setDisable(false);

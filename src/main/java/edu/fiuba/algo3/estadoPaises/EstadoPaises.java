@@ -52,6 +52,7 @@ public class EstadoPaises {
         int diferencia = ejercitosMaximosPorTurno + cantidadPorFase - 1 - ejercitosJugador;
 
         if (diferencia >= 0) {
+            System.out.println("Aca esta el error");
             throw new ColocarEjercitosException(cantidadPorFase);
         }
     }

@@ -127,4 +127,7 @@ public class Jugador {
     }
 
 
+    public int obtenerCAPACIDAD() {
+        return this.ejercitosMaximosPorTurno;
+    }
 }

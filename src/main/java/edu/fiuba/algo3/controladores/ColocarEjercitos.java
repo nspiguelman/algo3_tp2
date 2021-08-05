@@ -32,6 +32,7 @@ public class ColocarEjercitos implements EventHandler<ActionEvent> {
     public void handler() {
         String nombrePais = pais.getValue();
         int ejercitos = Integer.parseInt(cantidadEjercitos.getValue());
+        // TODO: validar que pasa cuando el combobox esta vacio.
         Jugador jugadorActual = juego.esElTurnoDe();
         ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
         for (Pais pais: paisesJugador){
