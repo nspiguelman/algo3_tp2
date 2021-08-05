@@ -1,0 +1,196 @@
+[
+  {
+    "Descripcion": "Ocupar África, 5 países de América del Norte y 4 países de Europa.",
+    "Tipo": "Conquista",
+    "Objetivos" : [
+      {
+        "ContinenteOLimitrofe": "Africa",
+        "CantidadDePaises": 6
+      },
+      {
+        "ContinenteOLimitrofe": "America del Norte",
+        "CantidadDePaises": 5
+      },
+      {
+        "Europa": "Africa",
+        "CantidadDePaises": 4
+      }
+    ]
+  },
+  {
+    "Descripcion": "Ocupar América del Sur, 7 países de Europa y 3 países limítrofes entre sí en cualquier lugar del mapa.",
+    "Tipo": "Conquista",
+    "Objetivos" : [
+      {
+        "ContinenteOLimitrofe": "America del Sur",
+        "CantidadDePaises": "6"
+      },
+      {
+        "ContinenteOLimitrofe": "Europa",
+        "CantidadDePaises": "7"
+      },
+      {
+        "ContinenteOLimitrofe": "Limitrofes",
+        "CantidadDePaises": "3"
+      }
+    ]
+  },
+  {
+    "Descripcion": "Ocupar Asia y 2 países de América del Sur.",
+    "Tipo": "Conquista",
+    "Objetivos" : [
+      {
+        "ContinenteOLimitrofe": "Asia",
+        "CantidadDePaises": "15"
+      },
+      {
+        "ContinenteOLimitrofe": "America del Sur",
+        "CantidadDePaises": "2"
+      }
+    ]
+  },
+  {
+    "Descripcion": "Ocupar Europa, 4 países de Asia y 2 países de América de Sur.",
+    "Tipo": "Conquista",
+    "Objetivos" : [
+      {
+        "ContinenteOLimitrofe": "Europa",
+        "CantidadDePaises": "9"
+      },
+      {
+        "ContinenteOLimitrofe": "America del Sur",
+        "CantidadDePaises": "2"
+      },
+      {
+        "ContinenteOLimitrofe": "Asia",
+        "CantidadDePaises": "4"
+      }
+    ]
+  },
+  {
+    "Descripcion": "Ocupar América del Norte, 2 países de Oceanía y 4 de Asia.",
+    "Tipo": "Conquista",
+    "Objetivos" : [
+      {
+        "ContinenteOLimitrofe": "America del Norte",
+        "CantidadDePaises": "10"
+      },
+      {
+        "ContinenteOLimitrofe": "Oceania",
+        "CantidadDePaises": "2"
+      },
+      {
+        "ContinenteOLimitrofe": "Asia",
+        "CantidadDePaises": "4"
+      }
+    ]
+  },
+  {
+    "Descripcion": "Ocupar 2 países de Oceanía, 2 países de África, 2 países de América del Sur, 3 países de Europa, 4 de América del Norte y 3 de Asia.",
+    "Tipo": "Conquista",
+    "Objetivos" : [
+      {
+        "ContinenteOLimitrofe": "Africa",
+        "CantidadDePaises": "2"
+      },
+      {
+        "ContinenteOLimitrofe": "Oceania",
+        "CantidadDePaises": "2"
+      },
+      {
+        "ContinenteOLimitrofe": "America del Sur",
+        "CantidadDePaises": "2"
+      },
+      {
+        "ContinenteOLimitrofe": "Europa",
+        "CantidadDePaises": "3"
+      },
+      {
+        "ContinenteOLimitrofe": "America del Norte",
+        "CantidadDePaises": "4"
+      },
+      {
+        "ContinenteOLimitrofe": "Asia",
+        "CantidadDePaises": "3"
+      }
+    ]
+  },
+  {
+    "Descripcion": "Ocupar Oceanía, América del Norte y 2 países de Europa.",
+    "Tipo": "Conquista",
+    "Objetivos" : [
+      {
+        "ContinenteOLimitrofe": "Oceania",
+        "CantidadDePaises": "4"
+      },
+      {
+        "ContinenteOLimitrofe": "America del Norte",
+        "CantidadDePaises": "10"
+      },
+      {
+        "ContinenteOLimitrofe": "Europa",
+        "CantidadDePaises": "2"
+      }
+    ]
+  },
+  {
+    "Descripcion" : "Ocupar América del Sur, África y 5 países de América del Norte.",
+    "Tipo": "Conquista",
+    "Objetivos": [
+      {
+        "ContinenteOLimitrofe": "America del Sur",
+        "CantidadDePaises": "6"
+      },
+      {
+        "ContinenteOLimitrofe": "Africa",
+        "CantidadDePaises": "6"
+      },
+      {
+        "ContinenteOLimitrofe": "America del Norte",
+        "CantidadDePaises": "5"
+      }
+    ]
+  },
+  {
+    "Descripcion": "Destruir al ejército negro de ser imposible al jugador de la derecha.",
+    "Tipo": "Destrucción",
+    "Objetivos": [{
+      "Color": "Negro"
+    }]
+  },
+  {
+    "Descripcion": "Destruir el ejército azul de ser imposible al jugador de la derecha.",
+    "Tipo": "Destrucción",
+    "Objetivos": [{
+      "Color": "Azul"
+    }]
+  },
+  {
+    "Descripcion":  "Destruir al ejército rojo de ser imposible al jugador de la derecha.",
+    "Tipo": "Destrucción",
+    "Objetivos": [{
+      "Color": "Rojo"
+    }]
+  },
+  {
+    "Descripcion":  "Destruir al ejército verde de ser imposible al jugador de la derecha.",
+    "Tipo": "Destrucción",
+    "Objetivos": [{
+      "Color": "Verde"
+    }]
+  },
+  {
+    "Descripcion":  "Destruir al ejército magenta de ser imposible al jugador de la derecha.",
+    "Tipo": "Destrucción",
+    "Objetivos": [{
+      "Color": "Magenta"
+    }]
+  },
+  {
+    "Descripcion": "Destruir al ejército amarillo de ser imposible al jugador de la derecha.",
+    "Tipo": "Destrucción",
+    "Objetivos": [{
+        "Color": "Amarillo"
+      }]
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "Continente": "Asia",
+    "CantidadPaises": "15",
+    "FichasExtra": "7"
+  },
+  {
+    "Continente": "America del Sur",
+    "CantidadPaises": "6",
+    "FichasExtra": "3"
+  },
+  {
+    "Continente": "America del Norte",
+    "CantidadPaises": "10",
+    "FichasExtra": "5"
+  },
+  {
+    "Continente": "Europa",
+    "CantidadPaises": "9",
+    "FichasExtra": "5"
+  },
+  {
+    "Continente": "Oceania",
+    "CantidadPaises": "4",
+    "FichasExtra": "2"
+  },
+  {
+    "Continente": "Africa",
+    "CantidadPaises": "6",
+    "FichasExtra": "3"
+  }
+]

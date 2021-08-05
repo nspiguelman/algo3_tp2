@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.continente.Continente;
 import edu.fiuba.algo3.estadoPaises.EstadoPaises;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.excepciones.*;
@@ -56,7 +57,7 @@ public class Jugador {
         }
     }
 
-    public void validarCantidadEjercitos(int cantidadASumar, int ejercitosPorFase) throws TegException{
+    public void validarCantidadEjercitos(int cantidadASumar, int ejercitosPorFase) throws TegException {
         this.estadoPaises.validarCantidadEjercitos(ejercitosMaximosPorTurno, cantidadASumar, ejercitosPorFase);
     }
 
@@ -66,12 +67,9 @@ public class Jugador {
 
     public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
     public boolean tieneElPais(String otroPais) { return estadoPaises.tieneElPais(otroPais); }
-
-
     public void eliminarPaisEnBatalla() {
         estadoPaises.eliminarPaisEnBatalla();
     }
-
     public void conquistar(Pais unPais) throws Exception{
         Pais paisEnBatalla = this.paisEnBatalla();
         this.estadoPaises.reducirEjercitos(paisEnBatalla, 1);
@@ -111,6 +109,19 @@ public class Jugador {
         return this.estadoPaises.domina(continente, paisesParaDominar);
     }
 
+    public boolean tieneNPaisesLimitrofesEntreSi(int obtenerCantidadDePaises) {
+        return true;
+    }
+
+    public boolean tieneNPaisesEnContinente(int cantidadDePaises, String continente) {
+        return cantidadDePaises == (int)estadoPaises.obtenerPaises().stream().filter(pais -> pais.obtenerNombreContinente().equals(continente)).count();
+    }
+
+    public boolean sigueEnJuego() {
+        return obtenerCantidadTotalDeEjercitos() > 0;
+    }
+
+    public boolean equals(Jugador unJugador) { return (this.obtenerColor().equals(unJugador.obtenerColor())); }
     public int obtenerEjercitosAAgregar(int cantidadEjercitosPorFase) {
         return this.estadoPaises.ejercitosAAgregar(this.ejercitosMaximosPorTurno, cantidadEjercitosPorFase);
     }
