@@ -42,7 +42,6 @@ public class EstadoPaises {
 
         int ejercitosJugador = this.obtenerCantidadTotalDeEjercitos();
         int diferencia = cantidadEjercitosMaximos + ejercitosPorFase - ejercitosASumar - ejercitosJugador;
-
         if (diferencia < 0) {
             throw new ColocarEjercitosException(ejercitosPorFase);
         }
@@ -51,6 +50,7 @@ public class EstadoPaises {
     public void faltaAgregarEjercitos(int ejercitosMaximosPorTurno, int cantidadPorFase) throws ColocarEjercitosException{
         int ejercitosJugador = this.obtenerCantidadTotalDeEjercitos();
         int diferencia = ejercitosMaximosPorTurno + cantidadPorFase - 1 - ejercitosJugador;
+
         if (diferencia >= 0) {
             throw new ColocarEjercitosException(cantidadPorFase);
         }

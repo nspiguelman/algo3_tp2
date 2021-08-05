@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.controladores;
+/*package edu.fiuba.algo3.controladores;
 
 import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Juego;
@@ -47,7 +47,8 @@ public class ColocarEjercitosTest {
         ColocarEjercitos colocarEjercitosController = new ColocarEjercitos(juego, paises, cantidadEjercitos);
         colocarEjercitosController.handler();
 
-         */
+
     }
 
 }
+*/
