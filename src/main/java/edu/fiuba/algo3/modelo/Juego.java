@@ -51,9 +51,9 @@ public class Juego {
         }else{
             cantidadEjercitosPorFase = this.fase.ejercitosPorFase(jugadorActual);
         }
+        System.out.println(cantidadEjercitosPorFase + " totales: " +  this.esElTurnoDe().obtenerCantidadTotalDeEjercitos() + " capacidad maxima: " + this.esElTurnoDe().obtenerCAPACIDAD());
         jugadorActual.puedeAgregarMasEjercitos(cantidadEjercitosPorFase);
     }
-
 
     private boolean verificarObjetivos() {
         Jugador jugadorActual = turno.turnoActual();
@@ -64,8 +64,6 @@ public class Juego {
         return true;
     }
 
-
-    //
     public ArrayList<Jugador> obtenerJugadores() {
         return jugadores;
     }

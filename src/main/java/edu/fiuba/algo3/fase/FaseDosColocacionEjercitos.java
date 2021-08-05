@@ -34,7 +34,7 @@ public class FaseDosColocacionEjercitos implements Fase {
     @Override
     public int ejercitosPorFase(Jugador unJugador) {
         unJugador.setearEjercitosMaximos();
-        return 3;
+        return 8;
     }
 
     @Override
