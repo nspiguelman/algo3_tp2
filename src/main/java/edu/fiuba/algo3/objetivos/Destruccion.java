@@ -8,21 +8,19 @@ import java.util.stream.Collectors;
 
 public class Destruccion implements TipoObjetivo {
     private Jugador jugadorAVencer;
+    private ArrayList<Jugador> jugadoresAVencer;
 
     public Destruccion(ArrayList<TipoObjetivoDeserializer> tipoObjetivoJugador, ArrayList<Jugador> jugadores) {
-        List<Jugador> x = jugadores
+        List<Jugador> jugadoresFiltrados = jugadores
             .stream()
             .filter(jugador -> tipoObjetivoJugador.get(0).obtenerColor().equals(jugador.obtenerColor()))
             .collect(Collectors.toList());
-        if (x.size() == 1) {
-            this.jugadorAVencer = x.get(0);
-        } else {
-            this.jugadorAVencer = buscarElJugadorALaDerecha(jugadores);
-        }
+        this.jugadorAVencer = (jugadoresFiltrados.size() == 1) ? jugadoresFiltrados.get(0) : jugadores.get(0);
     }
 
-    private Jugador buscarElJugadorALaDerecha(ArrayList<Jugador> jugadores) {
-        int indice
+    public void actualizarObjetivo(Jugador unJugadorConObjetivo) {
+        int indice = jugadoresAVencer.indexOf(unJugadorConObjetivo);
+        jugadorAVencer = (indice == (jugadoresAVencer.size() - 1)) ? jugadoresAVencer.get(0) : jugadoresAVencer.get(indice + 1);
     }
 
     public String obtenerTipo() {

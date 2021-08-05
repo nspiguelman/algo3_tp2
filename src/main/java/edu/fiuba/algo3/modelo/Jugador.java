@@ -112,4 +112,6 @@ public class Jugador {
     public boolean sigueEnJuego() {
         return obtenerCantidadTotalDeEjercitos() > 0;
     }
+
+    public boolean equals(Jugador unJugador) { return (this.obtenerColor().equals(unJugador.obtenerColor())); }
 }
