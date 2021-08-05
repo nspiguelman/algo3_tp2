@@ -174,20 +174,6 @@ public class JuegoTest {
     }
 
     @Test
-    public void asignarEjercitosDeMasEnSegundaRondaFalla() throws Exception, FileNotFoundException {
-        ArrayList<String> coloresJugadores = new ArrayList<>();
-        coloresJugadores.add("Azul");
-        Juego juego = new Juego(coloresJugadores);
-        ArrayList<Jugador> jugadores = juego.obtenerJugadores();
-        Jugador jugador = jugadores.get(0);
-        ArrayList<Pais> paisesDeJugadorActual = juego.obtenerPaisesDeJugador(jugador);
-        Pais paisDeJugador = paisesDeJugadorActual.get(4);
-        juego.agregarEjercitos(jugador, paisDeJugador, 5);
-        juego.siguienteFase();
-        Exception exception = assertThrows(ColocarEjercitosException.class, () -> { juego.agregarEjercitos(jugador, paisDeJugador, 4); });
-    }
-
-    @Test
     public void juegoDeUnaRondaCon2JugadoresColocanEjercitosNuevos() throws Exception{
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
