@@ -37,51 +37,44 @@ public class PasarAccion implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
         // Pasar a siguiente fase
-        Jugador jugador = juego.esElTurnoDe();
-        ArrayList<Jugador> jugadores = juego.obtenerJugadores();
-        //Si es el ultimo jugador y no es fase d
-        if (jugadores.get(jugadores.size() - 1).obtenerColor().equals(jugador.obtenerColor()) && !juego.obtenerFase().equals("Juego")){
-            try {
+        try {
+            Jugador jugador = juego.esElTurnoDe();
+            ArrayList<Jugador> jugadores = juego.obtenerJugadores();
+
+            if (jugadores.get(jugadores.size() - 1).obtenerColor().equals(jugador.obtenerColor()) && !juego.obtenerFase().equals("Juego")) {
                 ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, this.boxPaisesOrigen, this.ejercitosOrigen, this.vista);
-                this.juego.esElTurnoDe().setearEjercitosMaximos();
                 AtacarAccion handlerAtaque = new AtacarAccion(this.juego, this.boxPaisesOrigen, this.boxPaisesDestino);
                 vistasTablero.get(2).activar();
                 botonAccionar.setOnAction(handlerColocar);
-                juego.siguienteFase();
                 juego.siguienteTurno();
-                if(juego.obtenerFase().equals("Juego")){
+                juego.siguienteFase();
+                this.juego.esElTurnoDe().setearEjercitosMaximos();
+                if (juego.obtenerFase().equals("Juego")) {
                     vistasTablero.get(0).activar();
                     botonAccionar.setOnAction(handlerAtaque);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-            try {
+            } else {
                 this.juego.siguienteAccion();
-                if (juego.obtenerAccion() == 1){
+                if (juego.obtenerAccion() == 1) {
                     vistasTablero.get(0).activar();
                     AtacarAccion handlerAtaque = new AtacarAccion(this.juego, this.boxPaisesOrigen, this.boxPaisesDestino);
                     botonAccionar.setOnAction(handlerAtaque);
-                }
-                else if(juego.obtenerAccion() == 2){
+                } else if (juego.obtenerAccion() == 2) {
                     vistasTablero.get(1).activar();
                     Reagrupar handlerReagrupar = new Reagrupar(this.juego, this.boxPaisesOrigen, this.boxPaisesDestino, this.ejercitosOrigen);
                     botonAccionar.setOnAction(handlerReagrupar);
-                }
-                else{
+                } else {
                     ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, this.boxPaisesOrigen, this.ejercitosOrigen, this.vista);
-                    if(juego.obtenerFase().equals("Juego")){
+                    if (juego.obtenerFase().equals("Juego")) {
                         this.vista.fijarEjercitosPorFase();
-                    }else{
+                    } else {
                     }
                     vistasTablero.get(2).activar();
                     botonAccionar.setOnAction(handlerColocar);
                 }
-            } catch (TegException e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            System.out.println(e.getStackTrace());
         }
         ContenedorMapa.actualizarVista();
     }
