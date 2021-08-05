@@ -157,7 +157,6 @@ public class JuegoTest {
     public void asignarEjercitosIncompletosEnSegundaRondaFalla() throws Exception, FileNotFoundException {
         ArrayList<String> coloresJugadores = new ArrayList<>();
         coloresJugadores.add("Azul");
-
         Juego juego = new Juego(coloresJugadores);
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         Jugador jugador = jugadores.get(0);
@@ -166,7 +165,6 @@ public class JuegoTest {
         juego.agregarEjercitos(jugador, paisDeJugador, 5);
         juego.siguienteFase();
         juego.agregarEjercitos(jugador, paisDeJugador, 2);
-
         Exception exception = assertThrows(SiguienteFaseException.class, () -> { juego.siguienteFase(); });
         String expectedMessage = "Para pasar a la siguiente fase cada jugador debe tener 8 ejercitos agregados.";
         String actualMessage = exception.getMessage();
