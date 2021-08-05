@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.fase;
 
+import edu.fiuba.algo3.acciones.Accion;
+import edu.fiuba.algo3.acciones.Colocar;
 import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
 import edu.fiuba.algo3.modelo.Jugador;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 
 public class FaseUnoColocacionEjercitos implements Fase {
     private final int cantidadEjercitosFaseUno;
-    private int accionActual=1;
+    private Accion accionActual = new Colocar();
 
 
     public FaseUnoColocacionEjercitos() {
@@ -33,7 +35,7 @@ public class FaseUnoColocacionEjercitos implements Fase {
     }
 
     @Override
-    public int ejercitosPorFase(Jugador unJugador){
+    public int ejercitosPorFase(Jugador unJugador) {
         unJugador.setearEjercitosMaximos();
         return 5;
     }
@@ -44,23 +46,17 @@ public class FaseUnoColocacionEjercitos implements Fase {
     }
     @Override
     public int accionActual(){
-        return 3;
+        return accionActual.numeroAccion();
+    };
+
+    @Override
+    public void reiniciarAcciones() {
+
     }
 
     @Override
-    public void reiniciarAcciones(){
-
+    public String obtenerFase(){
+        return "ColocacionUno";
     }
-
 }
-
-/* Dos validaciones... Para pasar de fase
-
-    siguienteFase()   -> debo verificar que la cantidad de ejercitos sea IGUAL a la cantidad necesaria por fase
-
-    jugador.agregarEjercitos()     -> debo verificar que el jugador no se pase de los ejercitos maximos por fase
-
-*
-
-*/
 

@@ -36,7 +36,7 @@ public class BatallaTest {
         jugadorUno.agregarPais(argentina);
         jugadorDos.agregarPais(brasil);
 
-        jugadorUno.agregarEjercitos(argentina, 10);
+        jugadorUno.agregarEjercitos(argentina, 100);
         jugadorDos.agregarEjercitos(brasil, 2);
 
         jugadorUno.elegirPais(argentina);

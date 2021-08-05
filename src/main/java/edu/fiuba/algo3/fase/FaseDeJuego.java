@@ -1,13 +1,13 @@
 package edu.fiuba.algo3.fase;
 
+import edu.fiuba.algo3.acciones.*;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
 import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
-
 import java.util.ArrayList;
 
 public class FaseDeJuego implements Fase {
-    private int accionActual = 1; // 1 - Ataque... 2 - Reagrupar.... 3 - Colocar Ejercitos
+    private Accion accionActual = new Atacar(); // 1 - Ataque... 2 - Reagrupar.... 3 - Colocar Ejercitos
 
     public FaseDeJuego() {}
 
@@ -32,24 +32,27 @@ public class FaseDeJuego implements Fase {
         int cantidadPaisesJugador = unJugador.obtenerPaises().size();
         int resto;
         resto = cantidadPaisesJugador%2;
-
-        return (cantidadPaisesJugador-resto/2) + extras;
+        extras += unJugador.obtenerCanjeActual();
+        return ((cantidadPaisesJugador-resto)/2) + extras;
     }
 
     @Override
     public void siguienteAccion(Jugador unJugador) {
-        accionActual++;
-        if (accionActual==3){
-            unJugador.setearEjercitosMaximos();
-        }
+        this.accionActual = accionActual.siguienteAccion(unJugador);
     }
 
     @Override
     public int accionActual() {
-        return accionActual;
+        return accionActual.numeroAccion();
     }
+
     @Override
-    public void reiniciarAcciones(){
-        accionActual = 1;
+    public void reiniciarAcciones() {
+        accionActual = new Atacar();
+    }
+
+    @Override
+    public String obtenerFase(){
+        return "Juego";
     }
 }

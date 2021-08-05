@@ -2,8 +2,8 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.estadoPaises.EstadoPaises;
 import edu.fiuba.algo3.paises.Pais;
-import edu.fiuba.algo3.paises.PaisEnPaz;
 import edu.fiuba.algo3.excepciones.*;
+import edu.fiuba.algo3.tarjetas.Tarjetas;
 
 import java.util.ArrayList;
 
@@ -11,12 +11,14 @@ public class Jugador {
 
     private String color;
     private final EstadoPaises estadoPaises;
-    private ArrayList<TarjetaPais> tarjetas;
-    private int ejercitosMaximosPorTurno;
+    private Tarjetas tarjetas;
+    public int ejercitosMaximosPorTurno;
 
     public Jugador(String color) {
         this.estadoPaises = new EstadoPaises();
         this.color = color;
+        this.ejercitosMaximosPorTurno = 0;
+        this.tarjetas = new Tarjetas();
     }
 
     public String obtenerColor() {
@@ -25,15 +27,23 @@ public class Jugador {
 
     public void elegirPais(Pais unPais) throws Exception {
         this.estadoPaises.elegirPaisEnBatalla(unPais);
-
     }
 
+    public Tarjetas obtenerTarjetas() {return tarjetas;}
     public void agregarPais(Pais unPais) { estadoPaises.agregarPais(unPais); }
     public ArrayList<Pais> obtenerPaises() {
         return estadoPaises.obtenerPaises();
     }
-    private int obtenerCantidadTotalDeEjercitos() { return estadoPaises.obtenerCantidadTotalDeEjercitos();}
-    public int obtenerCantidadDeEjercitos(){ return estadoPaises.obtenerCantidadDeEjercitosAgregados(); }
+    public int obtenerCanjeActual() {
+        return tarjetas.obtenerCanjeActual();
+    }
+
+    public int obtenerCantidadTotalDeEjercitos() {
+        return estadoPaises.obtenerCantidadTotalDeEjercitos();
+    }
+    public int obtenerCantidadDeEjercitos(){
+        return estadoPaises.obtenerCantidadDeEjercitosAgregados();
+    }
     public int obtenerEjercitosEnBatalla() {
         return estadoPaises.obtenerEjercitosEnBatalla();
     }
@@ -46,11 +56,17 @@ public class Jugador {
         }
     }
 
-    public void validarCantidadEjercitos(int cantidadASumar, int ejercitosPorFase) throws TegException {
-        estadoPaises.validarCantidadEjercitos(ejercitosMaximosPorTurno, cantidadASumar, ejercitosPorFase);
+    public void validarCantidadEjercitos(int cantidadASumar, int ejercitosPorFase) throws TegException{
+        this.estadoPaises.validarCantidadEjercitos(ejercitosMaximosPorTurno, cantidadASumar, ejercitosPorFase);
     }
 
-    public boolean tieneElPais(Pais paisDefensor) throws TegException{ return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
+    public void puedeAgregarMasEjercitos(int cantidadPorFase) throws TegException{
+        this.estadoPaises.faltaAgregarEjercitos(ejercitosMaximosPorTurno, cantidadPorFase);
+    }
+
+    public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
+    public boolean tieneElPais(String otroPais) { return estadoPaises.tieneElPais(otroPais); }
+
 
     public void eliminarPaisEnBatalla() {
         estadoPaises.eliminarPaisEnBatalla();
@@ -78,22 +94,26 @@ public class Jugador {
     public int obtenerEjercitosExtraAColocar(){
         return this.estadoPaises.obtenerEjercitosExtraAColocar();
     }
-     public boolean domina(String continente){
-        return this.estadoPaises.domina(continente);
-     }
-
-    public int obtenerPaisesEnAsia() {
-        return this.estadoPaises.obtenerPaisesEnAsia();
-    }
 
     public void setearEjercitosMaximos() {
-        ejercitosMaximosPorTurno = estadoPaises.obtenerCantidadTotalDeEjercitos();
+        this.ejercitosMaximosPorTurno = estadoPaises.obtenerCantidadTotalDeEjercitos();
     }
+
+    public void reagrupar(Pais unPais, Pais otroPais, int cantidadEjercitos) throws TegException{
+        this.estadoPaises.reagrupar(unPais, otroPais, cantidadEjercitos);
+    }
+
+    public boolean cumplioObjetivos() {
+        return (estadoPaises.obtenerPaises().size() >= 30);
+    }
+
+    public boolean domina(String continente, int paisesParaDominar){
+        return this.estadoPaises.domina(continente, paisesParaDominar);
+    }
+
+    public int obtenerEjercitosAAgregar(int cantidadEjercitosPorFase) {
+        return this.estadoPaises.ejercitosAAgregar(this.ejercitosMaximosPorTurno, cantidadEjercitosPorFase);
+    }
+
+
 }
-
-
-//           ejercitosMaximos + ejercitosPorFase > ejercitosActuales + cantAsUMAR
-//              28                 14                   28               1
-//              28                 14                   29               1
-///
-//
