@@ -47,6 +47,15 @@ public class EstadoPaises {
             throw new ColocarEjercitosException(ejercitosPorFase);
         }
     }
+
+    public void faltaAgregarEjercitos(int ejercitosMaximosPorTurno, int cantidadPorFase) throws ColocarEjercitosException{
+        int ejercitosJugador = this.obtenerCantidadTotalDeEjercitos();
+        int diferencia = ejercitosMaximosPorTurno + cantidadPorFase - 1 - ejercitosJugador;
+        if (diferencia >= 0) {
+            throw new ColocarEjercitosException(cantidadPorFase);
+        }
+    }
+
     public int ejercitosAAgregar(int cantidadEjercitosMaximos, int ejercitosPorFase) {
 
         int ejercitosJugador = this.obtenerCantidadTotalDeEjercitos();
@@ -150,5 +159,6 @@ public class EstadoPaises {
         }
         return false;
     }
+
 }
 

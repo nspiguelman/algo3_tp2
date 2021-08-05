@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.controladores;
 
+import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.vistas.VistaAccion;
 import edu.fiuba.algo3.vistas.VistaTurno;
@@ -38,10 +39,11 @@ public class PasarAccion implements EventHandler<ActionEvent> {
         // Pasar a siguiente fase
         Jugador jugador = juego.esElTurnoDe();
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
-        //Si es el ultimo jugador y no es fase de juego
+        //Si es el ultimo jugador y no es fase d
         if (jugadores.get(jugadores.size() - 1).obtenerColor().equals(jugador.obtenerColor()) && !juego.obtenerFase().equals("Juego")){
             try {
                 ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, this.boxPaisesOrigen, this.ejercitosOrigen, this.vista);
+                this.juego.esElTurnoDe().setearEjercitosMaximos();
                 AtacarAccion handlerAtaque = new AtacarAccion(this.juego, this.boxPaisesOrigen, this.boxPaisesDestino);
                 vistasTablero.get(2).activar();
                 botonAccionar.setOnAction(handlerColocar);
@@ -56,24 +58,29 @@ public class PasarAccion implements EventHandler<ActionEvent> {
             }
         }
         else{
-            this.juego.siguienteAccion();
-            if (juego.obtenerAccion() == 1){
-                vistasTablero.get(0).activar();
-                AtacarAccion handlerAtaque = new AtacarAccion(this.juego, this.boxPaisesOrigen, this.boxPaisesDestino);
-                botonAccionar.setOnAction(handlerAtaque);
-            }
-            else if(juego.obtenerAccion() == 2){
-                vistasTablero.get(1).activar();
-                Reagrupar handlerReagrupar = new Reagrupar(this.juego, this.boxPaisesOrigen, this.boxPaisesDestino, this.ejercitosOrigen);
-                botonAccionar.setOnAction(handlerReagrupar);
-            }
-            else{
-                ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, this.boxPaisesOrigen, this.ejercitosOrigen, this.vista);
-                if(juego.obtenerFase().equals("Juego")){
-                    this.vista.fijarEjercitosPorFase();
+            try {
+                this.juego.siguienteAccion();
+                if (juego.obtenerAccion() == 1){
+                    vistasTablero.get(0).activar();
+                    AtacarAccion handlerAtaque = new AtacarAccion(this.juego, this.boxPaisesOrigen, this.boxPaisesDestino);
+                    botonAccionar.setOnAction(handlerAtaque);
                 }
-                vistasTablero.get(2).activar();
-                botonAccionar.setOnAction(handlerColocar);
+                else if(juego.obtenerAccion() == 2){
+                    vistasTablero.get(1).activar();
+                    Reagrupar handlerReagrupar = new Reagrupar(this.juego, this.boxPaisesOrigen, this.boxPaisesDestino, this.ejercitosOrigen);
+                    botonAccionar.setOnAction(handlerReagrupar);
+                }
+                else{
+                    ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, this.boxPaisesOrigen, this.ejercitosOrigen, this.vista);
+                    if(juego.obtenerFase().equals("Juego")){
+                        this.vista.fijarEjercitosPorFase();
+                    }else{
+                    }
+                    vistasTablero.get(2).activar();
+                    botonAccionar.setOnAction(handlerColocar);
+                }
+            } catch (TegException e) {
+                e.printStackTrace();
             }
         }
         ContenedorMapa.actualizarVista();

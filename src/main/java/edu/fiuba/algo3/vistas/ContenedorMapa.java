@@ -39,6 +39,7 @@ public class ContenedorMapa {
         Label labelFase = new Label();
 
         ComboBox<String> boxPaisesOrigen = new ComboBox<>();
+        ListView<Label> listaPaises = new ListView<>();
 
         ComboBox<String> boxPaisesDestino = new ComboBox<>();
         ComboBox<String> boxEjercitosOrigen = new ComboBox<>();
@@ -47,7 +48,7 @@ public class ContenedorMapa {
         Label labelCantidadEjercitosOrigen = new Label();
 
 
-        VBox contenedorPaisUno = new VBox(elegirPaisUno, boxPaisesOrigen, boxEjercitosOrigen, labelCantidadEjercitosOrigen);
+        VBox contenedorPaisUno = new VBox(elegirPaisUno, boxPaisesOrigen, boxEjercitosOrigen, labelCantidadEjercitosOrigen, listaPaises);
         VBox contenedorPaisDos = new VBox(elegirPaisDos, boxPaisesDestino, labelCantidadEjercitosDestino);
         HBox contenedorTurno = new HBox(pasarAccion, labelTurno, labelFase, ejecutarAccion);
 
@@ -62,7 +63,7 @@ public class ContenedorMapa {
 
         this.contenedorMapa = contenedorMapa;
         this.setVisualBotones(elegirPaisUno, elegirPaisDos);
-        this.setVistaTurno(labelTurno, labelFase, labelCantidadEjercitosOrigen, labelCantidadEjercitosDestino, boxPaisesOrigen, boxPaisesDestino, boxEjercitosOrigen);
+        this.setVistaTurno(labelTurno, labelFase, labelCantidadEjercitosOrigen, labelCantidadEjercitosDestino, boxPaisesOrigen, boxPaisesDestino, boxEjercitosOrigen, listaPaises);
         PasarAccion handler = new PasarAccion(this.juego, ejecutarAccion, boxPaisesOrigen, boxPaisesDestino, boxEjercitosOrigen, this.vistaTurno, vistasTablero);
         ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, boxPaisesOrigen, boxEjercitosOrigen, this.vistaTurno);
         ejecutarAccion.setOnAction(handlerColocar);
@@ -72,6 +73,8 @@ public class ContenedorMapa {
         boxPaisesOrigen.setOnAction(actualizarPaisesDestinoHandler);
         ActualizarDestino actualizarEjercitosDestinoHandler = new ActualizarDestino(this.vistaTurno);
         boxPaisesDestino.setOnAction(actualizarEjercitosDestinoHandler);
+        this.vistaTurno.mostrarPaises();
+        this.juego.esElTurnoDe().setearEjercitosMaximos();
     }
 
     private ArrayList<VistaAccion> setVistasTablero(Label labelFase,Label ejercitosOrigen, Label ejercitosDestino, ComboBox boxOrigen, ComboBox boxDestino, ComboBox boxEjercitos){
@@ -85,9 +88,9 @@ public class ContenedorMapa {
         return vistas;
     }
 
-    private void setVistaTurno(Label labelTurno, Label labelFase, Label labelEjercitosOrigen, Label labelEjercitosDestino, ComboBox box, ComboBox boxDestino, ComboBox cbx) {
+    private void setVistaTurno(Label labelTurno, Label labelFase, Label labelEjercitosOrigen, Label labelEjercitosDestino, ComboBox box, ComboBox boxDestino, ComboBox cbx, ListView<Label> listaPaises) {
         try {
-            this.vistaTurno = new VistaTurno(labelTurno, labelFase, labelEjercitosOrigen, labelEjercitosDestino, juego, box, boxDestino, cbx);
+            this.vistaTurno = new VistaTurno(labelTurno, labelFase, labelEjercitosOrigen, labelEjercitosDestino, juego, box, boxDestino, cbx, listaPaises);
         } catch (TegException e) {
             e.printStackTrace();
         }

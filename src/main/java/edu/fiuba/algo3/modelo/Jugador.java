@@ -60,6 +60,10 @@ public class Jugador {
         this.estadoPaises.validarCantidadEjercitos(ejercitosMaximosPorTurno, cantidadASumar, ejercitosPorFase);
     }
 
+    public void puedeAgregarMasEjercitos(int cantidadPorFase) throws TegException{
+        this.estadoPaises.faltaAgregarEjercitos(ejercitosMaximosPorTurno, cantidadPorFase);
+    }
+
     public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
     public boolean tieneElPais(String otroPais) { return estadoPaises.tieneElPais(otroPais); }
 
@@ -100,7 +104,7 @@ public class Jugador {
     }
 
     public boolean cumplioObjetivos() {
-        return (estadoPaises.obtenerPaises().size() == 30);
+        return (estadoPaises.obtenerPaises().size() >= 30);
     }
 
     public boolean domina(String continente, int paisesParaDominar){
@@ -110,4 +114,6 @@ public class Jugador {
     public int obtenerEjercitosAAgregar(int cantidadEjercitosPorFase) {
         return this.estadoPaises.ejercitosAAgregar(this.ejercitosMaximosPorTurno, cantidadEjercitosPorFase);
     }
+
+
 }

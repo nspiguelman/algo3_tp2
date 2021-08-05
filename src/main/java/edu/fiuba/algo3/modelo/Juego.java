@@ -31,13 +31,29 @@ public class Juego {
         this.jugadores.add(new Jugador(unColor));
     }
 
-    public void siguienteTurno(){
+    public void siguienteTurno() throws TegException{
         if (!this.verificarObjetivos())
         {
+            this.debeAgregarEjercitos();
             fase.reiniciarAcciones();
             turno.pasarTurno();
         }
     }
+
+    private void debeAgregarEjercitos() throws TegException{
+        Jugador jugadorActual = this.esElTurnoDe();
+        int cantidadEjercitosPorFase = 0;
+        if (this.obtenerFase().equals("ColocacionUno")){
+            cantidadEjercitosPorFase = 5;
+        }
+        else if(this.obtenerFase().equals("ColocacionDos")){
+            cantidadEjercitosPorFase = 3;
+        }else{
+            cantidadEjercitosPorFase = this.fase.ejercitosPorFase(jugadorActual);
+        }
+        jugadorActual.puedeAgregarMasEjercitos(cantidadEjercitosPorFase);
+    }
+
 
     private boolean verificarObjetivos() {
         Jugador jugadorActual = turno.turnoActual();
@@ -73,6 +89,7 @@ public class Juego {
         int cantidadEjercitosPorFase = fase.ejercitosPorFase(unJugador);
         unJugador.validarCantidadEjercitos(cantidadEjercitos, cantidadEjercitosPorFase);
     }
+
     private void verificarMovimiento(int accion) throws TegException {
         if (fase.accionActual() != accion){
             throw new AccionesException(); // seria Numero de movimiento 1 - atacar 2 - reagrupar 3 - colocar ejercitos
@@ -98,8 +115,7 @@ public class Juego {
         fase = fase.siguienteFase(jugadores);
     }
 
-    public void siguienteAccion(){
-
+    public void siguienteAccion() throws TegException{
         Jugador jugadorActual = this.esElTurnoDe();
         if (this.obtenerAccion() == 3){
             this.siguienteTurno();

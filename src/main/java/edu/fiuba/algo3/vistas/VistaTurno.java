@@ -10,6 +10,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,8 +34,10 @@ public class VistaTurno {
     private int ejercitosFaseUno = 5;
     private int ejercitosFaseDos = 8;
     private int ejercitosEnFaseDeJuego;
+    private ListView<Label> listaPaises;
 
-    public VistaTurno(Label labelTurno, Label labelFase,Label ejercitosOrigen, Label ejercitosDestino, Juego juego, ComboBox boxOrigen, ComboBox boxDestino, ComboBox cbx) throws TegException {
+
+    public VistaTurno(Label labelTurno, Label labelFase, Label ejercitosOrigen, Label ejercitosDestino, Juego juego, ComboBox boxOrigen, ComboBox boxDestino, ComboBox cbx, ListView<Label> listaPaises) throws TegException {
         this.juego = juego;
         this.labelFase = labelFase;
         this.labelTurno = labelTurno;
@@ -46,6 +54,7 @@ public class VistaTurno {
         this.setSeleccionPaisesOrigen();
         this.setColocarEjercitos();
         this.setStyleComboBox();
+        this.listaPaises = listaPaises;
     }
 
     private void setLabelEjercitos() {
@@ -196,9 +205,34 @@ public class VistaTurno {
         this.setSeleccionPaisesOrigen();
         this.setSeleccionPaisesDestino(accionAEjecutar);
         this.setColocarEjercitos();
+        this.mostrarPaises();
     }
 
+    public void mostrarPaises(){
+        ArrayList<Pais> paisesJuego = this.juego.obtenerPaises();
+        ObservableList<Label> paises = FXCollections.observableArrayList();
 
+        for (Pais pais: paisesJuego){
+            String nombrePais = pais.obtenerNombrePais();
+            Label texto = new Label();
+            texto.setText(nombrePais);
+            String color = colores.get(this.obtenerJugador(nombrePais));
+            texto.setStyle("-fx-font-size: 14; -fx-font-weight: 800; -fx-background-color: " + color + "; -fx-border-color: #000000;-fx-border-radius: 0.3; -fx-padding: 3; -fx-min-width:210");
+            texto.setTextFill(Color.WHITE);
+            paises.add(texto);
+        }
+        listaPaises.setItems(paises);
+        listaPaises.setStyle("-fx-control-inner-background: #b18151; -fx-border-color: #b18151");
+    }
+
+    public String obtenerJugador(String unPais){
+        for (Jugador n: juego.obtenerJugadores()){
+            if (n.tieneElPais(unPais)) {
+                return n.obtenerColor();
+            }
+        }
+        return "Ningun jugador posee el ejercito";
+    }
 }
 
 
