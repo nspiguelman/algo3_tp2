@@ -225,6 +225,7 @@ public class JuegoTest {
             juego.agregarEjercitos(jugadorActual, paises.get(4), 4);
             juego.agregarEjercitos(jugadorActual, paises.get(5), 4);
             juego.siguienteTurno();
+            
         }
     }
     @Test
