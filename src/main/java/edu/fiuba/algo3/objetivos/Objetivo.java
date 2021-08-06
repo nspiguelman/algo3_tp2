@@ -25,6 +25,10 @@ public class Objetivo {
         return tipo.validarObjetivo(unJugador);
     }
 
+    public void actualizarObjetivo(Jugador unJugador) {
+        tipo.actualizarObjetivo(unJugador);
+    }
+
     // public String obtenerContinente(TipoObjetivoDeserializer objetivo) { return objetivo.obtenerContinente(); }
     // public int obtenerCantidadDePaises(TipoObjetivoDeserializer objetivo) { return objetivo.obtenerCantidadDePaises(); }
     // public String obtenerColor(TipoObjetivoDeserializer objetivo) { return objetivo.obtenerColor(); };

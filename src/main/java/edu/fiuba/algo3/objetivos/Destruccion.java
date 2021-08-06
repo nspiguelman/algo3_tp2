@@ -15,10 +15,12 @@ public class Destruccion implements TipoObjetivo {
             .stream()
             .filter(jugador -> tipoObjetivoJugador.get(0).obtenerColor().equals(jugador.obtenerColor()))
             .collect(Collectors.toList());
-        this.jugadorAVencer = (jugadoresFiltrados.size() == 1) ? jugadoresFiltrados.get(0) : jugadores.get(0);
+        this.jugadorAVencer = (jugadoresFiltrados.size() == 1) ? jugadoresFiltrados.get(0) : null;
+        this.jugadoresAVencer = jugadores;
     }
 
     public void actualizarObjetivo(Jugador unJugadorConObjetivo) {
+        if (jugadorAVencer != null) return;
         int indice = jugadoresAVencer.indexOf(unJugadorConObjetivo);
         jugadorAVencer = (indice == (jugadoresAVencer.size() - 1)) ? jugadoresAVencer.get(0) : jugadoresAVencer.get(indice + 1);
     }
@@ -28,6 +30,7 @@ public class Destruccion implements TipoObjetivo {
     }
 
     public boolean validarObjetivo(Jugador unJugador) {
+        if (jugadorAVencer == null) return false;
         return !jugadorAVencer.sigueEnJuego();
     }
 }
