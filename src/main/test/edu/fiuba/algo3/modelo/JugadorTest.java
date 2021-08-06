@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.continente.Continente;
-import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
-import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.fase.FaseUnoColocacionEjercitos;
 import edu.fiuba.algo3.paises.Pais;
 import org.junit.jupiter.api.Test;

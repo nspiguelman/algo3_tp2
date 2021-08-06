@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.objetivos;
 
 import edu.fiuba.algo3.modelo.Jugador;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

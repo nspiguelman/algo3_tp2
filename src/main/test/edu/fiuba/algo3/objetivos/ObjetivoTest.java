@@ -8,7 +8,7 @@ import edu.fiuba.algo3.modelo.Batalla;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.paises.PaisDeserializer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

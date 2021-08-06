@@ -2,9 +2,6 @@ package edu.fiuba.algo3.paises;
 
 import edu.fiuba.algo3.excepciones.*;
 
-
-import java.util.ArrayList;
-
 public class PaisEnPaz implements EstadoBelico {
     private Pais pais;
 
@@ -19,8 +16,4 @@ public class PaisEnPaz implements EstadoBelico {
     public PaisEnBatalla cambiarEstadoDeBatalla(){
         return new PaisEnBatalla(this.pais);
     }
-
-
-
-
 }

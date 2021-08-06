@@ -1,10 +1,8 @@
-package edu.fiuba.algo3.pais;
+package edu.fiuba.algo3.paises;
 
 import com.google.gson.stream.JsonReader;
 import edu.fiuba.algo3.helper.Helper;
-import edu.fiuba.algo3.paises.Pais;
-import edu.fiuba.algo3.paises.PaisDeserializer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -14,10 +12,6 @@ import static org.junit.Assert.assertTrue;
 public class PaisDeserializerTest {
 
     private ArrayList<Pais> paises;
-
-    public PaisDeserializerTest() {
-
-    }
 
     @Test
     public void deserializaLosPaisesCorrectamente() throws FileNotFoundException {
