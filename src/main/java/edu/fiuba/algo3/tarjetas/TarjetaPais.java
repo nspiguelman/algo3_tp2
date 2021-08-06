@@ -1,4 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.tarjetas;
+
+import edu.fiuba.algo3.paises.Pais;
 
 public class TarjetaPais {
     private String nombre;
@@ -13,5 +15,7 @@ public class TarjetaPais {
         return this.simbolo;
     }
 
-
+    public boolean esDelPais(Pais unPais){
+        return this.nombre.equals(unPais.obtenerNombrePais());
+    }
 }

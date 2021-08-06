@@ -15,9 +15,6 @@ public class Batalla {
         Pais paisDefensor = defensor.paisEnBatalla();
         Dados dado = new Dados();
         ArrayList<Integer> ejercitosPerdidos = dado.tirar(atacante.obtenerEjercitosEnBatalla(), defensor.obtenerEjercitosEnBatalla());
-        System.out.println("Atacante: " + atacante.obtenerColor() + " Defensor: " + defensor.obtenerColor());
-        System.out.println("DADOS ATACANTE : " + ejercitosPerdidos.get(0) + " DADOS DEFENSOR: " + ejercitosPerdidos.get(1));
-
         atacante.matarEjercito(paisAtacante, ejercitosPerdidos.get(0));
         defensor.matarEjercito(paisDefensor, ejercitosPerdidos.get(1));
 

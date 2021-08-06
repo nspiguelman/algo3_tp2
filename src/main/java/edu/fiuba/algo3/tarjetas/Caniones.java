@@ -1,5 +1,4 @@
 package edu.fiuba.algo3.tarjetas;
-import edu.fiuba.algo3.modelo.TarjetaPais;
 
 import java.util.ArrayList;
 

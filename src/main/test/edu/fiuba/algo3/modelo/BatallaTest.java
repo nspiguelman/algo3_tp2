@@ -18,6 +18,7 @@ public class BatallaTest {
         jugadorUno.agregarPais(argentina);
         jugadorDos.agregarPais(brasil);
         jugadorUno.agregarEjercitos(argentina, 10);
+        // TODO: arreglar
         jugadorUno.elegirPais(argentina);
         jugadorDos.elegirPais(brasil);
         Batalla unaBatalla = new Batalla();

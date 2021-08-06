@@ -1,7 +1,13 @@
 package edu.fiuba.algo3.fase;
 
+import edu.fiuba.algo3.excepciones.SiguienteFaseException;
+import edu.fiuba.algo3.excepciones.TegException;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FaseDeJuegoTest {
@@ -30,6 +36,20 @@ public class FaseDeJuegoTest {
 
         faseDeJuego.reiniciarAcciones();
         assertEquals(1, faseDeJuego.accionActual());
+    }
+
+    @Test
+    public void siguienteFaseDevuelveFaseColocacionEjercitos() throws Exception {
+        ArrayList<String> coloresJugadores = new ArrayList<>();
+        coloresJugadores.add("Azul");
+        coloresJugadores.add("Rojo");
+        Juego juego = new Juego(coloresJugadores);
+        ArrayList<Jugador> jugadores = juego.obtenerJugadores();
+        FaseDeJuego faseDeJuego = new FaseDeJuego();
+        Fase nuevaFase = faseDeJuego.siguienteFase(jugadores);
+
+        assertEquals("ColocacionDos", nuevaFase.obtenerFase());
+
     }
 
 }

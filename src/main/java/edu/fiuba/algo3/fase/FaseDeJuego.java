@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.fase;
 
 import edu.fiuba.algo3.acciones.*;
+import edu.fiuba.algo3.excepciones.AccionesException;
 import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
 import edu.fiuba.algo3.excepciones.TegException;
@@ -61,4 +62,8 @@ public class FaseDeJuego implements Fase {
     public String obtenerFase(){
         return "Juego";
     }
+
+    public void estaEnReagrupar() throws AccionesException { this.accionActual.estaEnReagrupar(); }
+    public void estaEnAtacar() throws AccionesException { this.accionActual.estaEnAtacar(); }
+    public void estaEnColocar() throws AccionesException { this.accionActual.estaEnColocar(); }
 }

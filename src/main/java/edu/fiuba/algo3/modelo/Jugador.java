@@ -5,6 +5,7 @@ import edu.fiuba.algo3.estadoPaises.EstadoPaises;
 import edu.fiuba.algo3.objetivos.Objetivo;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.excepciones.*;
+import edu.fiuba.algo3.tarjetas.TarjetaPais;
 import edu.fiuba.algo3.tarjetas.Tarjetas;
 
 import java.util.ArrayList;
@@ -17,12 +18,16 @@ public class Jugador {
     public int ejercitosMaximosPorTurno;
     private Objetivo objetivo;
     private Tablero tablero;
+    private ArrayList<Pais> paisesConquistados;
+    private int extras;
 
     public Jugador(String color) {
+        this.extras = 0;
         this.estadoPaises = new EstadoPaises();
         this.color = color;
         this.ejercitosMaximosPorTurno = 0;
         this.tarjetas = new Tarjetas();
+        this.paisesConquistados = new ArrayList<>();
     }
 
     public String obtenerColor() {
@@ -43,6 +48,22 @@ public class Jugador {
 
     public int obtenerCanjeActual() {
         return tarjetas.obtenerCanjeActual();
+    }
+
+    public void agregarTarjeta(TarjetaPais tarjeta){
+        if (!this.validarTarjeta(tarjeta)){
+            this.tarjetas.agregarTarjeta(tarjeta);
+        }
+    }
+
+    private boolean validarTarjeta(TarjetaPais tarjeta) {
+        for (Pais pais: paisesConquistados){
+            if(tarjeta.esDelPais(pais)){
+                this.extras += 3;
+                return true;
+            }
+        }
+        return false;
     }
 
     public int obtenerCantidadTotalDeEjercitos() {
@@ -74,11 +95,13 @@ public class Jugador {
     public void eliminarPaisEnBatalla() {
         estadoPaises.eliminarPaisEnBatalla();
     }
+
     public void conquistar(Pais unPais) throws Exception{
         Pais paisEnBatalla = this.paisEnBatalla();
         this.estadoPaises.reducirEjercitos(paisEnBatalla, 1);
         unPais.agregarEjercitos(1);
         this.agregarPais(unPais);
+        this.paisesConquistados.add(unPais);
     }
 
     public void matarEjercito(Pais unPais, int cantidadEjercitos) throws Exception {
@@ -134,5 +157,13 @@ public class Jugador {
 
     public int obtenerEjercitosMaximos() {
         return this.ejercitosMaximosPorTurno;
+    }
+
+    public void reiniciarPaisesConquistados() {
+        this.paisesConquistados = new ArrayList<>();
+    }
+
+    public int obtenerExtras() {
+        return this.extras;
     }
 }

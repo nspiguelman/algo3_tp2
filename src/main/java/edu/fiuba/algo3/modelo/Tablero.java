@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 import com.google.gson.stream.JsonReader;
 import edu.fiuba.algo3.continente.ContinenteDeserializer;
@@ -12,6 +11,7 @@ import edu.fiuba.algo3.objetivos.Objetivo;
 import edu.fiuba.algo3.objetivos.ObjetivosDeserializer;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.paises.PaisDeserializer;
+import edu.fiuba.algo3.tarjetas.TarjetaPais;
 
 public class Tablero {
     private final int CANTIDAD_DE_PAISES = 49;
@@ -69,6 +69,7 @@ public class Tablero {
             Pais pais = paises.get(value);
             nuevosPaises.add(pais);
             TarjetaPais tarjeta = new TarjetaPais(pais.obtenerNombrePais(), simbolos.get(i % 3));
+            //TarjetaPais tarjeta = new TarjetaPais("Argentina", simbolos.get(i % 3));
             nuevasTarjetas.add(tarjeta);
             paises.remove(value);
         }
@@ -78,7 +79,7 @@ public class Tablero {
         this.tarjetasPaises = nuevasTarjetas;
     }
 
-    public void asignarPaises(ArrayList<Jugador> jugadores) {
+    private void asignarPaises(ArrayList<Jugador> jugadores) {
         int numeroJugador = 0;
         int cantidadJugadores = jugadores.size();
         for (Pais pais : paises) {
@@ -92,11 +93,18 @@ public class Tablero {
         return paises;
     }
 
+    public TarjetaPais obtenerTarjeta(){
+        Random random = new Random();
+        int value = random.nextInt(49);
+        return this.tarjetasPaises.get(value);
+    }
+
     public int obtenerExtrasDeJugador(Jugador jugador) {
         int extras = 0;
         for (Continente continente: continentes){
             extras += continente.obtenerExtras(jugador);
         }
+        extras += jugador.obtenerExtras();
         return extras;
     }
 }

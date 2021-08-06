@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.excepciones.*;
 import edu.fiuba.algo3.fase.*;
 import edu.fiuba.algo3.paises.Pais;
+import edu.fiuba.algo3.tarjetas.TarjetaPais;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -37,26 +38,35 @@ public class Juego {
     }
 
     public void siguienteTurno() throws TegException{
-        if (!this.verificarObjetivos())
-        {
-            this.debeAgregarEjercitos();
+        if (!this.hayGanador()) {
+            this.validarEjercitosAgregados();
             fase.reiniciarAcciones();
             turno.pasarTurno();
         }
     }
 
-    private void debeAgregarEjercitos() throws TegException{
+    public void siguienteAccion() throws TegException{
+        Jugador jugadorActual = this.turnoActual();
+        if (this.obtenerAccion() == 3) {
+            this.siguienteTurno();
+        }
+        else if(this.obtenerAccion() == 2){
+            TarjetaPais tarjetaJugador = this.tablero.obtenerTarjeta();
+            this.turnoActual().agregarTarjeta(tarjetaJugador);
+            fase.siguienteAccion(jugadorActual);
+        }
+        else {
+            fase.siguienteAccion(jugadorActual);
+        }
+    }
+
+    private void validarEjercitosAgregados() throws TegException {
         Jugador jugadorActual = this.turnoActual();
         this.fase.validarCantidadEjercitos(jugadorActual);
     }
 
-    private boolean verificarObjetivos() {
-        Jugador jugadorActual = turno.turnoActual();
-        if (!jugadorActual.cumplioObjetivos())
-        {
-            return false;
-        }
-        return true;
+    private boolean hayGanador() {
+        return turno.turnoActual().cumplioObjetivos();
     }
 
     public ArrayList<Jugador> obtenerJugadores() {
@@ -69,26 +79,20 @@ public class Juego {
 
     public void agregarEjercitos(Jugador unJugador, Pais unPais, int cantidadEjercitos) throws Exception {
         this.verificarTurno(unJugador);
-        this.verificarMovimiento(3);
+        this.fase.estaEnColocar();
         this.verificacionDeEjercitos(unJugador, cantidadEjercitos);
         unJugador.agregarEjercitos(unPais, cantidadEjercitos);
     }
 
-    public void reagrupar(Jugador unJugador, Pais unPais, Pais otroPais, int cantidadEjercitos) throws TegException{
+    public void reagrupar(Jugador unJugador, Pais unPais, Pais otroPais, int cantidadEjercitos) throws TegException {
         this.verificarTurno(unJugador);
-        this.verificarMovimiento(2);
+        this.fase.estaEnReagrupar();
         unJugador.reagrupar(unPais, otroPais, cantidadEjercitos);
     }
 
     private void verificacionDeEjercitos(Jugador unJugador, int cantidadEjercitos) throws TegException {
         int cantidadEjercitosPorFase = fase.ejercitosPorFase(unJugador);
         unJugador.validarCantidadEjercitos(cantidadEjercitos, cantidadEjercitosPorFase);
-    }
-
-    private void verificarMovimiento(int accion) throws TegException {
-        if (fase.accionActual() != accion){
-            throw new AccionesException();
-        }
     }
 
     private void verificarTurno(Jugador unJugador) throws TegException {
@@ -101,22 +105,12 @@ public class Juego {
 
     public void ataqueDeA(Jugador atacante, Jugador defensor) throws Exception {
         this.verificarTurno(atacante);
-        this.verificarMovimiento(1);
+        this.fase.estaEnAtacar();
         batalla.batallar(atacante, defensor);
     }
 
     public void siguienteFase() throws TegException {
         fase = fase.siguienteFase(jugadores);
-    }
-
-    public void siguienteAccion() throws TegException{
-        Jugador jugadorActual = this.turnoActual();
-        if (this.obtenerAccion() == 3){
-            this.siguienteTurno();
-        }
-        else{
-            fase.siguienteAccion(jugadorActual);
-        }
     }
 
     public Jugador turnoActual() {
@@ -141,6 +135,6 @@ public class Juego {
     }
 
     public boolean alguienGano() {
-        return this.verificarObjetivos();
+        return this.hayGanador();
     }
 }
