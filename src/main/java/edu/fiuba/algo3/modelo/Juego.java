@@ -6,6 +6,7 @@ import edu.fiuba.algo3.paises.Pais;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Juego {
     private Tablero tablero;
@@ -15,8 +16,12 @@ public class Juego {
     private Batalla batalla = new Batalla();
 
     public Juego(ArrayList<String> colorJugadores) throws FileNotFoundException, TegException {
-        for (String unColor : colorJugadores) {
-            this.agregarJugador(unColor);
+        Random random = new Random();
+        for (int i = colorJugadores.size(); i > 0; i--) {
+            int value = random.nextInt(i);
+            String colorActual = colorJugadores.get(value);
+            this.agregarJugador(colorActual);
+            colorJugadores.remove(value);
         }
         this.tablero = new Tablero(jugadores);
         this.fase = new FaseUnoColocacionEjercitos();
@@ -41,7 +46,7 @@ public class Juego {
     }
 
     private void debeAgregarEjercitos() throws TegException{
-        Jugador jugadorActual = this.esElTurnoDe();
+        Jugador jugadorActual = this.turnoActual();
         int cantidadEjercitosPorFase = 0;
         if (this.obtenerFase().equals("ColocacionUno")){
             cantidadEjercitosPorFase = 5;
@@ -51,7 +56,6 @@ public class Juego {
         }else{
             cantidadEjercitosPorFase = this.fase.ejercitosPorFase(jugadorActual);
         }
-        System.out.println(cantidadEjercitosPorFase + " totales: " +  this.esElTurnoDe().obtenerCantidadTotalDeEjercitos() + " capacidad maxima: " + this.esElTurnoDe().obtenerCAPACIDAD());
         jugadorActual.puedeAgregarMasEjercitos(cantidadEjercitosPorFase);
     }
 
@@ -92,7 +96,7 @@ public class Juego {
 
     private void verificarMovimiento(int accion) throws TegException {
         if (fase.accionActual() != accion){
-            throw new AccionesException(); // seria Numero de movimiento 1 - atacar 2 - reagrupar 3 - colocar ejercitos
+            throw new AccionesException();
         }
     }
 
@@ -103,7 +107,6 @@ public class Juego {
             throw new TurnoException(colorJugador);
         }
     }
-
 
     public void ataqueDeA(Jugador atacante, Jugador defensor) throws Exception {
         this.verificarTurno(atacante);
@@ -116,16 +119,16 @@ public class Juego {
     }
 
     public void siguienteAccion() throws TegException{
-        Jugador jugadorActual = this.esElTurnoDe();
+        Jugador jugadorActual = this.turnoActual();
         if (this.obtenerAccion() == 3){
             this.siguienteTurno();
         }
         else{
-            fase.siguienteAccion(jugadorActual);    // esto para verificar que se realice en el orden ataque-reagrupacion-agregarEjercitos
+            fase.siguienteAccion(jugadorActual);
         }
     }
 
-    public Jugador esElTurnoDe() {
+    public Jugador turnoActual() {
         return turno.turnoActual();
     }
 
@@ -134,7 +137,7 @@ public class Juego {
     }
 
     public int obtenerEjercitosPorFase(){
-        Jugador jugador = this.esElTurnoDe();
+        Jugador jugador = this.turnoActual();
         return this.fase.ejercitosPorFase(jugador);
     }
 
@@ -144,5 +147,9 @@ public class Juego {
 
     public ArrayList<Pais> obtenerPaises() {
         return this.tablero.obtenerPaises();
+    }
+
+    public boolean alguienGano() {
+        return this.verificarObjetivos();
     }
 }

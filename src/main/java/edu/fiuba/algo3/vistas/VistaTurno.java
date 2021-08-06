@@ -1,140 +1,118 @@
 package edu.fiuba.algo3.vistas;
 
-
-import edu.fiuba.algo3.excepciones.PaisInvalidoException;
 import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.paises.Pais;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class VistaTurno {
-    private Juego juego;
-    private HashMap<String, String> colores = new HashMap<>();
-    private HashMap<Integer, String> acciones = new HashMap<>();
-    private Label labelFase;
-    private Label labelTurno;
-    private Label labelEjercitosOrigen;
-    private Label labelEjercitosDestino;
-    private ComboBox boxPaisesOrigen;
-    private ComboBox boxPaisesDestino;
-    private ComboBox boxEjercitos;
-    private int ejercitosFaseUno = 5;
-    private int ejercitosFaseDos = 8;
+    private final Juego juego;
+    private final HashMap<String, String> colores = new HashMap<>();
+    private final HashMap<Integer, String> acciones = new HashMap<>();
+    private final Label turnoActual;
+    private final Label cantidadEjercitosJugadorUno;
+    private final Label cantidadEjercitosJugadorDos;
+    private final Label objetivoJugador;
+    private final ComboBox<String> paisesJugadorUno;
+    private final ComboBox<String> paisesJugadorDos;
+    private final ComboBox<String> seleccionEjercitosJugadorUno;
+    private final ListView<Label> listaPaises;
+    private final Label faseActual;
+    private final Button pasarAccion;
+    private final Button ejecutarAccion;
     private int ejercitosEnFaseDeJuego;
-    private ListView<Label> listaPaises;
 
-
-    public VistaTurno(Label labelTurno, Label labelFase, Label ejercitosOrigen, Label ejercitosDestino, Juego juego, ComboBox boxOrigen, ComboBox boxDestino, ComboBox cbx, ListView<Label> listaPaises) throws TegException {
+    public VistaTurno(Label turnoActual, Label faseActual, Label cantidadEjercitosJugadorUno, Label cantidadEjercitosJugadorDos, Juego juego, ComboBox<String> paisesJugadorUno, ComboBox<String> paisesJugadorDos,
+                      ComboBox<String> seleccionEjercitosJugadorUno, ListView<Label> listaPaisesJuego, Label objetivoJugador, Button ejecutarAccion, Button pasarAccion) throws TegException {
         this.juego = juego;
-        this.labelFase = labelFase;
-        this.labelTurno = labelTurno;
-        this.boxPaisesOrigen = boxOrigen;
-        this.boxPaisesDestino = boxDestino;
-        this.labelEjercitosOrigen = ejercitosOrigen;
-        this.labelEjercitosDestino = ejercitosDestino;
-        this.boxEjercitos = cbx;
+        this.faseActual = faseActual;
+        this.turnoActual = turnoActual;
+        this.cantidadEjercitosJugadorUno = cantidadEjercitosJugadorUno;
+        this.cantidadEjercitosJugadorDos = cantidadEjercitosJugadorDos;
+        this.objetivoJugador = objetivoJugador;
+        this.paisesJugadorUno = paisesJugadorUno;
+        this.paisesJugadorDos = paisesJugadorDos;
+        this.seleccionEjercitosJugadorUno = seleccionEjercitosJugadorUno;
+        this.listaPaises = listaPaisesJuego;
+        this.ejecutarAccion = ejecutarAccion;
+        this.pasarAccion = pasarAccion;
         this.inicializarColores();
         this.inicializarAcciones();
         this.setLabelTurno();
-        this.setLabelFase();
-        this.setLabelEjercitos();
-        this.setSeleccionPaisesOrigen();
+        this.setPaisesJugadorUno();
         this.setColocarEjercitos();
-        this.setStyleComboBox();
-        this.listaPaises = listaPaises;
     }
 
-    private void setLabelEjercitos() {
-        this.labelEjercitosOrigen.setStyle("-fx-font-size: 14; -fx-font-weight: 800; -fx-background-color: #dda15e; -fx-border-color: #000000;-fx-border-radius: 0.3; -fx-min-width: 150;-fx-fill-height: 240; -fx-padding: 6");
-        this.labelEjercitosDestino.setStyle("-fx-font-size: 14; -fx-font-weight: 800; -fx-background-color: #dda15e; -fx-border-color: #000000;-fx-border-radius: 0.3; -fx-min-width: 150;-fx-fill-height: 240; -fx-padding: 6");
-    }
-
-    private void setLabelFase() {
-        int accionActual = juego.obtenerAccion();
-        String accion = acciones.get(accionActual);
-        this.labelFase.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color: #dda15e; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6");
-    }
-
-    private void setLabelTurno(){
-        Jugador jugadorActual = this.juego.esElTurnoDe();
+    private void setLabelTurno() {
+        Jugador jugadorActual = this.juego.turnoActual();
         String colorJugador = jugadorActual.obtenerColor();
         String colorLabel = this.colores.get(colorJugador);
-        this.labelTurno.setText("TURNO: " + colorJugador);
-        this.labelTurno.setStyle("-fx-font-size: 20; -fx-font-weight: 800; -fx-background-color:" + colorLabel + "; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6");
+        this.turnoActual.setText("TURNO: " + colorJugador);
+        this.turnoActual.setStyle("-fx-font-size: 20; -fx-font-weight: 800;  -fx-background-color: " + colorLabel + "; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 300; -fx-padding: 6");
     }
 
-    private void setStyleComboBox(){
-        this.boxPaisesOrigen.setStyle("-fx-font-size: 14; -fx-min-width: 150");
-        this.boxPaisesDestino.setStyle("-fx-font-size: 14; -fx-min-width: 150");
-        this.boxEjercitos.setStyle("-fx-font-size: 14; -fx-min-width: 150");
-    }
-
-    public void setSeleccionPaisesOrigen(){
+    public void setPaisesJugadorUno() {
         ObservableList<String> items = FXCollections.observableArrayList();
-        Jugador jugadorActual = this.juego.esElTurnoDe();
+        Jugador jugadorActual = this.juego.turnoActual();
         ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
-        for (int i=0; i<paisesJugador.size(); i++){
+
+        for (int i=0; i<paisesJugador.size(); i++) {
             Pais paisActual = paisesJugador.get(i);
             items.add(paisActual.obtenerNombrePais());
         }
-        boxPaisesOrigen.setItems(items);
+        paisesJugadorUno.setItems(items);
     }
 
-    public void setSeleccionPaisesDestino(String accion) {
+    public void setPaisesJugadorDos(String accion) {
         ObservableList<String> itemsDestino = FXCollections.observableArrayList();
-        Jugador jugadorActual = juego.esElTurnoDe();
-        ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
-        String paisOrigen = (String) boxPaisesOrigen.getValue();
+        Jugador jugadorActual = juego.turnoActual();
+        String paisOrigen = (String) paisesJugadorUno.getValue();
         Pais pais = this.buscarPais(paisOrigen);
         ArrayList<String> limitrofes = pais.obtenerNombrePaisesLimitrofes();
-        for (String paisLimitrofe: limitrofes){
-            if (accion.equals("Ataque") && !jugadorActual.tieneElPais(paisLimitrofe)){
+        for (String paisLimitrofe: limitrofes) {
+            if (accion.equals("Ataque") && !jugadorActual.tieneElPais(paisLimitrofe)) {
                 itemsDestino.add(paisLimitrofe);
             } else  {
-                if (!accion.equals("Ataque") && jugadorActual.tieneElPais(paisLimitrofe)){
+                if (!accion.equals("Ataque") && jugadorActual.tieneElPais(paisLimitrofe)) {
                     itemsDestino.add(paisLimitrofe);
                 }
             }
         }
-        boxPaisesDestino.setItems(itemsDestino);
+        paisesJugadorDos.setItems(itemsDestino);
     }
 
     public void setColocarEjercitos() {
-        Jugador jugadorActual = juego.esElTurnoDe();
+        int ejercitosFaseUno = 5;
+        int ejercitosFaseDos = 8;
+        Jugador jugadorActual = juego.turnoActual();
         int ejercitosAMostrar;
         String faseActual = juego.obtenerFase();
-        if (faseActual.equals("Juego")){
+        if (faseActual.equals("Juego")) {
             ejercitosAMostrar = this.ejercitosEnFaseDeJuego;
-        }
-        else{
+
+        } else {
             ejercitosEnFaseDeJuego = 99;
             if (faseActual.equals("ColocacionUno")){
                 ejercitosAMostrar = ejercitosFaseUno - jugadorActual.obtenerCantidadDeEjercitos();
-                //jugadorActual.obtenerPaises().get(2).agregarEjercitos(ejercitosFaseUno);
-            }
-            else{
+            } else {
                 ejercitosAMostrar = ejercitosFaseDos - jugadorActual.obtenerCantidadDeEjercitos();
-                //jugadorActual.obtenerPaises().get(2).agregarEjercitos(3);
             }
         }
         ObservableList<String> ejercitos = FXCollections.observableArrayList();
-        for (int i=0; i<ejercitosAMostrar; i++){
+        for (int i=0; i < ejercitosAMostrar; i++) {
             ejercitos.add(String.valueOf(i + 1));
         }
-        boxEjercitos.setItems(ejercitos);
+        seleccionEjercitosJugadorUno.setItems(ejercitos);
     }
 
     public void fijarEjercitosPorFase() {
@@ -146,33 +124,36 @@ public class VistaTurno {
     }
 
     public void setCantidadDeEjercitosOrigen() {
-        String nombrePais = (String) boxPaisesOrigen.getValue();
+        String nombrePais = paisesJugadorUno.getValue();
         int ejercitos = this.buscarPais(nombrePais).obtenerEjercitos();
-        this.labelEjercitosOrigen.setText("Ejercitos de " + nombrePais + ": " + ejercitos);
+        this.cantidadEjercitosJugadorUno.setText("Ejercitos de " + nombrePais + ": " + ejercitos);
     }
 
     public void setCantidadDeEjercitosDestino() {
-        String nombrePais = (String) boxPaisesDestino.getValue();
+        String nombrePais = paisesJugadorDos.getValue();
         int ejercitosDestino = this.buscarPais(nombrePais).obtenerEjercitos();
-        this.labelEjercitosDestino.setText("Ejercitos de " + nombrePais + ": " + ejercitosDestino);
-    }
-    public void setEjercitosReagrupar() {
-        String nombrePais = (String) boxPaisesOrigen.getValue();
-        Pais pais = this.buscarPais(nombrePais);
-        ObservableList<String> ejercitos = FXCollections.observableArrayList();
-        for (int i=0; i<(pais.obtenerEjercitos() - 1); i++){
-            ejercitos.add(String.valueOf(i + 1));
-        }
-        boxEjercitos.setItems(ejercitos);
+        this.cantidadEjercitosJugadorDos.setText("Ejercitos de " + nombrePais + ": " + ejercitosDestino);
     }
 
-    public Pais buscarPais(String nombre){
+    public void setEjercitosReagrupar() {
+        String nombrePais = paisesJugadorUno.getValue();
+        Pais pais = this.buscarPais(nombrePais);
+        ObservableList<String> ejercitos = FXCollections.observableArrayList();
+
+        for (int i=0; i < (pais.obtenerEjercitos() - 1); i++) {
+            ejercitos.add(String.valueOf(i + 1));
+        }
+        seleccionEjercitosJugadorUno.setItems(ejercitos);
+    }
+
+    public Pais buscarPais(String nombre) {
         ArrayList<Pais> paises = juego.obtenerPaises();
-        for (Pais pais: paises){
-            if (pais.esElPais(nombre)){
+        for (Pais pais: paises) {
+            if (pais.esElPais(nombre)) {
                 return pais;
             }
         }
+
         return new Pais("a", "b", "c");
     }
 
@@ -200,19 +181,19 @@ public class VistaTurno {
         } else{
             accionAEjecutar="Ataque";
         }
-        this.setLabelFase();
         this.setLabelTurno();
-        this.setSeleccionPaisesOrigen();
-        this.setSeleccionPaisesDestino(accionAEjecutar);
+        this.setPaisesJugadorUno();
+        this.setPaisesJugadorDos(accionAEjecutar);
         this.setColocarEjercitos();
         this.mostrarPaises();
+        this.objetivoJugador.setText(juego.turnoActual().obtenerDescripcionObjetivo());
     }
 
-    public void mostrarPaises(){
+    public void mostrarPaises() {
         ArrayList<Pais> paisesJuego = this.juego.obtenerPaises();
         ObservableList<Label> paises = FXCollections.observableArrayList();
 
-        for (Pais pais: paisesJuego){
+        for (Pais pais: paisesJuego) {
             String nombrePais = pais.obtenerNombrePais();
             Label texto = new Label();
             texto.setText(nombrePais);
@@ -225,13 +206,39 @@ public class VistaTurno {
         listaPaises.setStyle("-fx-control-inner-background: #b18151; -fx-border-color: #b18151");
     }
 
-    public String obtenerJugador(String unPais){
-        for (Jugador n: juego.obtenerJugadores()){
+    public String obtenerJugador(String unPais) {
+        for (Jugador n: juego.obtenerJugadores()) {
             if (n.tieneElPais(unPais)) {
                 return n.obtenerColor();
             }
         }
         return "Ningun jugador posee el ejercito";
+    }
+
+    public void finalizarJuego() {
+        this.faseActual.setText("FASE: GAME OVER");
+        this.limpiarJugadorUno();
+        this.limpiarJugadorDos();
+        this.paisesJugadorUno.setDisable(true);
+        this.paisesJugadorDos.setDisable(true);
+        this.cantidadEjercitosJugadorUno.setDisable(true);
+        this.cantidadEjercitosJugadorDos.setDisable(true);
+        this.seleccionEjercitosJugadorUno.setDisable(true);
+        this.ejecutarAccion.setDisable(true);
+        this.pasarAccion.setDisable(true);
+        this.paisesJugadorUno.setDisable(false);
+        this.paisesJugadorDos.setDisable(false);
+        this.objetivoJugador.setStyle("-fx-min-height: 160 ;-fx-wrap-text: true ; -fx-max-width: 240; -fx-font-size: 20; -fx-font-weight: 800; -fx-background-color: #CAE33D; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 200; -fx-padding: 6");
+        this.objetivoJugador.setText("GANADOR: " + this.juego.turnoActual().obtenerColor());
+    }
+
+
+    public void limpiarJugadorUno(){
+        this.cantidadEjercitosJugadorUno.setText("");
+    }
+
+    public void limpiarJugadorDos(){
+        this.cantidadEjercitosJugadorDos.setText("");
     }
 }
 

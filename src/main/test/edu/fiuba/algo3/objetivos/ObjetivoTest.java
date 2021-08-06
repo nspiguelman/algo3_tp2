@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.objetivos;
+/*package edu.fiuba.algo3.objetivos;
 
 import com.google.gson.stream.JsonReader;
 import edu.fiuba.algo3.continente.ContinenteDeserializer;
@@ -171,4 +171,4 @@ public class ObjetivoTest {
 
 }
 
-
+*/

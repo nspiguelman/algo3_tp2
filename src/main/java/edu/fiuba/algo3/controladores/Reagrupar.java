@@ -8,6 +8,7 @@ import edu.fiuba.algo3.vistas.ContenedorMapa;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
+import edu.fiuba.algo3.vistas.VistaTurno;
 
 import java.util.ArrayList;
 
@@ -16,18 +17,19 @@ public class Reagrupar implements EventHandler<ActionEvent> {
     private ComboBox<String> paisOrigen;
     private ComboBox<String> paisDestino;
     private ComboBox<String> cantidadEjercitos;
+    private VistaTurno vista;
 
-
-    public Reagrupar(Juego juego, ComboBox<String> boxOrigen, ComboBox<String> boxDestino, ComboBox<String> boxCantidad) {
+    public Reagrupar(Juego juego, ComboBox<String> boxOrigen, ComboBox<String> boxDestino, ComboBox<String> boxCantidad, VistaTurno vista) {
         this.juego = juego;
         this.paisOrigen = boxOrigen;
         this.paisDestino = boxDestino;
         this.cantidadEjercitos = boxCantidad;
+        this.vista = vista;
     }
 
     @Override
     public void handle(ActionEvent event) {
-        Jugador jugadorActual = juego.esElTurnoDe();
+        Jugador jugadorActual = juego.turnoActual();
         Pais origen = buscarPais(paisOrigen.getValue());
         Pais destino = buscarPais(paisDestino.getValue());
         int ejercitosATransferir = Integer.parseInt(cantidadEjercitos.getValue());
@@ -37,10 +39,11 @@ public class Reagrupar implements EventHandler<ActionEvent> {
             e.printStackTrace();
         }
         ContenedorMapa.actualizarVista();
+        this.vista.limpiarJugadorDos();
     }
 
     public Pais buscarPais(String nombre){
-        Jugador jugadorActual = juego.esElTurnoDe();
+        Jugador jugadorActual = juego.turnoActual();
         ArrayList<Pais> paises = jugadorActual.obtenerPaises();
         for (Pais pais: paises){
             if (pais.esElPais(nombre)){

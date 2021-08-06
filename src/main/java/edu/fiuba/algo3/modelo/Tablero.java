@@ -19,14 +19,24 @@ public class Tablero {
     private ArrayList<TarjetaPais> tarjetasPaises;
     private ArrayList<Pais> paises;
     private ArrayList<Objetivo> objetivos;
-    private HashMap<String, HashMap> continentes;
+    private ArrayList<Continente> continentes;
 
     public Tablero(ArrayList<Jugador> jugadores) throws FileNotFoundException {
         this.inicializarPaises();
         this.hacerRandomElOrdenDePaises();
         this.asignarPaises(jugadores);
         this.inicializarContinentes();
-        this.inicializarObjetivos(continentes, jugadores);
+        this.inicializarObjetivos(jugadores);
+        this.asignarObjetivos(jugadores);
+    }
+
+    private void asignarObjetivos(ArrayList<Jugador> jugadores) {
+        Random random = new Random();
+        for (Jugador jugador: jugadores){
+            jugador.asignarTablero(this);
+            int value = random.nextInt(13);
+            jugador.asignarObjetivo(objetivos.get(value));
+        }
     }
 
     private void inicializarContinentes() throws FileNotFoundException {
@@ -34,9 +44,9 @@ public class Tablero {
         this.continentes = ContinenteDeserializer.deserializarContinentes(reader);
     }
 
-    private void inicializarObjetivos(HashMap<String, HashMap> continentes, ArrayList<Jugador> jugadores) throws FileNotFoundException {
+    private void inicializarObjetivos (ArrayList<Jugador> jugadores) throws FileNotFoundException {
         JsonReader reader = Helper.crearJsonReader("archivos/objetivos.json");
-        this.objetivos = ObjetivosDeserializer.deserializarObjetivos(reader, continentes, jugadores);
+        this.objetivos = ObjetivosDeserializer.deserializarObjetivos(reader, jugadores);
     }
 
     private void inicializarPaises() throws FileNotFoundException {
@@ -60,10 +70,8 @@ public class Tablero {
             nuevosPaises.add(pais);
             TarjetaPais tarjeta = new TarjetaPais(pais.obtenerNombrePais(), simbolos.get(i % 3));
             nuevasTarjetas.add(tarjeta);
-
             paises.remove(value);
         }
-
         Pais pais = paises.get(0);
         nuevosPaises.add(pais);
         this.paises = nuevosPaises;
@@ -84,4 +92,11 @@ public class Tablero {
         return paises;
     }
 
+    public int obtenerExtrasDeJugador(Jugador jugador) {
+        int extras = 0;
+        for (Continente continente: continentes){
+            extras += continente.obtenerExtras(jugador);
+        }
+        return extras;
+    }
 }

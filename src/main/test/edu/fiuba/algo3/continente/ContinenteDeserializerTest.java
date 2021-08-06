@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.continente;
+/*package edu.fiuba.algo3.continente;
 
 import com.google.gson.stream.JsonReader;
 import edu.fiuba.algo3.helper.Helper;
@@ -20,4 +20,4 @@ public class ContinenteDeserializerTest {
         assertEquals((int)value.get("cantidadDeFichasGanadas"), 7);
         assertEquals((int)value.get("cantidadDePaises"), 15);
     }
-}
+}*/

@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 
 public class ActualizarOrigen implements EventHandler<ActionEvent> {
     private VistaTurno vista;
-    private Juego juego;
+    private final Juego juego;
 
     public ActualizarOrigen(VistaTurno vista, Juego juego) {
         this.vista = vista;
@@ -25,6 +25,6 @@ public class ActualizarOrigen implements EventHandler<ActionEvent> {
             accionAEjecutar="Ataque";
         }
         this.vista.setCantidadDeEjercitosOrigen();
-        this.vista.setSeleccionPaisesDestino(accionAEjecutar);
+        this.vista.setPaisesJugadorDos(accionAEjecutar);
     }
 }

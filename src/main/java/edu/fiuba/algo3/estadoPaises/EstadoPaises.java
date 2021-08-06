@@ -52,27 +52,17 @@ public class EstadoPaises {
         int diferencia = ejercitosMaximosPorTurno + cantidadPorFase - 1 - ejercitosJugador;
 
         if (diferencia >= 0) {
-            System.out.println("Aca esta el error");
             throw new ColocarEjercitosException(cantidadPorFase);
         }
     }
 
-    public int ejercitosAAgregar(int cantidadEjercitosMaximos, int ejercitosPorFase) {
-
-        int ejercitosJugador = this.obtenerCantidadTotalDeEjercitos();
-        int diferencia = cantidadEjercitosMaximos + ejercitosPorFase  - ejercitosJugador;
-
-        return diferencia;
-    }
-
-    public void tieneElPais(Pais unPais) throws TegException{
-        for (Pais pais: paises){
-            if (pais.obtenerNombrePais().equals(unPais.obtenerNombrePais())){
+    public void tieneElPais(Pais unPais) throws TegException {
+        for (Pais pais: paises) {
+            if (pais.obtenerNombrePais().equals(unPais.obtenerNombrePais())) {
                 return;
             }
         }
         throw new PaisInvalidoException();
-
     }
 
     public void eliminarPaisEnBatalla() {
@@ -81,11 +71,11 @@ public class EstadoPaises {
         paisEnBatalla = null;
     }
 
-
-    public void elegirPaisEnBatalla(Pais unPais) throws Exception{
-        if (paisEnBatalla!=null){
+    public void elegirPaisEnBatalla(Pais unPais) throws Exception {
+        if (paisEnBatalla!=null) {
             paisEnBatalla.cambiarEstadoDeBatalla();
         }
+
         this.tieneElPais(unPais);
         this.paisEnBatalla = unPais;
         unPais.cambiarEstadoDeBatalla();
@@ -95,7 +85,7 @@ public class EstadoPaises {
         return paisEnBatalla.obtenerEjercitos();
     }
 
-    public void reducirEjercitos(Pais unPais, int ejercitos) throws Exception{
+    public void reducirEjercitos(Pais unPais, int ejercitos) throws Exception {
         this.tieneElPais(unPais);
         unPais.matarEjercitos(ejercitos);
     }
@@ -108,43 +98,7 @@ public class EstadoPaises {
         return paises.contains(paisDefensor);
     }
 
-    public int obtenerEjercitosExtraAColocar(){
-        int ejercitosExtra = 0;
-        if (this.domina("Asia", 15)){
-            ejercitosExtra += 7;
-        }
-        if(this.domina("Europa", 8)){
-            ejercitosExtra += 5;
-        }
-        if(this.domina("America del Norte", 11)){
-            ejercitosExtra += 5;
-        }
-        if(this.domina("America del Sur", 6)){
-            ejercitosExtra += 3;
-        }
-        if(this.domina("Africa", 6)){
-            ejercitosExtra += 3;
-        }
-        if(this.domina("Oceania", 4)){
-            ejercitosExtra += 2;
-        }
-        return ejercitosExtra;
-    }
-
-    public boolean domina(String continente, int paisesParaDominar){
-        int paisesDominados = 0;
-        for (int i = 0; i< paises.size(); i++){
-            if (paises.get(i).obtenerNombreContinente().equals(continente)){
-                paisesDominados += 1;
-            }
-        }
-        if (paisesDominados == paisesParaDominar){
-            return true ;
-        }
-        return false;
-    }
-
-    public void reagrupar(Pais unPais, Pais otroPais, int cantidadEjercitos) throws TegException{
+    public void reagrupar(Pais unPais, Pais otroPais, int cantidadEjercitos) throws TegException {
         this.tieneElPais(unPais);
         this.tieneElPais(otroPais);
         unPais.tieneLosEjercitos(cantidadEjercitos);
@@ -158,6 +112,7 @@ public class EstadoPaises {
                 return true;
             }
         }
+
         return false;
     }
 

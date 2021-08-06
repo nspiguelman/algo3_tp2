@@ -21,19 +21,18 @@ public class ContinenteDeserializer {
     private int obtenerCantidadDePaises() { return cantidadDePaises; }
     private int obtenerCantidadDeFichasExtra() { return cantidadDeFichasExtra; }
 
-    public static HashMap<String, HashMap> deserializarContinentes(JsonReader reader) {
-        HashMap<String, HashMap> continentes = new HashMap();
+    public static ArrayList<Continente> deserializarContinentes(JsonReader reader) {
+        ArrayList<Continente> continentes = new ArrayList<>();
 
         Type continenteType = new TypeToken<ArrayList<ContinenteDeserializer>>(){}.getType();
         Gson gson = new Gson();
         ArrayList<ContinenteDeserializer> continentesDeserializados = gson.fromJson(reader, continenteType);
 
         continentesDeserializados.stream().forEach(continenteDeserializado -> {
-            HashMap<String, Integer> nuevoContinente = new HashMap<>();
-            nuevoContinente.put("cantidadDePaises", continenteDeserializado.obtenerCantidadDePaises());
-            nuevoContinente.put("cantidadDeFichasGanadas", continenteDeserializado.obtenerCantidadDeFichasExtra());
-            continentes.put(continenteDeserializado.obtenerContinente(), nuevoContinente);
+            Continente unContinente = new Continente(continenteDeserializado.obtenerContinente(), continenteDeserializado.obtenerCantidadDePaises(), continenteDeserializado.obtenerCantidadDeFichasExtra());
+            continentes.add(unContinente);
         });
+
         return continentes;
     }
 

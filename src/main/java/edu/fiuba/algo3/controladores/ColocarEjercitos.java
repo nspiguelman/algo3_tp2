@@ -12,10 +12,10 @@ import javafx.scene.control.ComboBox;
 import java.util.ArrayList;
 
 public class ColocarEjercitos implements EventHandler<ActionEvent> {
-    private Juego juego;
-    private ComboBox<String> pais;
+    private final Juego juego;
+    private final ComboBox<String> pais;
     private ComboBox<String> cantidadEjercitos;
-    private VistaTurno vista;
+    private final VistaTurno vista;
 
     public ColocarEjercitos(Juego juego, ComboBox<String> box, ComboBox<String> cbx, VistaTurno vista) {
         this.juego = juego;
@@ -33,7 +33,7 @@ public class ColocarEjercitos implements EventHandler<ActionEvent> {
         String nombrePais = pais.getValue();
         int ejercitos = Integer.parseInt(cantidadEjercitos.getValue());
         // TODO: validar que pasa cuando el combobox esta vacio.
-        Jugador jugadorActual = juego.esElTurnoDe();
+        Jugador jugadorActual = juego.turnoActual();
         ArrayList<Pais> paisesJugador = jugadorActual.obtenerPaises();
         for (Pais pais: paisesJugador){
             if (pais.esElPais(nombrePais)) {

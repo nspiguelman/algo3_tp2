@@ -15,14 +15,14 @@ public class Conquista implements TipoObjetivo {
         }
     }
 
-    public String obtenerTipo() { return "Conquista"; }
+    public String obtenerTipo() {
+        return "Conquista";
+    }
 
     public boolean validarObjetivo(Jugador unJugador) {
         return continentes
             .stream()
-            .allMatch(objetivoContinente -> objetivoContinente.obtenerNombreContinente().equals("Limitrofe") ?
-                unJugador.tieneNPaisesLimitrofesEntreSi(objetivoContinente.obtenerCantidadDePaises()) :
-                unJugador.tieneNPaisesEnContinente(objetivoContinente.obtenerCantidadDePaises(), objetivoContinente.obtenerNombreContinente())
+            .allMatch(objetivoContinente -> unJugador.tieneNPaisesEnContinente(objetivoContinente.obtenerCantidadDePaises(), objetivoContinente.obtenerNombreContinente())
             );
     }
 }
