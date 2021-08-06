@@ -1,0 +1,39 @@
+@startuml
+
+autonumber
+participant ":TarjetasTest" as Test order 1
+participant ":Juego" as Juego order 2
+participant ":Tablero" as Tablero order 3
+participant "jugador:Jugador" as Jugador order 4
+participant ":TarjetaPais" as TarjetaPais order 5
+participant ":Tarjetas" as Tarjetas order 6
+participant ":FaseDeJuego" as Fase order 7
+participant ":Reagrupar" as Reagrupar order 8
+
+Test -> Juego: siguienteAccion()
+
+Juego -> Juego: turnoActual()
+return jugador
+
+Juego -> Juego: obtenerAccion()
+return 2
+
+Juego -> Tablero: obtenerTarjeta()
+return tarjetaPais
+
+Juego -> Jugador: agregarTarjeta(tarjetaPais)
+
+Jugador -> Jugador: validarTarjeta(tarjetaPais)
+loop [pais..paisesConquistados]
+    Jugador -> TarjetaPais: esDelPais(pais)
+    return false
+end
+
+Jugador -> Tarjetas: agregarTarjeta()
+
+Juego -> Fase: siguienteAccion(jugador)
+Fase -> Reagrupar: siguienteAccion(jugador)
+return Colocar
+
+
+@enduml

@@ -20,7 +20,7 @@ public class EstadoPaisesTest {
         ArrayList<Pais> paises = estado.obtenerPaises();
         assertEquals(paises.size(), 1);
         assertEquals(paises.get(0).obtenerNombrePais(), "Argentina");
-        estado.tieneElPais(paises.get(0));
+        estado.validarSiTieneElPais(paises.get(0));
     }
 
     @Test

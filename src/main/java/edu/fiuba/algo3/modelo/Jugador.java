@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.continente.Continente;
 import edu.fiuba.algo3.estadoPaises.EstadoPaises;
 import edu.fiuba.algo3.objetivos.Objetivo;
 import edu.fiuba.algo3.paises.Pais;
@@ -59,11 +58,15 @@ public class Jugador {
     private boolean validarTarjeta(TarjetaPais tarjeta) {
         for (Pais pais: paisesConquistados){
             if(tarjeta.esDelPais(pais)){
-                this.extras += 3;
+                this.agregarExtras(3);
                 return true;
             }
         }
         return false;
+    }
+
+    private void agregarExtras(int i) {
+        this.extras += i;
     }
 
     public int obtenerCantidadTotalDeEjercitos() {
@@ -90,8 +93,8 @@ public class Jugador {
         this.estadoPaises.validarCantidadEjercitos(ejercitosMaximosPorTurno, cantidadASumar, ejercitosPorFase);
     }
 
-    public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
-    public boolean tieneElPais(String otroPais) { return estadoPaises.tieneElPais(otroPais); }
+    public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPais(paisDefensor); }
+    public boolean tieneElPais(String otroPais) { return estadoPaises.validarSiTieneElPais(otroPais); }
     public void eliminarPaisEnBatalla() {
         estadoPaises.eliminarPaisEnBatalla();
     }

@@ -56,13 +56,14 @@ public class Juego {
         }
         else if(this.obtenerAccion() == 2){
             TarjetaPais tarjetaJugador = this.tablero.obtenerTarjeta();
-            this.turnoActual().agregarTarjeta(tarjetaJugador);
+            jugadorActual.agregarTarjeta(tarjetaJugador);
             fase.siguienteAccion(jugadorActual);
         }
         else {
             fase.siguienteAccion(jugadorActual);
         }
     }
+
     private boolean hayGanador() {
         return turno.turnoActual().cumplioObjetivos();
     }

@@ -34,7 +34,7 @@ public class EstadoPaises {
     }
 
     public void agregarEjercitos(Pais unPais, int cantidadDeEjercitos) throws Exception {
-        this.tieneElPais(unPais);
+        this.validarSiTieneElPais(unPais);
         unPais.agregarEjercitos(cantidadDeEjercitos);
     }
 
@@ -47,11 +47,19 @@ public class EstadoPaises {
         }
     }
 
-    public void tieneElPais(Pais unPais) throws TegException {
+    public void validarSiTieneElPais(Pais unPais) throws TegException {
         if (paises.stream().anyMatch(pais -> pais.equals(unPais))) { return; }
         throw new PaisInvalidoException();
     }
+    
+    public boolean tieneElPais(Pais paisDefensor) {
+        return paises.contains(paisDefensor);
+    }
 
+    public boolean validarSiTieneElPais(String otroPais) {
+        return paises.stream().anyMatch(pais -> pais.esElPais(otroPais));
+    }
+    
     public void eliminarPaisEnBatalla() {
         paisEnBatalla.cambiarEstadoDeBatalla();
         paises.remove(paisEnBatalla);
@@ -63,7 +71,7 @@ public class EstadoPaises {
             paisEnBatalla.cambiarEstadoDeBatalla();
         }
 
-        this.tieneElPais(unPais);
+        this.validarSiTieneElPais(unPais);
         this.paisEnBatalla = unPais;
         unPais.cambiarEstadoDeBatalla();
     }
@@ -73,7 +81,7 @@ public class EstadoPaises {
     }
 
     public void reducirEjercitos(Pais unPais, int ejercitos) throws Exception {
-        this.tieneElPais(unPais);
+        this.validarSiTieneElPais(unPais);
         unPais.matarEjercitos(ejercitos);
     }
 
@@ -81,22 +89,13 @@ public class EstadoPaises {
         return this.paisEnBatalla;
     }
 
-    public boolean tieneElPaisARREGLAR(Pais paisDefensor) {
-        return paises.contains(paisDefensor);
-    }
 
     public void reagrupar(Pais unPais, Pais otroPais, int cantidadEjercitos) throws TegException {
-        this.tieneElPais(unPais);
-        this.tieneElPais(otroPais);
+        this.validarSiTieneElPais(unPais);
+        this.validarSiTieneElPais(otroPais);
         unPais.tieneLosEjercitos(cantidadEjercitos);
         unPais.reducirEjercitos(cantidadEjercitos);
         otroPais.agregarEjercitos(cantidadEjercitos);
     }
-
-    public boolean tieneElPais(String otroPais) {
-
-        return paises.stream().anyMatch(pais -> pais.esElPais(otroPais));
-    }
-
 }
 
