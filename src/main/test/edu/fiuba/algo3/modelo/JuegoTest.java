@@ -211,7 +211,6 @@ public class JuegoTest {
             juego.agregarEjercitos(jugadorActual, paises.get(4), 4);
             juego.agregarEjercitos(jugadorActual, paises.get(5), 4);
             juego.siguienteTurno();
-
         }
     }
     @Test
@@ -389,7 +388,10 @@ public class JuegoTest {
                         paisesDeAtaque.add(paisActualDos);
                         paisActualDos.agregarEjercitos(100);
                         jugadorTres.elegirPais(paisActualTres);
-                        while (!jugadorDos.tieneElPais(paisActualTres)){
+                        while (!jugadorDos.tieneElPais(paisActualTres)) {
+                            if (jugadorDos.obtenerCantidadTotalDeEjercitos() < 10) {
+                                jugadorDos.agregarEjercitos(paisActualTres, 20);
+                            }
                             juego.ataqueDeA(jugadorDos, jugadorTres);
                         }
                     }
