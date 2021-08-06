@@ -43,10 +43,6 @@ public class Pais {
         return true;
     }
 
-    public void trasferirEjercito(int cantidadEjercitos) {
-
-    }
-
     public void matarEjercitos(int cantidadEjercitos) throws Exception{
         this.estadoBelico.matarEjercitos(this,cantidadEjercitos);
     }

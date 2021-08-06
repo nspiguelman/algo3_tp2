@@ -206,11 +206,11 @@ public class JuegoTest {
             Jugador jugadorActual = jugadores.get(i%2);
             ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
             int resto = paises.size() % 2;
-            int ejercitosParaAgregar = paises.size() - resto;
+            int ejercitosParaAgregar = (paises.size()/2) - resto;
             juego.siguienteAccion();
             juego.siguienteAccion();
-            juego.agregarEjercitos(jugadorActual, paises.get(3), ejercitosParaAgregar);
 
+            juego.agregarEjercitos(jugadorActual, paises.get(3), 12);
 
             juego.siguienteTurno();
         }

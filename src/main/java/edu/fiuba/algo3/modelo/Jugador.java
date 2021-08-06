@@ -134,4 +134,8 @@ public class Jugador {
     public String obtenerDescripcionObjetivo(){
         return this.objetivo.obtenerDescripcion();
     }
+
+    public int obtenerEjercitosMaximos() {
+        return obtenerEjercitosMaximos();
+    }
 }
