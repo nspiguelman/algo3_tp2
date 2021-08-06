@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -127,12 +126,14 @@ public class ObjetivoTest {
 
     @Test
     public void validarObjetivoCuandoElJugadorAVencerNoExisteSeActualizaYEsValido() throws Exception {
-        // Hay que terminar de corregir esto, hay que actualizar el objetivo llamando al metodo de tipoObjetivo en Objetivo
         Objetivo objetivoACumplir = objetivos
                 .stream()
                 .filter(objetivo -> objetivo.obtenerDescripcion().equals("Destruir al ejército rojo de ser imposible al jugador de la derecha."))
                 .collect(Collectors.toList())
                 .get(0);
+
+        objetivoACumplir.actualizarObjetivo(jugadorAzul);
+
         jugadorAzul.agregarPais(argentina);
         jugadorNegro.agregarPais(uruguay);
 
@@ -141,6 +142,8 @@ public class ObjetivoTest {
         jugadorNegro.elegirPais(uruguay);
 
         Batalla unaBatalla = new Batalla();
+
+        assertFalse(objetivoACumplir.validarObjetivo(jugadorAzul));
 
         while (!jugadorAzul.tieneElPais(uruguay)) {
             unaBatalla.batallar(jugadorAzul, jugadorNegro);
