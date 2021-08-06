@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class Jugador {
 
-    private String color;
+    private final String color;
     private final EstadoPaises estadoPaises;
-    private Tarjetas tarjetas;
+    private final Tarjetas tarjetas;
     public int ejercitosMaximosPorTurno;
     private Objetivo objetivo;
     private Tablero tablero;

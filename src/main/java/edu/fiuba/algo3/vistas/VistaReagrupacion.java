@@ -39,7 +39,6 @@ public class VistaReagrupacion implements VistaAccion{
         this.paisesJugadorDos.getSelectionModel().clearSelection();
         this.paisesJugadorDos.setDisable(false);
         this.cantidadEjercitosJugadorUno.setDisable(false);
-
     }
 }
 

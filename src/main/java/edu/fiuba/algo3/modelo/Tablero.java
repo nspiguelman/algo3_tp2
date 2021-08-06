@@ -14,7 +14,6 @@ import edu.fiuba.algo3.paises.PaisDeserializer;
 import edu.fiuba.algo3.tarjetas.TarjetaPais;
 
 public class Tablero {
-    private final int CANTIDAD_DE_PAISES = 49;
 
     private ArrayList<TarjetaPais> tarjetasPaises;
     private ArrayList<Pais> paises;
@@ -64,6 +63,7 @@ public class Tablero {
         simbolos.add("canon");
         simbolos.add("globo");
 
+        int CANTIDAD_DE_PAISES = 49;
         for (int i = CANTIDAD_DE_PAISES; i > 0; i--) {
             int value = random.nextInt(i);
             Pais pais = paises.get(value);

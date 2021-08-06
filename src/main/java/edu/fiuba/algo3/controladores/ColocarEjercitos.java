@@ -5,8 +5,6 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.vistas.ContenedorMapa;
 import edu.fiuba.algo3.vistas.VistaComboBox;
-import edu.fiuba.algo3.vistas.VistaLabel;
-import edu.fiuba.algo3.vistas.VistaTurno;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
@@ -18,14 +16,11 @@ public class ColocarEjercitos implements EventHandler<ActionEvent> {
     private final ComboBox<String> pais;
     private final VistaComboBox vistaBox;
     private ComboBox<String> cantidadEjercitos;
-    private final VistaTurno vista;
 
-    public ColocarEjercitos(Juego juego, ComboBox<String> paisesJugador, ComboBox<String> cantidadEjercitos, VistaTurno vista,
-                            VistaComboBox vistaBox) {
+    public ColocarEjercitos(Juego juego, ComboBox<String> paisesJugador, ComboBox<String> cantidadEjercitos, VistaComboBox vistaBox) {
         this.juego = juego;
         this.pais = paisesJugador;
         this.cantidadEjercitos = cantidadEjercitos;
-        this.vista = vista;
         this.vistaBox = vistaBox;
     }
 
@@ -46,7 +41,6 @@ public class ColocarEjercitos implements EventHandler<ActionEvent> {
             }
         }
         this.vistaBox.actualizarEjercitosPorFase(ejercitos);
-       // this.vista.actualizarEjercitosPorFase(ejercitos);
         ContenedorMapa.actualizarVista();
     }
 

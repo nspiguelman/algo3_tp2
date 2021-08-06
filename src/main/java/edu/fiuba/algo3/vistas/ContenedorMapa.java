@@ -4,7 +4,6 @@ import edu.fiuba.algo3.controladores.ActualizarDestino;
 import edu.fiuba.algo3.controladores.ActualizarOrigen;
 import edu.fiuba.algo3.controladores.ColocarEjercitos;
 import edu.fiuba.algo3.controladores.PasarAccion;
-import edu.fiuba.algo3.excepciones.TegException;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -19,9 +18,8 @@ import java.util.ArrayList;
 
 public class ContenedorMapa {
     private VBox contenedorMapa;
-    private static VistaTurno vistaTurno;
     private Juego juego;
-    private ArrayList<VistaAccion> vistasTablero;
+    private final ArrayList<VistaAccion> vistasTablero;
     private static VistaLabel vistaLabel;
     private static VistaComboBox vistaComboBox;
 
@@ -49,21 +47,19 @@ public class ContenedorMapa {
         VBox contenedorJugadorDos = new VBox(elegirPaisDos, paisesJugadorDos, cantidadEjercitosJugadorDos, objetivoJugador);
         HBox contenedorVistas = new HBox(pasarAccion, turnoActual, faseActual, ejecutarAccion);
         HBox contenedorTEG = new HBox(contenedorJugadorUno, mapaTEG, contenedorJugadorDos);
-        VBox contenedorMapa = new VBox(contenedorTEG, contenedorVistas);
 
-        this.contenedorMapa = contenedorMapa;
+        this.contenedorMapa = new VBox(contenedorTEG, contenedorVistas);
 
         this.vistasTablero = this.setVistasTablero(faseActual, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno, elegirPaisUno, elegirPaisDos);
         this.setEstiloComboBox(paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno);
         this.setEstiloLabel(cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, faseActual, objetivoJugador);
         this.setVisualBotones(elegirPaisUno, elegirPaisDos, ejecutarAccion, pasarAccion);
-        this.setVistaTurno(turnoActual, faseActual, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno, paisesJuego, objetivoJugador, ejecutarAccion, pasarAccion);
-        PasarAccion handler = new PasarAccion(this.juego, ejecutarAccion, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno, this.vistaTurno, vistasTablero, this.vistaComboBox, this.vistaLabel);
+        this.setVistas(turnoActual, faseActual, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno, paisesJuego, objetivoJugador, ejecutarAccion, pasarAccion);
+        PasarAccion handler = new PasarAccion(this.juego, ejecutarAccion, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno, vistasTablero, vistaComboBox, vistaLabel);
         this.setVisualContenedores(pasarAccion, ejecutarAccion, contenedorVistas, contenedorJugadorUno, contenedorJugadorDos, handler);
 
         this.establecerParametrosIniciales(paisesJugadorUno, paisesJugadorDos, ejecutarAccion, ejercitosJugadorUno);
     }
-
 
     private ArrayList<VistaAccion> setVistasTablero(Label faseActual, Label cantidadEjercitosJugadorUno, Label cantidadEjercitosJugadorDos, ComboBox<String> paisesJugadorUno, ComboBox<String> paisesJugadorDos, ComboBox<String> ejercitosJugadorUno, Label vistaJugadorUno, Label vistaJugadorDos){
         faseActual.setText("FASE: Colocacion Ejercitos");
@@ -73,30 +69,15 @@ public class ContenedorMapa {
         vistas.add(new VistaAtaque(faseActual, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno,vistaJugadorUno,vistaJugadorDos));
         vistas.add(new VistaReagrupacion(faseActual, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno,vistaJugadorUno,vistaJugadorDos));
         vistas.add(new VistaColocacion(faseActual, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno,vistaJugadorUno,vistaJugadorDos));
-
         return vistas;
     }
 
-    private void setVistaTurno(Label turnoActual, Label faseActual, Label cantidadEjercitosJugadorUno, Label cantidadEjercitosJugadorDos, ComboBox<String> paisesJugadorUno,
-                               ComboBox<String> paisesJugadorDos, ComboBox<String> ejercitosJugadorUno, ListView<Label> listaPaises, Label objetivoJugador, Button ejecutarAccion, Button pasarAccion) {
-        try {
-            this.vistaLabel= new VistaLabel(
-                     turnoActual,
-                     faseActual,
-                     cantidadEjercitosJugadorUno,
-                     cantidadEjercitosJugadorDos,
-                     juego,
-                     listaPaises,
-                     objetivoJugador,
-                     ejecutarAccion,
-                     pasarAccion);
-            this.vistaComboBox= new VistaComboBox(juego, paisesJugadorUno, paisesJugadorDos,
-                    ejercitosJugadorUno, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos);
-
-            this.vistaTurno = new VistaTurno(turnoActual, faseActual, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, juego, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno, listaPaises, objetivoJugador, ejecutarAccion, pasarAccion);
-        } catch (TegException e) {
-            e.printStackTrace();
-        }
+    private void setVistas(Label turnoActual, Label faseActual, Label cantidadEjercitosJugadorUno, Label cantidadEjercitosJugadorDos, ComboBox<String> paisesJugadorUno,
+                           ComboBox<String> paisesJugadorDos, ComboBox<String> ejercitosJugadorUno, ListView<Label> listaPaises, Label objetivoJugador, Button ejecutarAccion, Button pasarAccion) {
+            this.vistaLabel= new VistaLabel(turnoActual, faseActual, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, juego, listaPaises,
+                                             objetivoJugador, ejecutarAccion, pasarAccion);
+            this.vistaComboBox= new VistaComboBox(juego, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno,
+                                                  cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos);
     }
 
     private void setVisualBotones(Label vistaJugadorUno, Label vistaJugadorDos, Button ejecutarAccion, Button pasarAccion){
@@ -139,12 +120,11 @@ public class ContenedorMapa {
         objetivosJugador.setStyle("-fx-min-height: 160 ;-fx-wrap-text: true ; -fx-max-width: 240; -fx-font-size: 18; -fx-font-weight: 800; -fx-background-color: #dda15e; -fx-border-color: #000000;-fx-border-radius: 0.3;-fx-fill-height: 200; -fx-padding: 6");
     }
 
-    private void setEstiloComboBox(ComboBox paisesJugadorUno, ComboBox paisesJugadorDos, ComboBox ejercitoJugadorUno){
+    private void setEstiloComboBox(ComboBox paisesJugadorUno, ComboBox<String> paisesJugadorDos, ComboBox<String> ejercitoJugadorUno){
         paisesJugadorUno.setStyle("-fx-font-size: 14; -fx-min-width: 150");
         paisesJugadorDos.setStyle("-fx-font-size: 14; -fx-min-width: 150");
         ejercitoJugadorUno.setStyle("-fx-font-size: 14; -fx-min-width: 150");
         paisesJugadorDos.setDisable(true);
-
     }
 
     private Label setImagen(){
@@ -153,23 +133,20 @@ public class ContenedorMapa {
         ImageView view = new ImageView(imagenGlobo);
         view.setPreserveRatio(true);
         labelMapaTeg.setGraphic(view);
-
         return labelMapaTeg;
     }
 
-    private void establecerParametrosIniciales(ComboBox paisesJugadorUno, ComboBox paisesJugadorDos, Button ejecutarAccion, ComboBox ejercitosJugadorUno) {
-        ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, paisesJugadorUno, ejercitosJugadorUno, this.vistaTurno, vistaComboBox);
+    private void establecerParametrosIniciales(ComboBox<String> paisesJugadorUno, ComboBox<String> paisesJugadorDos, Button ejecutarAccion, ComboBox<String> ejercitosJugadorUno) {
+        ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, paisesJugadorUno, ejercitosJugadorUno, vistaComboBox);
         ejecutarAccion.setOnAction(handlerColocar);
-        ActualizarOrigen actualizarPaisesDestinoHandler = new ActualizarOrigen(this.vistaTurno, juego, vistaComboBox);
+        ActualizarOrigen actualizarPaisesDestinoHandler = new ActualizarOrigen(juego, vistaComboBox);
         paisesJugadorUno.setOnAction(actualizarPaisesDestinoHandler);
-        ActualizarDestino actualizarEjercitosDestinoHandler = new ActualizarDestino(this.vistaTurno, vistaComboBox);
+        ActualizarDestino actualizarEjercitosDestinoHandler = new ActualizarDestino(vistaComboBox);
         paisesJugadorDos.setOnAction(actualizarEjercitosDestinoHandler);
         this.juego.turnoActual().setearEjercitosMaximos();
-       // this.vistaTurno.mostrarPaises();
         vistaLabel.mostrarPaises();
         vistaLabel.actualizar();
         vistaComboBox.actualizar();
-    //    this.vistaTurno.actualizarVista();
     }
 
     public VBox obtenerContenedorMapa(){
@@ -177,9 +154,8 @@ public class ContenedorMapa {
     }
 
     public static void actualizarVista(){
-        vistaLabel.actualizar();
         vistaComboBox.actualizar();
-        //vistaTurno.actualizarVista();
+        vistaLabel.actualizar();
     }
 
 }

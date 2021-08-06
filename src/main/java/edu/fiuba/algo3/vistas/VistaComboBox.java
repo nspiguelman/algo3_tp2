@@ -44,7 +44,7 @@ public class VistaComboBox {
     public void setPaisesJugadorDos(String accion) {
         ObservableList<String> itemsDestino = FXCollections.observableArrayList();
         Jugador jugadorActual = juego.turnoActual();
-        String paisOrigen = (String) paisesJugadorUno.getValue();
+        String paisOrigen = paisesJugadorUno.getValue();
         Pais pais = this.buscarPais(paisOrigen);
         ArrayList<String> limitrofes = pais.obtenerNombrePaisesLimitrofes();
         for (String paisLimitrofe: limitrofes) {
@@ -67,7 +67,6 @@ public class VistaComboBox {
         String faseActual = juego.obtenerFase();
         if (faseActual.equals("Juego")) {
             ejercitosAMostrar = this.ejercitosEnFaseDeJuego;
-
         } else {
             ejercitosEnFaseDeJuego = 99;
             if (faseActual.equals("ColocacionUno")){
@@ -113,7 +112,7 @@ public class VistaComboBox {
         seleccionEjercitosJugadorUno.setItems(ejercitos);
     }
 
-    public Pais buscarPais(String nombre) {
+    private Pais buscarPais(String nombre) {
         ArrayList<Pais> paises = juego.obtenerPaises();
         for (Pais pais: paises) {
             if (pais.esElPais(nombre)) {
@@ -132,9 +131,9 @@ public class VistaComboBox {
         } else{
             accionAEjecutar="Ataque";
         }
+        this.setColocarEjercitos();
         this.setPaisesJugadorUno();
         this.setPaisesJugadorDos(accionAEjecutar);
-        this.setColocarEjercitos();
     }
 
     public void finalizarJuego() {

@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Juego {
-    private Tablero tablero;
-    private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+    private final Tablero tablero;
+    private final ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
     private Fase fase;
-    private Turno turno;
-    private Batalla batalla = new Batalla();
+    private final Turno turno;
+    private final Batalla batalla = new Batalla();
 
     public Juego(ArrayList<String> colorJugadores) throws FileNotFoundException, TegException {
         Random random = new Random();
@@ -37,6 +37,10 @@ public class Juego {
         this.jugadores.add(new Jugador(unColor));
     }
 
+    public void siguienteFase() throws TegException {
+        fase = fase.siguienteFase(jugadores);
+    }
+    
     public void siguienteTurno() throws TegException{
         if (!this.hayGanador()) {
             this.validarEjercitosAgregados();
@@ -59,22 +63,19 @@ public class Juego {
             fase.siguienteAccion(jugadorActual);
         }
     }
+    private boolean hayGanador() {
+        return turno.turnoActual().cumplioObjetivos();
+    }
 
     private void validarEjercitosAgregados() throws TegException {
         Jugador jugadorActual = this.turnoActual();
         this.fase.validarCantidadEjercitos(jugadorActual);
     }
 
-    private boolean hayGanador() {
-        return turno.turnoActual().cumplioObjetivos();
-    }
-
-    public ArrayList<Jugador> obtenerJugadores() {
-        return jugadores;
-    }
-
-    public ArrayList<Pais> obtenerPaisesDeJugador(Jugador unJugador) {
-        return unJugador.obtenerPaises();
+    public void ataqueDeA(Jugador atacante, Jugador defensor) throws Exception {
+        this.verificarTurno(atacante);
+        this.fase.estaEnAtacar();
+        batalla.batallar(atacante, defensor);
     }
 
     public void agregarEjercitos(Jugador unJugador, Pais unPais, int cantidadEjercitos) throws Exception {
@@ -102,17 +103,7 @@ public class Juego {
             throw new TurnoException(colorJugador);
         }
     }
-
-    public void ataqueDeA(Jugador atacante, Jugador defensor) throws Exception {
-        this.verificarTurno(atacante);
-        this.fase.estaEnAtacar();
-        batalla.batallar(atacante, defensor);
-    }
-
-    public void siguienteFase() throws TegException {
-        fase = fase.siguienteFase(jugadores);
-    }
-
+    
     public Jugador turnoActual() {
         return turno.turnoActual();
     }
@@ -125,7 +116,14 @@ public class Juego {
         Jugador jugador = this.turnoActual();
         return this.fase.ejercitosPorFase(jugador);
     }
+    
+    public ArrayList<Jugador> obtenerJugadores() {
+        return jugadores;
+    }
 
+    public ArrayList<Pais> obtenerPaisesDeJugador(Jugador unJugador) {
+        return unJugador.obtenerPaises();
+    }
     public String obtenerFase() {
         return this.fase.obtenerFase();
     }

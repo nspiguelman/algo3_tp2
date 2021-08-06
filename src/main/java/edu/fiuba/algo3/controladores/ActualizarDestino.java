@@ -1,23 +1,18 @@
 package edu.fiuba.algo3.controladores;
 
-import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.vistas.VistaComboBox;
-import edu.fiuba.algo3.vistas.VistaTurno;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class ActualizarDestino implements EventHandler<ActionEvent> {
-    private final VistaTurno vista;
     private final VistaComboBox vistaBox;
 
-    public ActualizarDestino(VistaTurno vista, VistaComboBox vistaBox) {
-        this.vista = vista;
+    public ActualizarDestino(VistaComboBox vistaBox) {
         this.vistaBox = vistaBox;
     }
 
     @Override
     public void handle(ActionEvent event) {
-        //this.vista.setCantidadDeEjercitosDestino();
         this.vistaBox.setCantidadDeEjercitosDestino();
     }
 }

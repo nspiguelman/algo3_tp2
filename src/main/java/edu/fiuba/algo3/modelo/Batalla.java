@@ -4,8 +4,6 @@ import edu.fiuba.algo3.paises.Pais;
 import java.util.ArrayList;
 
 public class Batalla {
-    private Jugador atacante;
-    private Jugador defensor;
 
     public Batalla() {
     }

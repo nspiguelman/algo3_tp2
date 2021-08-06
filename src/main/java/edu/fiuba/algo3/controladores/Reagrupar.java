@@ -5,30 +5,29 @@ import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.vistas.ContenedorMapa;
+import edu.fiuba.algo3.vistas.VistaComboBox;
 import edu.fiuba.algo3.vistas.VistaLabel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
-import edu.fiuba.algo3.vistas.VistaTurno;
 
 import java.util.ArrayList;
 
 public class Reagrupar implements EventHandler<ActionEvent> {
-    private Juego juego;
-    private ComboBox<String> paisOrigen;
-    private ComboBox<String> paisDestino;
-    private ComboBox<String> cantidadEjercitos;
-    private VistaTurno vista;
-    private VistaLabel vistaLabel;
+    private final VistaComboBox vistaBox;
+    private final Juego juego;
+    private final ComboBox<String> paisOrigen;
+    private final ComboBox<String> paisDestino;
+    private final ComboBox<String> cantidadEjercitos;
+    private final VistaLabel vistaLabel;
 
-    public Reagrupar(Juego juego, ComboBox<String> paisesOrigen, ComboBox<String> paisesDestino, ComboBox<String> seleccionEjercitos, VistaTurno vista,
-                     VistaLabel vistaLabel) {
+    public Reagrupar(Juego juego, ComboBox<String> paisesOrigen, ComboBox<String> paisesDestino, ComboBox<String> seleccionEjercitos, VistaLabel vistaLabel, VistaComboBox vistaBox) {
         this.juego = juego;
         this.paisOrigen = paisesOrigen;
         this.paisDestino = paisesDestino;
         this.cantidadEjercitos = seleccionEjercitos;
-        this.vista = vista;
         this.vistaLabel = vistaLabel;
+        this.vistaBox = vistaBox;
     }
 
     @Override

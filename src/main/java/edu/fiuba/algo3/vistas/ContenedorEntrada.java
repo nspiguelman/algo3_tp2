@@ -15,23 +15,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ContenedorEntrada {
-    private VBox contenedorEntrada;
-    private int botonCordX = 0;
-    private int botonCordY = 0;
-    private ArrayList<CheckBox> checkboxes = new ArrayList<>();
+    private final VBox contenedorEntrada;
+    private final ArrayList<CheckBox> checkboxes = new ArrayList<>();
 
 
-    public ContenedorEntrada(Stage stage) throws FileNotFoundException, TegException {
-        //StackPane layout = new Stac
-        Image imagen = new Image("file:src/main/java/edu/fiuba/algo3/imagenes/tegLogo.png");
-        BackgroundPosition backgroundImagePosition = new BackgroundPosition(null, 410,false,null, 20, false);
-
-        BackgroundImage imagenDeFondo = new BackgroundImage(imagen, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, backgroundImagePosition, BackgroundSize.DEFAULT);
-        //final ImageView imagenVista = new ImageView(imagen);
-
-
-
-
+    public ContenedorEntrada(Stage stage) {
         Label etiqueta = new Label();
         CheckBox jugadorAzul = new CheckBox("Azul");
         jugadorAzul.setIndeterminate(false);
@@ -64,15 +52,10 @@ public class ContenedorEntrada {
         checkboxes.add(jugadorNegro);
         checkboxes.add(jugadorRosa);
 
-
-        //botonIniciar.setOnAction(handler);
-        //HBox contenedorHorizontal = new HBox(botonIniciar);
-        //contenedorHorizontal.setBackground(new Background(imagenDeFondo));
-
         Label labelLogoTeg = new Label();
         Image imagenGlobo = new Image("file:src/main/java/edu/fiuba/algo3/imagenes/tegLogo.png");
         ImageView view = new ImageView(imagenGlobo);
-        view.setFitHeight(200);      //para achicar la imagen
+        view.setFitHeight(200);
         view.setPreserveRatio(true);
         labelLogoTeg.setGraphic(view);
         labelLogoTeg.setTranslateX(0);
@@ -91,7 +74,7 @@ public class ContenedorEntrada {
         this.contenedorEntrada = contenedorPrincipal;
     }
 
-    public void iniciarJuego(Stage stage) throws TegException, FileNotFoundException{
+    public void iniciarJuego(Stage stage) {
         Button botonIniciar = new Button();
         Label validacion = new Label();
         validacion.setText("");
@@ -99,7 +82,9 @@ public class ContenedorEntrada {
         botonIniciar.setText("Iniciar Juego");
         botonIniciar.setAlignment(Pos.CENTER);
 
+        int botonCordX = 0;
         botonIniciar.setTranslateX(botonCordX);
+        int botonCordY = 0;
         botonIniciar.setTranslateX(botonCordY);
         Iniciar handler = new Iniciar(checkboxes, stage, validacion);
         botonIniciar.setOnAction(handler);

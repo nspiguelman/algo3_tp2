@@ -51,7 +51,7 @@ public class VistaLabel {
         this.pasarAccion = pasarAccion;
     }
 
-    private void setLabelTurno() {
+    public void setLabelTurno() {
         Jugador jugadorActual = this.juego.turnoActual();
         String colorJugador = jugadorActual.obtenerColor();
         String colorLabel = this.colores.get(colorJugador);
@@ -75,7 +75,6 @@ public class VistaLabel {
         this.colores.put("Verde", "#009988");
         this.colores.put("Naranja", "#EE7733");
     }
-
 
     public void mostrarPaises() {
         ArrayList<Pais> paisesJuego = this.juego.obtenerPaises();
@@ -102,7 +101,6 @@ public class VistaLabel {
         }
         return "Ningun jugador posee el ejercito";
     }
-
 
     public void actualizar() {
         this.setLabelTurno();
