@@ -205,11 +205,13 @@ public class JuegoTest {
         {
             Jugador jugadorActual = jugadores.get(i%2);
             ArrayList<Pais> paises = juego.obtenerPaisesDeJugador(jugadorActual);
+            int resto = paises.size() % 2;
+            int ejercitosParaAgregar = (paises.size() - resto) / 3;
             juego.siguienteAccion();
             juego.siguienteAccion();
-            juego.agregarEjercitos(jugadorActual, paises.get(3), 4);
-            juego.agregarEjercitos(jugadorActual, paises.get(4), 4);
-            juego.agregarEjercitos(jugadorActual, paises.get(5), 4);
+            juego.agregarEjercitos(jugadorActual, paises.get(3), ejercitosParaAgregar);
+            juego.agregarEjercitos(jugadorActual, paises.get(4), ejercitosParaAgregar);
+            juego.agregarEjercitos(jugadorActual, paises.get(5), ejercitosParaAgregar);
             juego.siguienteTurno();
         }
     }
@@ -314,7 +316,6 @@ public class JuegoTest {
         juego.agregarEjercitos(jugadorDos, paisesDos.get(10), cantidadPaisesJugadorDos+2);
         juego.agregarEjercitos(jugadorDos, paisesDos.get(10), 2);
         juego.agregarEjercitos(jugadorDos, paisesDos.get(10), 3);
-
 
         juego.siguienteTurno();
         juego.siguienteAccion();
