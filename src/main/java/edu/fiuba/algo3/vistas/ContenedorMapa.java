@@ -22,6 +22,8 @@ public class ContenedorMapa {
     private static VistaTurno vistaTurno;
     private Juego juego;
     private ArrayList<VistaAccion> vistasTablero;
+    private static VistaLabel vistaLabel;
+    private static VistaComboBox vistaComboBox;
 
     public ContenedorMapa(Juego juego) {
         this.juego = juego;
@@ -56,7 +58,7 @@ public class ContenedorMapa {
         this.setEstiloLabel(cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, faseActual, objetivoJugador);
         this.setVisualBotones(elegirPaisUno, elegirPaisDos, ejecutarAccion, pasarAccion);
         this.setVistaTurno(turnoActual, faseActual, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno, paisesJuego, objetivoJugador, ejecutarAccion, pasarAccion);
-        PasarAccion handler = new PasarAccion(this.juego, ejecutarAccion, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno, this.vistaTurno, vistasTablero);
+        PasarAccion handler = new PasarAccion(this.juego, ejecutarAccion, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno, this.vistaTurno, vistasTablero, this.vistaComboBox, this.vistaLabel);
         this.setVisualContenedores(pasarAccion, ejecutarAccion, contenedorVistas, contenedorJugadorUno, contenedorJugadorDos, handler);
 
         this.establecerParametrosIniciales(paisesJugadorUno, paisesJugadorDos, ejecutarAccion, ejercitosJugadorUno);
@@ -78,6 +80,19 @@ public class ContenedorMapa {
     private void setVistaTurno(Label turnoActual, Label faseActual, Label cantidadEjercitosJugadorUno, Label cantidadEjercitosJugadorDos, ComboBox<String> paisesJugadorUno,
                                ComboBox<String> paisesJugadorDos, ComboBox<String> ejercitosJugadorUno, ListView<Label> listaPaises, Label objetivoJugador, Button ejecutarAccion, Button pasarAccion) {
         try {
+            this.vistaLabel= new VistaLabel(
+                     turnoActual,
+                     faseActual,
+                     cantidadEjercitosJugadorUno,
+                     cantidadEjercitosJugadorDos,
+                     juego,
+                     listaPaises,
+                     objetivoJugador,
+                     ejecutarAccion,
+                     pasarAccion);
+            this.vistaComboBox= new VistaComboBox(juego, paisesJugadorUno, paisesJugadorDos,
+                    ejercitosJugadorUno, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos);
+
             this.vistaTurno = new VistaTurno(turnoActual, faseActual, cantidadEjercitosJugadorUno, cantidadEjercitosJugadorDos, juego, paisesJugadorUno, paisesJugadorDos, ejercitosJugadorUno, listaPaises, objetivoJugador, ejecutarAccion, pasarAccion);
         } catch (TegException e) {
             e.printStackTrace();
@@ -143,15 +158,18 @@ public class ContenedorMapa {
     }
 
     private void establecerParametrosIniciales(ComboBox paisesJugadorUno, ComboBox paisesJugadorDos, Button ejecutarAccion, ComboBox ejercitosJugadorUno) {
-        ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, paisesJugadorUno, ejercitosJugadorUno, this.vistaTurno);
+        ColocarEjercitos handlerColocar = new ColocarEjercitos(this.juego, paisesJugadorUno, ejercitosJugadorUno, this.vistaTurno, vistaComboBox);
         ejecutarAccion.setOnAction(handlerColocar);
-        ActualizarOrigen actualizarPaisesDestinoHandler = new ActualizarOrigen(this.vistaTurno, juego);
+        ActualizarOrigen actualizarPaisesDestinoHandler = new ActualizarOrigen(this.vistaTurno, juego, vistaComboBox);
         paisesJugadorUno.setOnAction(actualizarPaisesDestinoHandler);
-        ActualizarDestino actualizarEjercitosDestinoHandler = new ActualizarDestino(this.vistaTurno);
+        ActualizarDestino actualizarEjercitosDestinoHandler = new ActualizarDestino(this.vistaTurno, vistaComboBox);
         paisesJugadorDos.setOnAction(actualizarEjercitosDestinoHandler);
         this.juego.turnoActual().setearEjercitosMaximos();
-        this.vistaTurno.mostrarPaises();
-        this.vistaTurno.actualizarVista();
+       // this.vistaTurno.mostrarPaises();
+        vistaLabel.mostrarPaises();
+        vistaLabel.actualizar();
+        vistaComboBox.actualizar();
+    //    this.vistaTurno.actualizarVista();
     }
 
     public VBox obtenerContenedorMapa(){
@@ -159,7 +177,9 @@ public class ContenedorMapa {
     }
 
     public static void actualizarVista(){
-        vistaTurno.actualizarVista();
+        vistaLabel.actualizar();
+        vistaComboBox.actualizar();
+        //vistaTurno.actualizarVista();
     }
 
 }

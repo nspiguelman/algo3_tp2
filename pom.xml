@@ -125,6 +125,9 @@
                 <version>${maven-surefire-version}</version>
                 <configuration>
                     <argLine>${argLine} -XX:MaxPermSize=256m</argLine>
+                    <excludes>
+                        <exclude>./src/main/java/edu/fiuba/algo3/controladores/Iniciar.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>

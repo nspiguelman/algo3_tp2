@@ -4,6 +4,8 @@ import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.vistas.ContenedorMapa;
+import edu.fiuba.algo3.vistas.VistaComboBox;
+import edu.fiuba.algo3.vistas.VistaLabel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
@@ -17,13 +19,17 @@ public class AtacarAccion implements EventHandler<ActionEvent> {
     private ComboBox<String> boxDestino;
     private Jugador jugadorAtacante;
     private Jugador jugadorDefensor;
-    private VistaTurno vista;
+   // private VistaTurno vista;
+    private final VistaLabel vistaLabel;
 
-    public AtacarAccion(Juego juego, ComboBox<String> paisesJugadorUno, ComboBox<String> paisesJugadorDos, VistaTurno vista) {
+
+    public AtacarAccion(Juego juego, ComboBox<String> paisesJugadorUno, ComboBox<String> paisesJugadorDos, VistaTurno vista,
+                         VistaLabel vistaLabel) {
         this.juego = juego;
         this.boxOrigen = paisesJugadorUno;
         this.boxDestino = paisesJugadorDos;
-        this.vista = vista;
+       // this.vista = vista;
+        this.vistaLabel = vistaLabel;
     }
 
     @Override
@@ -44,7 +50,8 @@ public class AtacarAccion implements EventHandler<ActionEvent> {
             e.printStackTrace();
         }
         ContenedorMapa.actualizarVista();
-        this.vista.limpiarJugadorDos();
+        this.vistaLabel.limpiarJugadorDos();
+        //this.vista.limpiarJugadorDos();
     }
 
     public Pais buscarPais(String nombre){
