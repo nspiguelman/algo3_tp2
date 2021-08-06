@@ -274,7 +274,7 @@ public class JuegoTest {
                 }
             }
             jugadorUno.elegirPais(paisActualJugadorUno);
-            paisActualJugadorUno.agregarEjercitos(10);
+            paisActualJugadorUno.agregarEjercitos(100);
             jugadorDos.elegirPais(paisActualJugadorDos);
             while (!jugadorUno.tieneElPais(paisActualJugadorDos)) {
                 juego.ataqueDeA(jugadorUno, jugadorDos);
