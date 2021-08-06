@@ -19,11 +19,11 @@ public class Reagrupar implements EventHandler<ActionEvent> {
     private ComboBox<String> cantidadEjercitos;
     private VistaTurno vista;
 
-    public Reagrupar(Juego juego, ComboBox<String> boxOrigen, ComboBox<String> boxDestino, ComboBox<String> boxCantidad, VistaTurno vista) {
+    public Reagrupar(Juego juego, ComboBox<String> paisesOrigen, ComboBox<String> paisesDestino, ComboBox<String> seleccionEjercitos, VistaTurno vista) {
         this.juego = juego;
-        this.paisOrigen = boxOrigen;
-        this.paisDestino = boxDestino;
-        this.cantidadEjercitos = boxCantidad;
+        this.paisOrigen = paisesOrigen;
+        this.paisDestino = paisesDestino;
+        this.cantidadEjercitos = seleccionEjercitos;
         this.vista = vista;
     }
 

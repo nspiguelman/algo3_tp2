@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.fase;
 
 import edu.fiuba.algo3.acciones.*;
+import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
 import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
@@ -23,7 +24,12 @@ public class FaseDeJuego implements Fase {
     }
 
     public void validarCantidadEjercitos(Jugador unJugador) throws TegException {
+        int ejercitosJugador = unJugador.obtenerCantidadTotalDeEjercitos();
+        int diferencia = unJugador.obtenerEjercitosMaximos() + this.ejercitosPorFase(unJugador) - 1 - ejercitosJugador;
 
+        if (diferencia >= 0) {
+            throw new ColocarEjercitosException(this.ejercitosPorFase(unJugador));
+        }
     }
 
     @Override

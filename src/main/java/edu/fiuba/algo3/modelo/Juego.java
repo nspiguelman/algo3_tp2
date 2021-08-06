@@ -47,16 +47,7 @@ public class Juego {
 
     private void debeAgregarEjercitos() throws TegException{
         Jugador jugadorActual = this.turnoActual();
-        int cantidadEjercitosPorFase = 0;
-        if (this.obtenerFase().equals("ColocacionUno")){
-            cantidadEjercitosPorFase = 5;
-        }
-        else if(this.obtenerFase().equals("ColocacionDos")){
-            cantidadEjercitosPorFase = 3;
-        }else{
-            cantidadEjercitosPorFase = this.fase.ejercitosPorFase(jugadorActual);
-        }
-        jugadorActual.puedeAgregarMasEjercitos(cantidadEjercitosPorFase);
+        this.fase.validarCantidadEjercitos(jugadorActual);
     }
 
     private boolean verificarObjetivos() {

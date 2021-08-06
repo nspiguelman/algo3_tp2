@@ -19,10 +19,10 @@ public class AtacarAccion implements EventHandler<ActionEvent> {
     private Jugador jugadorDefensor;
     private VistaTurno vista;
 
-    public AtacarAccion(Juego juego, ComboBox<String> boxOrigen, ComboBox<String> boxDestino, VistaTurno vista) {
+    public AtacarAccion(Juego juego, ComboBox<String> paisesJugadorUno, ComboBox<String> paisesJugadorDos, VistaTurno vista) {
         this.juego = juego;
-        this.boxOrigen = boxOrigen;
-        this.boxDestino = boxDestino;
+        this.boxOrigen = paisesJugadorUno;
+        this.boxDestino = paisesJugadorDos;
         this.vista = vista;
     }
 

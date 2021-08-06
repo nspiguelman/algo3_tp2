@@ -69,10 +69,6 @@ public class Jugador {
         this.estadoPaises.validarCantidadEjercitos(ejercitosMaximosPorTurno, cantidadASumar, ejercitosPorFase);
     }
 
-    public void puedeAgregarMasEjercitos(int cantidadPorFase) throws TegException{
-        this.estadoPaises.faltaAgregarEjercitos(ejercitosMaximosPorTurno, cantidadPorFase);
-    }
-
     public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
     public boolean tieneElPais(String otroPais) { return estadoPaises.tieneElPais(otroPais); }
     public void eliminarPaisEnBatalla() {
@@ -121,7 +117,8 @@ public class Jugador {
         return obtenerCantidadTotalDeEjercitos() > 0;
     }
 
-    public boolean equals(Jugador unJugador) { return (this.obtenerColor().equals(unJugador.obtenerColor())); }
+    public boolean equals(Jugador unJugador) {
+        return (this.obtenerColor().equals(unJugador.obtenerColor())); }
 
     public void asignarObjetivo(Objetivo objetivo) {
         this.objetivo = objetivo;
@@ -136,6 +133,6 @@ public class Jugador {
     }
 
     public int obtenerEjercitosMaximos() {
-        return obtenerEjercitosMaximos();
+        return this.ejercitosMaximosPorTurno;
     }
 }

@@ -17,10 +17,10 @@ public class ColocarEjercitos implements EventHandler<ActionEvent> {
     private ComboBox<String> cantidadEjercitos;
     private final VistaTurno vista;
 
-    public ColocarEjercitos(Juego juego, ComboBox<String> box, ComboBox<String> cbx, VistaTurno vista) {
+    public ColocarEjercitos(Juego juego, ComboBox<String> paisesJugador, ComboBox<String> cantidadEjercitos, VistaTurno vista) {
         this.juego = juego;
-        this.pais = box;
-        this.cantidadEjercitos = cbx;
+        this.pais = paisesJugador;
+        this.cantidadEjercitos = cantidadEjercitos;
         this.vista = vista;
     }
 

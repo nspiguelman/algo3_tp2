@@ -47,21 +47,8 @@ public class EstadoPaises {
         }
     }
 
-    public void faltaAgregarEjercitos(int ejercitosMaximosPorTurno, int cantidadPorFase) throws ColocarEjercitosException{
-        int ejercitosJugador = this.obtenerCantidadTotalDeEjercitos();
-        int diferencia = ejercitosMaximosPorTurno + cantidadPorFase - 1 - ejercitosJugador;
-
-        if (diferencia >= 0) {
-            throw new ColocarEjercitosException(cantidadPorFase);
-        }
-    }
-
     public void tieneElPais(Pais unPais) throws TegException {
-        for (Pais pais: paises) {
-            if (pais.obtenerNombrePais().equals(unPais.obtenerNombrePais())) {
-                return;
-            }
-        }
+        if (paises.stream().anyMatch(pais -> pais.equals(unPais))) { return; }
         throw new PaisInvalidoException();
     }
 
@@ -72,7 +59,7 @@ public class EstadoPaises {
     }
 
     public void elegirPaisEnBatalla(Pais unPais) throws Exception {
-        if (paisEnBatalla!=null) {
+        if (paisEnBatalla != null) {
             paisEnBatalla.cambiarEstadoDeBatalla();
         }
 
@@ -107,13 +94,8 @@ public class EstadoPaises {
     }
 
     public boolean tieneElPais(String otroPais) {
-        for (Pais pais: paises) {
-            if (pais.esElPais(otroPais)) {
-                return true;
-            }
-        }
 
-        return false;
+        return paises.stream().anyMatch(pais -> pais.esElPais(otroPais));
     }
 
 }
