@@ -1,25 +1,32 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.continente.Continente;
 import edu.fiuba.algo3.estadoPaises.EstadoPaises;
+import edu.fiuba.algo3.objetivos.Objetivo;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.excepciones.*;
+import edu.fiuba.algo3.tarjetas.TarjetaPais;
 import edu.fiuba.algo3.tarjetas.Tarjetas;
 
 import java.util.ArrayList;
 
 public class Jugador {
 
-    private String color;
+    private final String color;
     private final EstadoPaises estadoPaises;
-    private Tarjetas tarjetas;
+    private final Tarjetas tarjetas;
     public int ejercitosMaximosPorTurno;
+    private Objetivo objetivo;
+    private Tablero tablero;
+    private ArrayList<Pais> paisesConquistados;
+    private int extras;
 
     public Jugador(String color) {
+        this.extras = 0;
         this.estadoPaises = new EstadoPaises();
         this.color = color;
         this.ejercitosMaximosPorTurno = 0;
         this.tarjetas = new Tarjetas();
+        this.paisesConquistados = new ArrayList<>();
     }
 
     public String obtenerColor() {
@@ -30,21 +37,46 @@ public class Jugador {
         this.estadoPaises.elegirPaisEnBatalla(unPais);
     }
 
-    public Tarjetas obtenerTarjetas() {return tarjetas;}
-    public void agregarPais(Pais unPais) { estadoPaises.agregarPais(unPais); }
+    public void agregarPais(Pais unPais) {
+        estadoPaises.agregarPais(unPais);
+    }
+
     public ArrayList<Pais> obtenerPaises() {
         return estadoPaises.obtenerPaises();
     }
+
     public int obtenerCanjeActual() {
         return tarjetas.obtenerCanjeActual();
+    }
+
+    public void agregarTarjeta(TarjetaPais tarjeta){
+        if (!this.validarTarjeta(tarjeta)){
+            this.tarjetas.agregarTarjeta(tarjeta);
+        }
+    }
+
+    private boolean validarTarjeta(TarjetaPais tarjeta) {
+        for (Pais pais: paisesConquistados){
+            if(tarjeta.esDelPais(pais)){
+                this.agregarExtras(3);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void agregarExtras(int i) {
+        this.extras += i;
     }
 
     public int obtenerCantidadTotalDeEjercitos() {
         return estadoPaises.obtenerCantidadTotalDeEjercitos();
     }
+
     public int obtenerCantidadDeEjercitos(){
         return estadoPaises.obtenerCantidadDeEjercitosAgregados();
     }
+
     public int obtenerEjercitosEnBatalla() {
         return estadoPaises.obtenerEjercitosEnBatalla();
     }
@@ -61,20 +93,18 @@ public class Jugador {
         this.estadoPaises.validarCantidadEjercitos(ejercitosMaximosPorTurno, cantidadASumar, ejercitosPorFase);
     }
 
-    public void puedeAgregarMasEjercitos(int cantidadPorFase) throws TegException{
-        this.estadoPaises.faltaAgregarEjercitos(ejercitosMaximosPorTurno, cantidadPorFase);
-    }
-
-    public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPaisARREGLAR(paisDefensor); }
-    public boolean tieneElPais(String otroPais) { return estadoPaises.tieneElPais(otroPais); }
+    public boolean tieneElPais(Pais paisDefensor) { return estadoPaises.tieneElPais(paisDefensor); }
+    public boolean tieneElPais(String otroPais) { return estadoPaises.validarSiTieneElPais(otroPais); }
     public void eliminarPaisEnBatalla() {
         estadoPaises.eliminarPaisEnBatalla();
     }
+
     public void conquistar(Pais unPais) throws Exception{
         Pais paisEnBatalla = this.paisEnBatalla();
         this.estadoPaises.reducirEjercitos(paisEnBatalla, 1);
         unPais.agregarEjercitos(1);
         this.agregarPais(unPais);
+        this.paisesConquistados.add(unPais);
     }
 
     public void matarEjercito(Pais unPais, int cantidadEjercitos) throws Exception {
@@ -90,7 +120,7 @@ public class Jugador {
     }
 
     public int obtenerEjercitosExtraAColocar(){
-        return this.estadoPaises.obtenerEjercitosExtraAColocar();
+        return this.tablero.obtenerExtrasDeJugador(this);
     }
 
     public void setearEjercitosMaximos() {
@@ -102,15 +132,7 @@ public class Jugador {
     }
 
     public boolean cumplioObjetivos() {
-        return (estadoPaises.obtenerPaises().size() >= 30);
-    }
-
-    public boolean domina(String continente, int paisesParaDominar){
-        return this.estadoPaises.domina(continente, paisesParaDominar);
-    }
-
-    public boolean tieneNPaisesLimitrofesEntreSi(int obtenerCantidadDePaises) {
-        return true;
+        return (this.estadoPaises.obtenerPaises().size() >= 30 || this.objetivo.validarObjetivo(this));
     }
 
     public boolean tieneNPaisesEnContinente(int cantidadDePaises, String continente) {
@@ -121,13 +143,30 @@ public class Jugador {
         return obtenerCantidadTotalDeEjercitos() > 0;
     }
 
-    public boolean equals(Jugador unJugador) { return (this.obtenerColor().equals(unJugador.obtenerColor())); }
-    public int obtenerEjercitosAAgregar(int cantidadEjercitosPorFase) {
-        return this.estadoPaises.ejercitosAAgregar(this.ejercitosMaximosPorTurno, cantidadEjercitosPorFase);
+    public boolean equals(Jugador unJugador) {
+        return (this.obtenerColor().equals(unJugador.obtenerColor())); }
+
+    public void asignarObjetivo(Objetivo objetivo) {
+        this.objetivo = objetivo;
     }
 
+    public void asignarTablero(Tablero tablero){
+        this.tablero = tablero;
+    }
 
-    public int obtenerCAPACIDAD() {
+    public String obtenerDescripcionObjetivo(){
+        return this.objetivo.obtenerDescripcion();
+    }
+
+    public int obtenerEjercitosMaximos() {
         return this.ejercitosMaximosPorTurno;
+    }
+
+    public void reiniciarPaisesConquistados() {
+        this.paisesConquistados = new ArrayList<>();
+    }
+
+    public int obtenerExtras() {
+        return this.extras;
     }
 }

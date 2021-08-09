@@ -20,7 +20,7 @@ public class ObjetivosDeserializer {
     private ArrayList<TipoObjetivoDeserializer> obtenerObjetivo() { return objetivo; }
     private String obtenerTipo() { return tipo; }
 
-    public static ArrayList<Objetivo> deserializarObjetivos(JsonReader reader, HashMap<String, HashMap> continentesCreados, ArrayList<Jugador> jugadores) {
+    public static ArrayList<Objetivo> deserializarObjetivos(JsonReader reader, ArrayList<Jugador> jugadores) {
         ArrayList<Objetivo> nuevosObjetivos = new ArrayList<>();
 
         Type objetivosType = new TypeToken<ArrayList<ObjetivosDeserializer>>(){}.getType();
@@ -31,7 +31,6 @@ public class ObjetivosDeserializer {
                     objetivo.obtenerDescripcion(),
                     objetivo.obtenerTipo(),
                     objetivo.obtenerObjetivo(),
-                    continentesCreados,
                     jugadores
             );
             nuevosObjetivos.add(nuevoObjetivo);

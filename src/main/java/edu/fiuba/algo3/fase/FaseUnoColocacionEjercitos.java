@@ -2,8 +2,10 @@ package edu.fiuba.algo3.fase;
 
 import edu.fiuba.algo3.acciones.Accion;
 import edu.fiuba.algo3.acciones.Colocar;
+import edu.fiuba.algo3.excepciones.AccionesException;
 import edu.fiuba.algo3.excepciones.ColocarEjercitosException;
 import edu.fiuba.algo3.excepciones.SiguienteFaseException;
+import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Jugador;
 import java.util.ArrayList;
 
@@ -58,5 +60,9 @@ public class FaseUnoColocacionEjercitos implements Fase {
     public String obtenerFase(){
         return "ColocacionUno";
     }
+
+    public void estaEnReagrupar() throws AccionesException { this.accionActual.estaEnReagrupar(); }
+    public void estaEnAtacar() throws AccionesException { this.accionActual.estaEnAtacar(); }
+    public void estaEnColocar() throws AccionesException { this.accionActual.estaEnColocar(); }
 }
 

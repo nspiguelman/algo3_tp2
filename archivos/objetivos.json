@@ -12,26 +12,8 @@
         "CantidadDePaises": 5
       },
       {
-        "Europa": "Africa",
+        "ContinenteOLimitrofe": "Africa",
         "CantidadDePaises": 4
-      }
-    ]
-  },
-  {
-    "Descripcion": "Ocupar América del Sur, 7 países de Europa y 3 países limítrofes entre sí en cualquier lugar del mapa.",
-    "Tipo": "Conquista",
-    "Objetivos" : [
-      {
-        "ContinenteOLimitrofe": "America del Sur",
-        "CantidadDePaises": "6"
-      },
-      {
-        "ContinenteOLimitrofe": "Europa",
-        "CantidadDePaises": "7"
-      },
-      {
-        "ContinenteOLimitrofe": "Limitrofes",
-        "CantidadDePaises": "3"
       }
     ]
   },

@@ -13,6 +13,7 @@ public class Turno {
     }
 
     public void pasarTurno() {
+        jugadorActual.reiniciarPaisesConquistados();
         jugadorActual = jugadores.get(turnoActual%jugadores.size());
         turnoActual++;
     }

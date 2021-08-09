@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.paises;
 
 import edu.fiuba.algo3.excepciones.*;
+import edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,10 +44,6 @@ public class Pais {
         return true;
     }
 
-    public void trasferirEjercito(int cantidadEjercitos) {
-
-    }
-
     public void matarEjercitos(int cantidadEjercitos) throws Exception{
         this.estadoBelico.matarEjercitos(this,cantidadEjercitos);
     }
@@ -63,11 +60,15 @@ public class Pais {
     }
 
     public boolean esElPais(String nombrePais){
-        return (this.nombre.equals(nombrePais));
+        return this.nombre.equals(nombrePais);
     }
 
     public void cambiarEstadoDeBatalla(){
         this.estadoBelico = this.estadoBelico.cambiarEstadoDeBatalla();
+    }
+
+    public boolean equals(Pais unPais) {
+        return this.obtenerNombrePais().equals(unPais.obtenerNombrePais());
     }
 }
 

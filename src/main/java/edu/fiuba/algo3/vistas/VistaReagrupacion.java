@@ -5,33 +5,40 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
 public class VistaReagrupacion implements VistaAccion{
-    private Label labelFase;
-    private Label labelEjercitosOrigen;
-    private Label labelEjercitosDestino;
-    private ComboBox boxPaisesOrigen;
-    private ComboBox boxPaisesDestino;
-    private ComboBox ejercitosOrigen;
+    private final Label faseActual;
+    private final Label ejercitosJugadorUno;
+    private final Label ejercitosJugadorDos;
+    private final ComboBox<String> paisesJugadorUno;
+    private final ComboBox<String> paisesJugadorDos;
+    private final ComboBox<String> cantidadEjercitosJugadorUno;
+    private final Label vistaJugadorUno;
+    private final Label vistaJugadorDos;
 
-    public VistaReagrupacion(Label labelFase,Label ejercitosOrigen, Label ejercitosDestino, ComboBox boxOrigen, ComboBox boxDestino, ComboBox boxEjercitos) {
-        this.labelFase = labelFase;
-        this.boxPaisesOrigen = boxOrigen;
-        this.boxPaisesDestino = boxDestino;
-        this.labelEjercitosOrigen = ejercitosOrigen;
-        this.labelEjercitosDestino = ejercitosDestino;
-        this.ejercitosOrigen = boxEjercitos;
+    public VistaReagrupacion(Label faseActual,Label ejercitosJugadorUno, Label ejercitosJugadorDos, ComboBox<String> paisesJugadorUno,
+                             ComboBox<String> paisesJugadorDos, ComboBox<String> cantidadEjercitosJugadorUno, Label vistaJugadorUno, Label vistaJugadorDos) {
+        this.faseActual = faseActual;
+        this.paisesJugadorUno = paisesJugadorUno;
+        this.paisesJugadorDos = paisesJugadorDos;
+        this.ejercitosJugadorUno = ejercitosJugadorUno;
+        this.ejercitosJugadorDos = ejercitosJugadorDos;
+        this.cantidadEjercitosJugadorUno = cantidadEjercitosJugadorUno;
+        this.vistaJugadorUno = vistaJugadorUno;
+        this.vistaJugadorDos = vistaJugadorDos;
     }
 
-    public void activar(){
-        this.labelFase.setText("FASE: Reagrupar");
-        this.labelEjercitosOrigen.setText("");
-        this.labelEjercitosDestino.setText("");
-        this.boxPaisesOrigen.getSelectionModel().clearSelection();
-        this.boxPaisesDestino.getSelectionModel().clearSelection();
-        this.ejercitosOrigen.setDisable(false);
-        this.boxPaisesOrigen.setDisable(false);
-        this.boxPaisesDestino.setDisable(false);
-        this.labelEjercitosOrigen.setVisible(true);
-        this.labelEjercitosDestino.setVisible(true);
+    public void activar() {
+        this.vistaJugadorUno.setText("ORIGEN");
+        this.vistaJugadorDos.setText("DESTINO");
+        this.faseActual.setText("FASE: Reagrupar");
+        this.ejercitosJugadorUno.setText("");
+        this.ejercitosJugadorUno.setVisible(true);
+        this.ejercitosJugadorDos.setVisible(true);
+        this.ejercitosJugadorDos.setText("");
+        this.paisesJugadorUno.getSelectionModel().clearSelection();
+        this.paisesJugadorUno.setDisable(false);
+        this.paisesJugadorDos.getSelectionModel().clearSelection();
+        this.paisesJugadorDos.setDisable(false);
+        this.cantidadEjercitosJugadorUno.setDisable(false);
     }
 }
 

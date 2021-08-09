@@ -1,16 +1,17 @@
 package edu.fiuba.algo3.controladores;
 
 import edu.fiuba.algo3.modelo.Juego;
-import edu.fiuba.algo3.vistas.VistaTurno;
+import edu.fiuba.algo3.vistas.VistaComboBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class ActualizarOrigen implements EventHandler<ActionEvent> {
-    private VistaTurno vista;
-    private Juego juego;
+    private final VistaComboBox vistaBox;
 
-    public ActualizarOrigen(VistaTurno vista, Juego juego) {
-        this.vista = vista;
+    private final Juego juego;
+
+    public ActualizarOrigen(Juego juego, VistaComboBox vistaBox) {
+        this.vistaBox = vistaBox;
         this.juego = juego;
     }
 
@@ -20,11 +21,11 @@ public class ActualizarOrigen implements EventHandler<ActionEvent> {
         String accionAEjecutar;
         if (accion==2) {
             accionAEjecutar = "Reagrupar";
-            this.vista.setEjercitosReagrupar();
+            this.vistaBox.setEjercitosReagrupar();
         } else {
             accionAEjecutar="Ataque";
         }
-        this.vista.setCantidadDeEjercitosOrigen();
-        this.vista.setSeleccionPaisesDestino(accionAEjecutar);
+        this.vistaBox.setPaisesJugadorDos(accionAEjecutar);
+        this.vistaBox.setCantidadDeEjercitosOrigen();
     }
 }

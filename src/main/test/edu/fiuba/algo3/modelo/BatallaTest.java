@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.paises.Pais;
-import edu.fiuba.algo3.paises.PaisEnPaz;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +18,7 @@ public class BatallaTest {
         jugadorUno.agregarPais(argentina);
         jugadorDos.agregarPais(brasil);
         jugadorUno.agregarEjercitos(argentina, 10);
+        // TODO: arreglar
         jugadorUno.elegirPais(argentina);
         jugadorDos.elegirPais(brasil);
         Batalla unaBatalla = new Batalla();

@@ -7,5 +7,6 @@ import java.util.ArrayList;
 public interface TipoObjetivo {
     boolean validarObjetivo(Jugador unJugador);
     String obtenerTipo();
+    void actualizarObjetivo(Jugador unJugador);
 }
 

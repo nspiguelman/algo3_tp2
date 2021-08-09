@@ -1,17 +1,17 @@
 package edu.fiuba.algo3.objetivos;
 
 import com.google.gson.stream.JsonReader;
+import edu.fiuba.algo3.continente.Continente;
 import edu.fiuba.algo3.continente.ContinenteDeserializer;
 import edu.fiuba.algo3.helper.Helper;
 import edu.fiuba.algo3.modelo.Batalla;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.paises.PaisDeserializer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ObjetivoTest {
 
     private ArrayList<Objetivo> objetivos;
-    private HashMap<String, HashMap> continentes;
+    private ArrayList<Continente> continentes;
     private ArrayList<Pais> paises;
 
     private Jugador jugadorAzul;
@@ -42,7 +42,7 @@ public class ObjetivoTest {
         JsonReader readerContinente = Helper.crearJsonReader("archivos/continentes.json");
         this.continentes = ContinenteDeserializer.deserializarContinentes(readerContinente);
         JsonReader readerObjetivo = Helper.crearJsonReader("archivos/objetivos.json");
-        this.objetivos = ObjetivosDeserializer.deserializarObjetivos(readerObjetivo, continentes, jugadores);
+        this.objetivos = ObjetivosDeserializer.deserializarObjetivos(readerObjetivo, jugadores);
         JsonReader readerPaises = Helper.crearJsonReader("archivos/paises-fronteras.json");
         this.paises = PaisDeserializer.deserializarPaises(readerPaises);
 
@@ -52,7 +52,7 @@ public class ObjetivoTest {
 
     @Test
     public void creaObjetivosCorrectamente() {
-        assertEquals(14, objetivos.size());
+        assertEquals(13, objetivos.size());
         Objetivo objetivo = objetivos.get(0);
         assertEquals("Ocupar África, 5 países de América del Norte y 4 países de Europa.", objetivo.obtenerDescripcion());
         assertEquals("Conquista", objetivo.obtenerTipo());
@@ -126,6 +126,14 @@ public class ObjetivoTest {
 
     @Test
     public void validarObjetivoCuandoElJugadorAVencerNoExisteSeActualizaYEsValido() throws Exception {
+        Objetivo objetivoACumplir = objetivos
+                .stream()
+                .filter(objetivo -> objetivo.obtenerDescripcion().equals("Destruir al ejército rojo de ser imposible al jugador de la derecha."))
+                .collect(Collectors.toList())
+                .get(0);
+
+        objetivoACumplir.actualizarObjetivo(jugadorAzul);
+
         jugadorAzul.agregarPais(argentina);
         jugadorNegro.agregarPais(uruguay);
 
@@ -135,15 +143,11 @@ public class ObjetivoTest {
 
         Batalla unaBatalla = new Batalla();
 
+        assertFalse(objetivoACumplir.validarObjetivo(jugadorAzul));
+
         while (!jugadorAzul.tieneElPais(uruguay)) {
             unaBatalla.batallar(jugadorAzul, jugadorNegro);
         }
-
-        Objetivo objetivoACumplir = objetivos
-                .stream()
-                .filter(objetivo -> objetivo.obtenerDescripcion().equals("Destruir al ejército rojo de ser imposible al jugador de la derecha."))
-                .collect(Collectors.toList())
-                .get(0);
 
         assertTrue(objetivoACumplir.validarObjetivo(jugadorAzul));
     }
@@ -170,5 +174,3 @@ public class ObjetivoTest {
     }
 
 }
-
-

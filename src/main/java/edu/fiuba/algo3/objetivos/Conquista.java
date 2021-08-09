@@ -4,7 +4,6 @@ import edu.fiuba.algo3.continente.Continente;
 import edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Conquista implements TipoObjetivo {
     private ArrayList<Continente> continentes = new ArrayList<>();
@@ -15,14 +14,15 @@ public class Conquista implements TipoObjetivo {
         }
     }
 
-    public String obtenerTipo() { return "Conquista"; }
+    public void actualizarObjetivo(Jugador unJugadorConObjetivo) {}
+
+    public String obtenerTipo() {
+        return "Conquista";
+    }
 
     public boolean validarObjetivo(Jugador unJugador) {
         return continentes
             .stream()
-            .allMatch(objetivoContinente -> objetivoContinente.obtenerNombreContinente().equals("Limitrofe") ?
-                unJugador.tieneNPaisesLimitrofesEntreSi(objetivoContinente.obtenerCantidadDePaises()) :
-                unJugador.tieneNPaisesEnContinente(objetivoContinente.obtenerCantidadDePaises(), objetivoContinente.obtenerNombreContinente())
-            );
+            .allMatch(objetivoContinente -> unJugador.tieneNPaisesEnContinente(objetivoContinente.obtenerCantidadDePaises(), objetivoContinente.obtenerNombreContinente()));
     }
 }

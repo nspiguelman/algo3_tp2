@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.controladores;
 
-import edu.fiuba.algo3.excepciones.TegException;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.vistas.ContenedorMapa;
+import edu.fiuba.algo3.vistas.VistaLabel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
@@ -17,17 +17,20 @@ public class AtacarAccion implements EventHandler<ActionEvent> {
     private ComboBox<String> boxDestino;
     private Jugador jugadorAtacante;
     private Jugador jugadorDefensor;
+    private final VistaLabel vistaLabel;
 
-    public AtacarAccion(Juego juego, ComboBox<String> boxOrigen, ComboBox<String> boxDestino) {
+
+    public AtacarAccion(Juego juego, ComboBox<String> paisesJugadorUno, ComboBox<String> paisesJugadorDos, VistaLabel vistaLabel) {
         this.juego = juego;
-        this.boxOrigen = boxOrigen;
-        this.boxDestino = boxDestino;
+        this.boxOrigen = paisesJugadorUno;
+        this.boxDestino = paisesJugadorDos;
+        this.vistaLabel = vistaLabel;
     }
 
     @Override
     public void handle(ActionEvent event) {
         ArrayList<Jugador> jugadores =  juego.obtenerJugadores();
-        this.jugadorAtacante = juego.esElTurnoDe();
+        this.jugadorAtacante = juego.turnoActual();
         for (Jugador jugador: jugadores) {
             if (jugador.tieneElPais(boxDestino.getValue())) {
                 this.jugadorDefensor = jugador;
@@ -42,6 +45,7 @@ public class AtacarAccion implements EventHandler<ActionEvent> {
             e.printStackTrace();
         }
         ContenedorMapa.actualizarVista();
+        this.vistaLabel.limpiarJugadorDos();
     }
 
     public Pais buscarPais(String nombre){

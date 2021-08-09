@@ -1,37 +1,43 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.excepciones.TegException;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
 public class VistaColocacion implements VistaAccion{
 
-    private Label labelFase;
-    private Label labelEjercitosOrigen;
-    private Label labelEjercitosDestino;
-    private ComboBox boxPaisesOrigen;
-    private ComboBox boxPaisesDestino;
-    private ComboBox ejercitosOrigen;
+    private final Label faseActual;
+    private final Label ejercitosJugadorUno;
+    private final Label ejercitosJugadorDos;
+    private final ComboBox<String> paisesJugadorUno;
+    private final ComboBox<String> paisesJugadorDos;
+    private final ComboBox<String> cantidadEjercitosJugadorUno;
+    private final Label vistaJugadorUno;
+    private final Label vistaJugadorDos;
 
-    public VistaColocacion(Label labelFase,Label ejercitosOrigen, Label ejercitosDestino, ComboBox boxOrigen, ComboBox boxDestino, ComboBox boxEjercitos)  {
-        this.labelFase = labelFase;
-        this.boxPaisesOrigen = boxOrigen;
-        this.boxPaisesDestino = boxDestino;
-        this.labelEjercitosOrigen = ejercitosOrigen;
-        this.labelEjercitosDestino = ejercitosDestino;
-        this.ejercitosOrigen = boxEjercitos;
+    public VistaColocacion(Label faseActual,Label ejercitosJugadorUno, Label ejercitosJugadorDos, ComboBox<String> paisesJugadorUno,
+                           ComboBox<String> paisesJugadorDos, ComboBox<String> cantidadEjercitosJugadorUno, Label vistaJugadorUno, Label vistaJugadorDos)  {
+        this.faseActual = faseActual;
+        this.paisesJugadorUno = paisesJugadorUno;
+        this.paisesJugadorDos = paisesJugadorDos;
+        this.ejercitosJugadorUno = ejercitosJugadorUno;
+        this.ejercitosJugadorDos = ejercitosJugadorDos;
+        this.cantidadEjercitosJugadorUno = cantidadEjercitosJugadorUno;
+        this.vistaJugadorUno = vistaJugadorUno;
+        this.vistaJugadorDos = vistaJugadorDos;
     }
 
-    public void activar(){
-        this.labelFase.setText("FASE: Colocacion Ejercitos");
-        this.labelEjercitosOrigen.setText("");
-        this.labelEjercitosDestino.setText("");
-        this.boxPaisesOrigen.getSelectionModel().clearSelection();
-        this.boxPaisesDestino.getSelectionModel().clearSelection();
-        this.ejercitosOrigen.setDisable(false);
-        this.boxPaisesOrigen.setDisable(false);
-        this.boxPaisesDestino.setDisable(true);
-        this.labelEjercitosOrigen.setVisible(true);
-        this.labelEjercitosDestino.setVisible(false);
+    public void activar() {
+        this.vistaJugadorUno.setText("PAIS A COLOCAR");
+        this.vistaJugadorDos.setText("");
+        this.faseActual.setText("FASE: Colocacion Ejercitos");
+        this.ejercitosJugadorUno.setText("");
+        this.ejercitosJugadorUno.setVisible(true);
+        this.ejercitosJugadorDos.setVisible(false);
+        this.ejercitosJugadorDos.setText("");
+        this.paisesJugadorUno.getSelectionModel().clearSelection();
+        this.paisesJugadorDos.getSelectionModel().clearSelection();
+        this.paisesJugadorUno.setDisable(false);
+        this.paisesJugadorDos.setDisable(true);
+        this.cantidadEjercitosJugadorUno.setDisable(false);
     }
 }

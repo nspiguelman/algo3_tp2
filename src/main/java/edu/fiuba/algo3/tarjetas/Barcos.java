@@ -1,5 +1,4 @@
 package edu.fiuba.algo3.tarjetas;
-import edu.fiuba.algo3.modelo.TarjetaPais;
 
 import java.util.ArrayList;
 
@@ -8,7 +7,6 @@ public class Barcos implements TipoTarjeta{
 
     public Barcos(){
         this.tarjetas = new ArrayList<>();
-
     }
 
     public void agregarTarjeta(TarjetaPais tarjeta){

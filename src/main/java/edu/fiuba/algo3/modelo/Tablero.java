@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 import com.google.gson.stream.JsonReader;
 import edu.fiuba.algo3.continente.ContinenteDeserializer;
@@ -12,21 +11,31 @@ import edu.fiuba.algo3.objetivos.Objetivo;
 import edu.fiuba.algo3.objetivos.ObjetivosDeserializer;
 import edu.fiuba.algo3.paises.Pais;
 import edu.fiuba.algo3.paises.PaisDeserializer;
+import edu.fiuba.algo3.tarjetas.TarjetaPais;
 
 public class Tablero {
-    private final int CANTIDAD_DE_PAISES = 49;
 
     private ArrayList<TarjetaPais> tarjetasPaises;
     private ArrayList<Pais> paises;
     private ArrayList<Objetivo> objetivos;
-    private HashMap<String, HashMap> continentes;
+    private ArrayList<Continente> continentes;
 
     public Tablero(ArrayList<Jugador> jugadores) throws FileNotFoundException {
         this.inicializarPaises();
         this.hacerRandomElOrdenDePaises();
         this.asignarPaises(jugadores);
         this.inicializarContinentes();
-        this.inicializarObjetivos(continentes, jugadores);
+        this.inicializarObjetivos(jugadores);
+        this.asignarObjetivos(jugadores);
+    }
+
+    private void asignarObjetivos(ArrayList<Jugador> jugadores) {
+        Random random = new Random();
+        for (Jugador jugador: jugadores){
+            jugador.asignarTablero(this);
+            int value = random.nextInt(13);
+            jugador.asignarObjetivo(objetivos.get(value));
+        }
     }
 
     private void inicializarContinentes() throws FileNotFoundException {
@@ -34,9 +43,9 @@ public class Tablero {
         this.continentes = ContinenteDeserializer.deserializarContinentes(reader);
     }
 
-    private void inicializarObjetivos(HashMap<String, HashMap> continentes, ArrayList<Jugador> jugadores) throws FileNotFoundException {
+    private void inicializarObjetivos (ArrayList<Jugador> jugadores) throws FileNotFoundException {
         JsonReader reader = Helper.crearJsonReader("archivos/objetivos.json");
-        this.objetivos = ObjetivosDeserializer.deserializarObjetivos(reader, continentes, jugadores);
+        this.objetivos = ObjetivosDeserializer.deserializarObjetivos(reader, jugadores);
     }
 
     private void inicializarPaises() throws FileNotFoundException {
@@ -54,23 +63,23 @@ public class Tablero {
         simbolos.add("canon");
         simbolos.add("globo");
 
+        int CANTIDAD_DE_PAISES = 49;
         for (int i = CANTIDAD_DE_PAISES; i > 0; i--) {
             int value = random.nextInt(i);
             Pais pais = paises.get(value);
             nuevosPaises.add(pais);
             TarjetaPais tarjeta = new TarjetaPais(pais.obtenerNombrePais(), simbolos.get(i % 3));
+            //TarjetaPais tarjeta = new TarjetaPais("Argentina", simbolos.get(i % 3));
             nuevasTarjetas.add(tarjeta);
-
             paises.remove(value);
         }
-
         Pais pais = paises.get(0);
         nuevosPaises.add(pais);
         this.paises = nuevosPaises;
         this.tarjetasPaises = nuevasTarjetas;
     }
 
-    public void asignarPaises(ArrayList<Jugador> jugadores) {
+    private void asignarPaises(ArrayList<Jugador> jugadores) {
         int numeroJugador = 0;
         int cantidadJugadores = jugadores.size();
         for (Pais pais : paises) {
@@ -84,4 +93,18 @@ public class Tablero {
         return paises;
     }
 
+    public TarjetaPais obtenerTarjeta(){
+        Random random = new Random();
+        int value = random.nextInt(49);
+        return this.tarjetasPaises.get(value);
+    }
+
+    public int obtenerExtrasDeJugador(Jugador jugador) {
+        int extras = 0;
+        for (Continente continente: continentes){
+            extras += continente.obtenerExtras(jugador);
+        }
+        extras += jugador.obtenerExtras();
+        return extras;
+    }
 }
